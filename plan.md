@@ -1,4 +1,4 @@
-# Marrakech Tourist App (iOS + Android) — React Native / Expo Plan (Offline-First + Convex Phase 2)
+# Marrakech Tourist App (iOS + Android) — Native Swift/Kotlin Plan (Offline-First + Convex Phase 2)
 
 ## 1) Product thesis
 
@@ -294,18 +294,30 @@ Users set a single "Home Base" once (their riad/hotel). Then the app can always 
   - "Show taxi driver" (large Arabic/Latin destination + simple phrase)
   - "Open directions" (online-only, optional)
 
-**Implementation details (Expo-friendly):**
+**Implementation details (Native):**
 
-- Store `homeBase` locally as `{ name, lat, lng, notes? }`.
-- Use `expo-location`:
-  - `getCurrentPositionAsync` when the screen opens (fast first fix, shows "last updated" time)
-  - Optional `watchPositionAsync` **only while the compass screen is visible**, with conservative settings (`Accuracy.Balanced`, `timeInterval`, `distanceInterval`)
-  - `watchHeadingAsync` when available; fallback to "bearing only" if heading is unavailable
-  - Provide a manual "Refresh location" button (important on devices with aggressive battery optimizations)
-- Compute:
-  - `distanceMeters = haversine(current, homeBase)`
-  - `bearingDegrees = bearing(current, homeBase)`
-  - `relativeAngle = bearingDegrees - headingDegrees` (for rotating the arrow)
+- Store `homeBase` locally in `user.db` as `{ name, lat, lng, notes? }`.
+
+**iOS (CoreLocation):**
+- Use `CLLocationManager` with `desiredAccuracy = kCLLocationAccuracyBest`
+- `requestLocation()` for initial fix when screen opens (shows "last updated" time)
+- `startUpdatingLocation()` **only while compass screen is visible**
+- `startUpdatingHeading()` for magnetometer compass; fallback to "bearing only" if unavailable
+- Use `CLLocationManager.headingFilter` to reduce update frequency
+- Provide a manual "Refresh location" button
+
+**Android (FusedLocation + Sensors):**
+- Use `FusedLocationProviderClient` with `LocationRequest.PRIORITY_HIGH_ACCURACY`
+- `getCurrentLocation()` for initial fix
+- `requestLocationUpdates()` **only while compass screen is visible** (use lifecycle-aware scope)
+- Use `SensorManager` with `TYPE_ROTATION_VECTOR` (preferred) or `TYPE_MAGNETIC_FIELD` + `TYPE_ACCELEROMETER` for compass heading
+- Register sensor listeners only when screen is active; unregister in `onPause()`
+
+**Both platforms compute:**
+- `distanceMeters = haversine(current, homeBase)`
+- `bearingDegrees = bearing(current, homeBase)`
+- `relativeAngle = bearingDegrees - headingDegrees` (for rotating the arrow)
+
 - Privacy: no backend, no background tracking; location used only on-device when the compass/route screens are open.
 
 ---
@@ -424,58 +436,123 @@ Add 2 lightweight credibility boosters:
 
 ## 6) Technical stack (mobile)
 
-### React Native / Expo
+### Why native?
 
-- **Expo + React Native**
-- TypeScript
-- Expo Router (file-based navigation)
-- expo-localization (detect locale)
-- i18n library (e.g., i18next) for UI strings + formatting helpers
-- react-native-maps (map view + markers)
-- expo-linking (open external directions)
-- expo-sharing (share to Messages/WhatsApp/etc.)
-- react-native-view-shot (render "share card" images reliably)
-- expo-location (optional "near me", privacy-forward)
-- Images: expo-image (optional), standard RN Image works too
+This app is built natively (Swift/SwiftUI for iOS, Kotlin/Compose for Android) rather than cross-platform for these reasons:
+
+1. **Premium paid app feel** — Native UI components (buttons, scrolling physics, text selection) feel right to users who paid $5-10. This matters for trust and reviews.
+
+2. **Smooth compass/heading** — The Home Base compass and Route Cards require real-time sensor updates. Native gives direct access to CoreLocation/SensorManager with lower latency.
+
+3. **Reliable IAP** — StoreKit 2 and Play Billing are complex. Native SDKs handle edge cases (restore, subscription states, family sharing) more reliably than wrappers.
+
+4. **Better offline/storage control** — Direct control over SQLite, file operations, and background downloads without abstraction layers.
+
+5. **Platform-specific optimizations** — Battery-efficient location tracking, proper background download handling, and platform-specific accessibility features.
+
+**Tradeoff:** Two codebases mean more maintenance, but for a paid utility app where polish matters, it's worth it.
+
+### Native platforms
+
+**iOS (Swift)**
+- Swift 5.9+ with Swift Concurrency (async/await)
+- SwiftUI for UI (with UIKit interop where needed)
+- Minimum deployment: iOS 16.0
+- Xcode 15+
+
+**Android (Kotlin)**
+- Kotlin 1.9+ with Coroutines
+- Jetpack Compose for UI
+- Minimum SDK: 26 (Android 8.0)
+- Target SDK: 34
+- Android Studio Hedgehog+
+
+### Shared architecture patterns
+
+Both platforms follow the same architectural approach for consistency:
+
+- **MVVM architecture** with clean separation
+- **Repository pattern** for data access
+- **Dependency injection** (iOS: Factory/Swinject, Android: Hilt)
+- **Unidirectional data flow** for UI state
+
+### iOS-specific stack
+
+- **Navigation:** NavigationStack (SwiftUI native)
+- **Localization:** String Catalogs + Foundation locale APIs
+- **Maps:** MapKit (native, offline-capable with cached tiles)
+- **Location:** CoreLocation (CLLocationManager for GPS + heading)
+- **Sharing:** UIActivityViewController + ShareLink
+- **Image rendering:** ImageRenderer for share cards
+- **Database:** SQLite via GRDB.swift (Swift-friendly, supports FTS5)
+- **Networking:** URLSession (native, supports background downloads)
+- **IAP:** StoreKit 2 (modern async API)
+- **Storage:** FileManager + App Groups for shared data
+- **Preferences:** UserDefaults (small settings only)
+
+### Android-specific stack
+
+- **Navigation:** Jetpack Navigation Compose
+- **Localization:** Android resources + AppCompat locale APIs
+- **Maps:** Google Maps SDK (with offline caching) or MapLibre for offline-first
+- **Location:** FusedLocationProviderClient + SensorManager (for compass heading)
+- **Sharing:** Intent.ACTION_SEND + ShareSheet
+- **Image rendering:** Canvas + Bitmap for share cards
+- **Database:** SQLite via Room (with FTS4/FTS5 support)
+- **Networking:** OkHttp + Retrofit (supports resumable downloads)
+- **IAP:** Google Play Billing Library 6.x
+- **Storage:** Context.filesDir + SharedPreferences
+- **Preferences:** DataStore (for typed preferences)
 
 ### State & data
 
-Keep it simple:
+Both platforms use the same data architecture:
 
-- Zustand (lightweight UI state) or React context (MVP)
-- Local persistence:
-  - **SQLite (expo-sqlite)** with **two DB files**:
-    - `content.db` (mostly read-only): places, price cards, phrases, tips/articles, FTS tables
-    - `user.db` (write-heavy): favorites, recents, Home Base, active route progress, downloads metadata
-  - Why two DBs: content updates become a fast **file swap** (less risk of corrupting user state, and no long import time).
-  - AsyncStorage only for tiny preferences:
-    - settings (language, exchange rate, Wi‑Fi-only downloads)
-- Offline content store:
-  - Ship bundled JSON as **seed content**
-  - On first run, import seed JSON into `content.db` (and build FTS)
-  - Cache updated bundles to FileSystem; verify; then either:
-    - (Preferred) replace `content.db` with a prebuilt, verified DB file for that version, or
-    - import JSON into a temp DB and swap (fallback for early pipeline)
+- **Two SQLite database files:**
+  - `content.db` (mostly read-only): places, price cards, phrases, tips/articles, FTS tables
+  - `user.db` (write-heavy): favorites, recents, Home Base, active route progress, downloads metadata
+- Why two DBs: content updates become a fast **file swap** (less risk of corrupting user state, and no long migration).
+- Preferences storage for tiny settings only:
+  - iOS: UserDefaults
+  - Android: DataStore
+  - Settings: language, exchange rate, Wi‑Fi-only downloads
+
+**Offline content store:**
+- Ship bundled seed content in app bundle/assets
+- On first run, copy seed `content.db` to writable location (and build FTS if needed)
+- Cache updated bundles; verify; then:
+  - (Preferred) replace `content.db` with a prebuilt, verified DB file for that version
+  - Atomic swap with rollback support
 
 ### Downloads & storage (offline packs)
 
 Treat downloads like a mini product: predictable, resumable, and easy to manage.
 
-- Use `expo-file-system` download resumables for pause/resume + retry
-- Preflight: check available disk space before starting a download
+**iOS:**
+- Use URLSession with `downloadTask` for background-capable downloads
+- Resume data stored for pause/resume
+- Preflight: check available disk space via `FileManager.attributesOfFileSystem`
+
+**Android:**
+- Use OkHttp with interceptors for resumable downloads (Range headers)
+- WorkManager for reliable background downloads
+- Preflight: check available space via `StatFs`
+
+**Both platforms:**
 - Verify downloads (sha256 from manifest) before importing/using assets
 - Cache eviction policy:
-  - show total space used by packs
-  - allow "delete audio pack" / "delete images pack"
-  - keep the last 1–2 content versions for rollback, then auto-clean older ones
-- Respect Wi‑Fi-only toggle (and show a clear "cellular download" confirmation)
+  - Show total space used by packs
+  - Allow "delete audio pack" / "delete images pack"
+  - Keep the last 1–2 content versions for rollback, then auto-clean older ones
+- Respect Wi‑Fi-only toggle (ConnectivityManager / Network.reachability)
 
 ### Search
 
-- Prefer **SQLite FTS** for fast, consistent on-device search:
+- **SQLite FTS5** on both platforms for fast, consistent on-device search:
   - FTS across places, price cards, phrases, tips/articles
   - Add lightweight ranking boosts (category, exact/prefix match)
-  - Avoid rebuilding a heavy JS index at every launch
+  - iOS: GRDB.swift has excellent FTS5 support
+  - Android: Room supports FTS4 out of the box; FTS5 via custom SQLite build or direct queries
 
 ---
 
@@ -483,18 +560,109 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
 
 ### v1 (no backend)
 
+**iOS Architecture (Swift/SwiftUI)**
 ```
-React Native App
-├─ Bundled seed content (data/*.json + assets)
-├─ Local databases (SQLite): `content.db` + `user.db`
-├─ Content loader (seed → content.db, DB migrations, verified updates via file swap)
-├─ Search (SQLite FTS)
-├─ Pricing engine (Quote → Action)
-├─ Plan engine (My Day offline builder)
-├─ Geo helpers (distance/bearing for compass + routes)
-├─ FileSystem cache (downloaded bundles + audio packs)
-├─ Maps (map preview + external directions)
-└─ Optional online bonuses (weather, near-me sorting)
+MarrakechGuide.app
+├─ App/
+│   ├─ MarrakechGuideApp.swift (entry point)
+│   └─ AppDelegate.swift (lifecycle, push notifications)
+├─ Core/
+│   ├─ Database/
+│   │   ├─ ContentDatabase.swift (GRDB, read-only content)
+│   │   ├─ UserDatabase.swift (GRDB, user state)
+│   │   └─ Migrations/
+│   ├─ Repositories/
+│   │   ├─ PlaceRepository.swift
+│   │   ├─ PriceCardRepository.swift
+│   │   ├─ PhraseRepository.swift
+│   │   └─ UserStateRepository.swift
+│   ├─ Services/
+│   │   ├─ LocationService.swift (CoreLocation wrapper)
+│   │   ├─ HeadingService.swift (compass heading)
+│   │   ├─ DownloadService.swift (URLSession background downloads)
+│   │   ├─ ContentSyncService.swift (bundle verification + swap)
+│   │   └─ SearchService.swift (FTS5 queries)
+│   └─ Engines/
+│       ├─ PricingEngine.swift (Quote → Action logic)
+│       ├─ PlanEngine.swift (My Day offline builder)
+│       ├─ RouteEngine.swift (leg estimates + progress)
+│       └─ GeoEngine.swift (haversine, bearing)
+├─ Features/
+│   ├─ Home/
+│   ├─ Explore/
+│   ├─ Eat/
+│   ├─ Prices/
+│   ├─ QuoteAction/
+│   ├─ HomeBase/
+│   ├─ MyDay/
+│   ├─ RouteCards/
+│   ├─ Phrasebook/
+│   └─ Settings/
+├─ Shared/
+│   ├─ Components/ (reusable SwiftUI views)
+│   ├─ Models/ (data models, Codable)
+│   ├─ Extensions/
+│   └─ Utilities/
+├─ Resources/
+│   ├─ Assets.xcassets
+│   ├─ Localizable.xcstrings
+│   ├─ SeedData/ (bundled content.db + assets)
+│   └─ Audio/
+└─ Tests/
+```
+
+**Android Architecture (Kotlin/Compose)**
+```
+app/
+├─ src/main/
+│   ├─ java/com/marrakechguide/
+│   │   ├─ MarrakechGuideApp.kt (Application class)
+│   │   ├─ MainActivity.kt
+│   │   ├─ core/
+│   │   │   ├─ database/
+│   │   │   │   ├─ ContentDatabase.kt (Room, read-only)
+│   │   │   │   ├─ UserDatabase.kt (Room, user state)
+│   │   │   │   ├─ dao/ (Data Access Objects)
+│   │   │   │   └─ entities/
+│   │   │   ├─ repository/
+│   │   │   │   ├─ PlaceRepository.kt
+│   │   │   │   ├─ PriceCardRepository.kt
+│   │   │   │   ├─ PhraseRepository.kt
+│   │   │   │   └─ UserStateRepository.kt
+│   │   │   ├─ service/
+│   │   │   │   ├─ LocationService.kt (FusedLocation wrapper)
+│   │   │   │   ├─ HeadingService.kt (SensorManager compass)
+│   │   │   │   ├─ DownloadService.kt (OkHttp + WorkManager)
+│   │   │   │   ├─ ContentSyncService.kt
+│   │   │   │   └─ SearchService.kt
+│   │   │   └─ engine/
+│   │   │       ├─ PricingEngine.kt
+│   │   │       ├─ PlanEngine.kt
+│   │   │       ├─ RouteEngine.kt
+│   │   │       └─ GeoEngine.kt
+│   │   ├─ feature/
+│   │   │   ├─ home/
+│   │   │   ├─ explore/
+│   │   │   ├─ eat/
+│   │   │   ├─ prices/
+│   │   │   ├─ quoteaction/
+│   │   │   ├─ homebase/
+│   │   │   ├─ myday/
+│   │   │   ├─ routecards/
+│   │   │   ├─ phrasebook/
+│   │   │   └─ settings/
+│   │   ├─ ui/
+│   │   │   ├─ components/ (reusable Compose components)
+│   │   │   ├─ theme/
+│   │   │   └─ navigation/
+│   │   └─ di/ (Hilt modules)
+│   ├─ res/
+│   │   ├─ values/ (strings, themes)
+│   │   ├─ values-fr/
+│   │   └─ raw/ (audio files)
+│   └─ assets/
+│       └─ seed/ (bundled content.db)
+└─ src/test/
 ```
 
 **Rule:** The app remains fully useful without internet.
@@ -582,89 +750,190 @@ Important: ensure asset URLs are versioned and match the content bundle version 
 
 ---
 
-## 9) Data model (TypeScript-first, consistent content)
+## 9) Data model (shared schema, platform-native implementations)
+
+### Shared JSON schema (content authoring)
+
+Content is authored in JSON with a shared schema, then bundled into SQLite for each platform.
+Both iOS and Android use the same database schema and content bundles.
 
 ### Unify "place-like" entities
 
-Landmarks, restaurants, shops, markets can share a base shape:
+Landmarks, restaurants, shops, markets can share a base shape.
 
-**Place**
+**Place** (SQLite table: `places`)
 
-- `id: string`
-- `name: string`
-- `category: "landmark" | "museum" | "garden" | "neighborhood" | "restaurant" | "cafe" | "shopping" | ...`
-- `shortDescription: string`
-- `longDescription?: string`
-- `reviewedAt?: string` (YYYY-MM-DD)
-- `confidence?: "high" | "medium" | "low"`
-- `neighborhood?: string`
-- `address?: string`
-- `location?: { lat: number; lng: number }`
-- `hours?: { text: string; timezone?: string; weekly?: { day: number; open: string; close: string }[]; verifiedAt?: string }`
-  - `text` is always shown; `weekly` enables "Open now" offline when present.
-- `feesMAD?: { min?: number; max?: number; notes?: string }`
-- `expectedCostMAD?: { min: number; max: number; notes?: string; updatedAt: string }`
-- `estimatedVisitTime?: string` (e.g., "45–90 min")
-- `bestTimeToGo?: string`
-- `tags?: string[]`
-- `localTips?: string[]`
-- `scamWarnings?: string[]`
-- `doAndDont?: string[]`
-- `images?: string[]` (local asset refs or URLs)
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | TEXT PK | |
+| `name` | TEXT | |
+| `category` | TEXT | "landmark", "museum", "garden", "neighborhood", "restaurant", "cafe", "shopping", etc. |
+| `short_description` | TEXT | |
+| `long_description` | TEXT | nullable |
+| `reviewed_at` | TEXT | YYYY-MM-DD, nullable |
+| `confidence` | TEXT | "high", "medium", "low", nullable |
+| `neighborhood` | TEXT | nullable |
+| `address` | TEXT | nullable |
+| `lat` | REAL | nullable |
+| `lng` | REAL | nullable |
+| `hours_text` | TEXT | always shown |
+| `hours_timezone` | TEXT | nullable |
+| `hours_weekly` | TEXT | JSON array, nullable; enables "Open now" |
+| `hours_verified_at` | TEXT | nullable |
+| `fees_min_mad` | INTEGER | nullable |
+| `fees_max_mad` | INTEGER | nullable |
+| `fees_notes` | TEXT | nullable |
+| `expected_cost_min_mad` | INTEGER | nullable |
+| `expected_cost_max_mad` | INTEGER | nullable |
+| `expected_cost_notes` | TEXT | nullable |
+| `expected_cost_updated_at` | TEXT | nullable |
+| `estimated_visit_time` | TEXT | e.g., "45–90 min", nullable |
+| `best_time_to_go` | TEXT | nullable |
+| `tags` | TEXT | JSON array |
+| `local_tips` | TEXT | JSON array |
+| `scam_warnings` | TEXT | JSON array |
+| `do_and_dont` | TEXT | JSON array |
+| `images` | TEXT | JSON array of asset refs or URLs |
 
-**PriceCard**
+**iOS Model (Swift)**
+```swift
+struct Place: Identifiable, Codable, FetchableRecord, PersistableRecord {
+    let id: String
+    let name: String
+    let category: PlaceCategory
+    let shortDescription: String
+    let longDescription: String?
+    let reviewedAt: Date?
+    let confidence: Confidence?
+    let neighborhood: String?
+    let address: String?
+    let location: Coordinate?
+    let hours: Hours?
+    let feesMAD: PriceRange?
+    let expectedCostMAD: CostRange?
+    let estimatedVisitTime: String?
+    let bestTimeToGo: String?
+    let tags: [String]
+    let localTips: [String]
+    let scamWarnings: [String]
+    let doAndDont: [String]
+    let images: [String]
+}
 
-- `id: string`
-- `title: string` (e.g., "Taxi: Medina short ride")
-- `category: "taxi" | "hammam" | "souks" | "food" | "guides" | ...`
-- `unit?: string` (e.g., "per ride", "per person", "per item")
-- `volatility?: "low" | "medium" | "high"`
-- `confidence?: "high" | "medium" | "low"`
-- `expectedCostMAD: { min: number; max: number; notes?: string; updatedAt: string }`
-- `whatInfluencesPrice?: string[]`
-- `negotiationScripts?: { darijaLatin: string; english: string }[]`
-- `redFlags?: string[]`
-- `whatToDoInstead?: string[]`
-- `contextModifiers?: { id: string; label: string; factorMin?: number; factorMax?: number; addMin?: number; addMax?: number; notes?: string }[]`
-- `fairness?: { highMultiplier?: number }` (override default fairness threshold for this card)
-- `quantity?: { label: string; default?: number; min?: number; step?: number }` (shown in Quote → Action when the unit implies a quantity)
-  - Used by **Quote → Action** to adjust expected ranges without changing code.
+enum PlaceCategory: String, Codable, CaseIterable {
+    case landmark, museum, garden, neighborhood, restaurant, cafe, shopping
+}
 
-**GlossaryPhrase**
+enum Confidence: String, Codable {
+    case high, medium, low
+}
+```
 
-- `id: string`
-- `category: string`
-- `arabic: string`
-- `latin: string`
-- `english: string`
-- `audio?: string` (asset ref or URL)
+**Android Model (Kotlin)**
+```kotlin
+@Entity(tableName = "places")
+data class Place(
+    @PrimaryKey val id: String,
+    val name: String,
+    val category: PlaceCategory,
+    val shortDescription: String,
+    val longDescription: String?,
+    val reviewedAt: LocalDate?,
+    val confidence: Confidence?,
+    val neighborhood: String?,
+    val address: String?,
+    val lat: Double?,
+    val lng: Double?,
+    val hoursText: String?,
+    val hoursWeekly: List<WeeklyHours>?, // TypeConverter for JSON
+    val hoursVerifiedAt: LocalDate?,
+    // ... remaining fields with TypeConverters for JSON arrays
+)
 
-**Itinerary**
+enum class PlaceCategory { LANDMARK, MUSEUM, GARDEN, NEIGHBORHOOD, RESTAURANT, CAFE, SHOPPING }
+enum class Confidence { HIGH, MEDIUM, LOW }
+```
 
-- `id: string`
-- `title: string`
-- `duration: "1 day" | "3 days" | ...`
-- `steps: { timeBlock?: string; placeId?: string; note: string; estimatedStopMinutes?: number; routeHint?: string }[]`
+**PriceCard** (SQLite table: `price_cards`)
 
-**TravelProfile (local, optional)**
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | TEXT PK | |
+| `title` | TEXT | e.g., "Taxi: Medina short ride" |
+| `category` | TEXT | "taxi", "hammam", "souks", "food", "guides", etc. |
+| `unit` | TEXT | "per ride", "per person", "per item", nullable |
+| `volatility` | TEXT | "low", "medium", "high", nullable |
+| `confidence` | TEXT | nullable |
+| `expected_cost_min_mad` | INTEGER | |
+| `expected_cost_max_mad` | INTEGER | |
+| `expected_cost_notes` | TEXT | nullable |
+| `expected_cost_updated_at` | TEXT | |
+| `what_influences_price` | TEXT | JSON array |
+| `negotiation_scripts` | TEXT | JSON array of {darijaLatin, english} |
+| `red_flags` | TEXT | JSON array |
+| `what_to_do_instead` | TEXT | JSON array |
+| `context_modifiers` | TEXT | JSON array of modifier objects |
+| `fairness_high_multiplier` | REAL | nullable, default 1.25 |
+| `quantity_label` | TEXT | nullable |
+| `quantity_default` | INTEGER | nullable |
+| `quantity_min` | INTEGER | nullable |
+| `quantity_step` | INTEGER | nullable |
 
-- `budgetTier?: "budget" | "mid" | "splurge"`
-- `pace?: "relaxed" | "standard"`
-- `interests?: string[]`
-- `groupType?: "solo" | "couple" | "family" | "friends"`
-- `mobilityNotes?: string`
+**GlossaryPhrase** (SQLite table: `phrases`)
 
-**Plan (generated, local)**
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | TEXT PK | |
+| `category` | TEXT | |
+| `arabic` | TEXT | RTL text |
+| `latin` | TEXT | transliteration |
+| `english` | TEXT | |
+| `audio` | TEXT | asset ref or URL, nullable |
 
-- `id: string`
-- `createdAt: string`
-- `inputs: { availableMinutes: number; startMode: "gps" | "homeBase" | "neighborhood"; interests?: string[]; budgetTier?: string; pace?: string }`
-- `steps: { placeId: string; timeBlock?: string; note?: string }[]`
+**Itinerary** (SQLite table: `itineraries`)
 
-**UserSettings (local)**
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | TEXT PK | |
+| `title` | TEXT | |
+| `duration` | TEXT | "1 day", "3 days", etc. |
+| `steps` | TEXT | JSON array of step objects |
 
-- `homeBase?: { name: string; lat: number; lng: number; notes?: string }`
-- `activeRoute?: { routeId: string; itineraryId: string; currentStepIndex: number; startedAt: string }`
+**UserSettings** (SQLite table in `user.db`: `user_settings`)
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `key` | TEXT PK | |
+| `value` | TEXT | JSON-encoded value |
+
+Keys: `homeBase`, `activeRoute`, `travelProfile`, `exchangeRate`
+
+**Favorites** (SQLite table in `user.db`: `favorites`)
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | INTEGER PK | autoincrement |
+| `content_type` | TEXT | "place", "price_card", "phrase", "itinerary" |
+| `content_id` | TEXT | |
+| `created_at` | TEXT | ISO8601 |
+
+**Recents** (SQLite table in `user.db`: `recents`)
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | INTEGER PK | autoincrement |
+| `content_type` | TEXT | |
+| `content_id` | TEXT | |
+| `viewed_at` | TEXT | ISO8601 |
+
+**Plan** (SQLite table in `user.db`: `plans` — generated My Day plans)
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | TEXT PK | |
+| `created_at` | TEXT | ISO8601 |
+| `inputs` | TEXT | JSON object |
+| `steps` | TEXT | JSON array |
 
 ---
 
@@ -735,82 +1004,291 @@ Landmarks, restaurants, shops, markets can share a base shape:
 
 ## 11) Project structure (recommended)
 
+### Monorepo structure
+
 ```
 marrakech-guide/
-├── app/
-│   ├── (tabs)/
-│   │   ├── index.tsx          # Home
-│   │   ├── explore.tsx        # Explore
-│   │   ├── eat.tsx            # Eat
-│   │   ├── prices.tsx         # Prices
-│   │   └── more.tsx           # More
-│   ├── place/[id].tsx         # Place detail
-│   ├── price/[id].tsx         # Price card detail
-│   ├── search.tsx             # Global search
-│   ├── diagnostics.tsx        # content + storage + logs
-│   ├── tools/
-│   │   ├── quote-action.tsx    # Quote → Action
-│   │   ├── go-home.tsx         # Home Base compass
-│   │   ├── my-day.tsx          # My Day plan builder
-│   │   └── route.tsx           # Route Card (overview + next stop)
-│   └── _layout.tsx
-├── components/
-│   ├── Card.tsx
-│   ├── Chip.tsx
-│   ├── PriceTag.tsx
-│   ├── FairnessMeter.tsx       # Quote → Action UI
-│   ├── CompassArrow.tsx        # Go Home + Route Cards
-│   ├── RouteCard.tsx           # stop list + next stop UI
-│   ├── MapToggle.tsx
-│   ├── MapPreview.tsx
-│   ├── SearchBar.tsx
-│   ├── SectionHeader.tsx
-│   ├── ShareCard.tsx           # renderable image for sharing
-│   └── OfflineBanner.tsx
-├── data/
-│   ├── places.json
-│   ├── price_cards.json
-│   ├── glossary.json
-│   ├── culture.json
-│   ├── tips.json
-│   └── itineraries.json
-├── i18n/
-│   ├── en.json
-│   └── fr.json
-├── hooks/
-│   ├── useContentStore.ts     # load + cache content
-│   ├── useDownloads.ts        # download manager (packs + retries)
-│   ├── useFavorites.ts
-│   ├── useRecents.ts
-│   ├── useHomeBase.ts         # set/get Home Base
-│   ├── useHeading.ts          # heading watcher + fallbacks
-│   ├── useActiveRoute.ts      # Route Card progress
-│   └── useQuoteAction.ts      # Quote → Action engine wrapper
-├── db/
+├── ios/                        # iOS app (Xcode project)
+├── android/                    # Android app (Gradle project)
+├── shared/                     # Shared content + scripts
+│   ├── content/
+│   │   ├── places.json
+│   │   ├── price_cards.json
+│   │   ├── glossary.json
+│   │   ├── culture.json
+│   │   ├── tips.json
+│   │   └── itineraries.json
+│   ├── scripts/
+│   │   ├── validate-content.ts
+│   │   ├── build-bundle.ts     # JSON → SQLite content.db
+│   │   └── check-links.ts
+│   └── schema/
+│       └── content-schema.json # JSON Schema for validation
+├── convex/                     # phase 2 only
 │   ├── schema.ts
-│   ├── migrations/
-│   └── index.ts               # db init + helpers
-├── utils/
-│   ├── downloadManager.ts     # resumable downloads + verification
-│   ├── diagnostics.ts         # build exportable debug report
-│   ├── storage.ts
-│   ├── searchIndex.ts
-│   ├── geo.ts                 # haversine, bearing helpers
-│   ├── pricingEngine.ts       # Quote → Action logic
-│   ├── planEngine.ts          # My Day: offline plan builder
-│   ├── routeEngine.ts         # leg estimates + progress helpers
-│   └── money.ts               # exchange rate helpers
-├── assets/
-│   ├── images/
-│   └── audio/
-├── scripts/
-│   ├── validate-content.ts
-│   ├── build-bundle.ts
-│   └── check-links.ts
-└── convex/                    # phase 2 only
-    ├── schema.ts
-    ├── content.ts
-    └── versions.ts
+│   ├── content.ts
+│   └── versions.ts
+└── docs/
+    └── api.md
+```
+
+### iOS project structure (Xcode)
+
+```
+ios/MarrakechGuide/
+├── MarrakechGuide.xcodeproj
+├── MarrakechGuide/
+│   ├── App/
+│   │   ├── MarrakechGuideApp.swift
+│   │   ├── AppDelegate.swift
+│   │   └── ContentView.swift
+│   ├── Core/
+│   │   ├── Database/
+│   │   │   ├── ContentDatabase.swift
+│   │   │   ├── UserDatabase.swift
+│   │   │   ├── DatabaseManager.swift
+│   │   │   └── Migrations/
+│   │   │       └── ContentMigrations.swift
+│   │   ├── Repositories/
+│   │   │   ├── PlaceRepository.swift
+│   │   │   ├── PriceCardRepository.swift
+│   │   │   ├── PhraseRepository.swift
+│   │   │   ├── ItineraryRepository.swift
+│   │   │   ├── FavoritesRepository.swift
+│   │   │   └── RecentsRepository.swift
+│   │   ├── Services/
+│   │   │   ├── LocationService.swift
+│   │   │   ├── HeadingService.swift
+│   │   │   ├── DownloadService.swift
+│   │   │   ├── ContentSyncService.swift
+│   │   │   └── SearchService.swift
+│   │   └── Engines/
+│   │       ├── PricingEngine.swift
+│   │       ├── PlanEngine.swift
+│   │       ├── RouteEngine.swift
+│   │       └── GeoEngine.swift
+│   ├── Features/
+│   │   ├── Home/
+│   │   │   ├── HomeView.swift
+│   │   │   ├── HomeViewModel.swift
+│   │   │   └── QuickActionCard.swift
+│   │   ├── Explore/
+│   │   │   ├── ExploreView.swift
+│   │   │   ├── ExploreViewModel.swift
+│   │   │   ├── PlaceListView.swift
+│   │   │   ├── PlaceMapView.swift
+│   │   │   └── PlaceDetailView.swift
+│   │   ├── Eat/
+│   │   │   ├── EatView.swift
+│   │   │   └── EatViewModel.swift
+│   │   ├── Prices/
+│   │   │   ├── PricesView.swift
+│   │   │   ├── PricesViewModel.swift
+│   │   │   └── PriceCardDetailView.swift
+│   │   ├── QuoteAction/
+│   │   │   ├── QuoteActionView.swift
+│   │   │   ├── QuoteActionViewModel.swift
+│   │   │   └── FairnessMeterView.swift
+│   │   ├── HomeBase/
+│   │   │   ├── HomeBaseSetupView.swift
+│   │   │   ├── GoHomeView.swift
+│   │   │   ├── GoHomeViewModel.swift
+│   │   │   └── CompassArrowView.swift
+│   │   ├── MyDay/
+│   │   │   ├── MyDayView.swift
+│   │   │   ├── MyDayViewModel.swift
+│   │   │   └── ConstraintPickerView.swift
+│   │   ├── RouteCards/
+│   │   │   ├── RouteOverviewView.swift
+│   │   │   ├── NextStopView.swift
+│   │   │   └── RouteViewModel.swift
+│   │   ├── Phrasebook/
+│   │   │   ├── PhrasebookView.swift
+│   │   │   ├── PhrasebookViewModel.swift
+│   │   │   └── PhraseDetailView.swift
+│   │   ├── Search/
+│   │   │   ├── SearchView.swift
+│   │   │   └── SearchViewModel.swift
+│   │   ├── More/
+│   │   │   ├── MoreView.swift
+│   │   │   ├── CultureView.swift
+│   │   │   ├── TipsView.swift
+│   │   │   └── ItinerariesView.swift
+│   │   └── Settings/
+│   │       ├── SettingsView.swift
+│   │       ├── DownloadsView.swift
+│   │       └── DiagnosticsView.swift
+│   ├── Shared/
+│   │   ├── Components/
+│   │   │   ├── Card.swift
+│   │   │   ├── Chip.swift
+│   │   │   ├── PriceTag.swift
+│   │   │   ├── MapPreview.swift
+│   │   │   ├── SearchBar.swift
+│   │   │   ├── SectionHeader.swift
+│   │   │   ├── ShareCardRenderer.swift
+│   │   │   └── OfflineBanner.swift
+│   │   ├── Models/
+│   │   │   ├── Place.swift
+│   │   │   ├── PriceCard.swift
+│   │   │   ├── GlossaryPhrase.swift
+│   │   │   ├── Itinerary.swift
+│   │   │   ├── Plan.swift
+│   │   │   └── UserSettings.swift
+│   │   ├── Extensions/
+│   │   │   ├── Date+Formatting.swift
+│   │   │   ├── String+Localization.swift
+│   │   │   └── View+Helpers.swift
+│   │   └── Utilities/
+│   │       ├── Formatters.swift
+│   │       └── Constants.swift
+│   ├── Resources/
+│   │   ├── Assets.xcassets
+│   │   ├── Localizable.xcstrings
+│   │   ├── SeedData/
+│   │   │   └── content.db
+│   │   └── Audio/
+│   └── DI/
+│       └── Container.swift
+├── MarrakechGuideTests/
+└── MarrakechGuideUITests/
+```
+
+### Android project structure (Gradle/Kotlin)
+
+```
+android/
+├── app/
+│   ├── build.gradle.kts
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── AndroidManifest.xml
+│   │   │   ├── kotlin/com/marrakechguide/
+│   │   │   │   ├── MarrakechGuideApp.kt
+│   │   │   │   ├── MainActivity.kt
+│   │   │   │   ├── core/
+│   │   │   │   │   ├── database/
+│   │   │   │   │   │   ├── ContentDatabase.kt
+│   │   │   │   │   │   ├── UserDatabase.kt
+│   │   │   │   │   │   ├── DatabaseManager.kt
+│   │   │   │   │   │   ├── dao/
+│   │   │   │   │   │   │   ├── PlaceDao.kt
+│   │   │   │   │   │   │   ├── PriceCardDao.kt
+│   │   │   │   │   │   │   ├── PhraseDao.kt
+│   │   │   │   │   │   │   └── UserStateDao.kt
+│   │   │   │   │   │   ├── entity/
+│   │   │   │   │   │   │   ├── PlaceEntity.kt
+│   │   │   │   │   │   │   ├── PriceCardEntity.kt
+│   │   │   │   │   │   │   └── PhraseEntity.kt
+│   │   │   │   │   │   └── converter/
+│   │   │   │   │   │       └── TypeConverters.kt
+│   │   │   │   │   ├── repository/
+│   │   │   │   │   │   ├── PlaceRepository.kt
+│   │   │   │   │   │   ├── PriceCardRepository.kt
+│   │   │   │   │   │   ├── PhraseRepository.kt
+│   │   │   │   │   │   ├── FavoritesRepository.kt
+│   │   │   │   │   │   └── RecentsRepository.kt
+│   │   │   │   │   ├── service/
+│   │   │   │   │   │   ├── LocationService.kt
+│   │   │   │   │   │   ├── HeadingService.kt
+│   │   │   │   │   │   ├── DownloadService.kt
+│   │   │   │   │   │   ├── ContentSyncService.kt
+│   │   │   │   │   │   └── SearchService.kt
+│   │   │   │   │   └── engine/
+│   │   │   │   │       ├── PricingEngine.kt
+│   │   │   │   │       ├── PlanEngine.kt
+│   │   │   │   │       ├── RouteEngine.kt
+│   │   │   │   │       └── GeoEngine.kt
+│   │   │   │   ├── feature/
+│   │   │   │   │   ├── home/
+│   │   │   │   │   │   ├── HomeScreen.kt
+│   │   │   │   │   │   ├── HomeViewModel.kt
+│   │   │   │   │   │   └── QuickActionCard.kt
+│   │   │   │   │   ├── explore/
+│   │   │   │   │   │   ├── ExploreScreen.kt
+│   │   │   │   │   │   ├── ExploreViewModel.kt
+│   │   │   │   │   │   ├── PlaceListScreen.kt
+│   │   │   │   │   │   ├── PlaceMapScreen.kt
+│   │   │   │   │   │   └── PlaceDetailScreen.kt
+│   │   │   │   │   ├── eat/
+│   │   │   │   │   │   ├── EatScreen.kt
+│   │   │   │   │   │   └── EatViewModel.kt
+│   │   │   │   │   ├── prices/
+│   │   │   │   │   │   ├── PricesScreen.kt
+│   │   │   │   │   │   ├── PricesViewModel.kt
+│   │   │   │   │   │   └── PriceCardDetailScreen.kt
+│   │   │   │   │   ├── quoteaction/
+│   │   │   │   │   │   ├── QuoteActionScreen.kt
+│   │   │   │   │   │   ├── QuoteActionViewModel.kt
+│   │   │   │   │   │   └── FairnessMeter.kt
+│   │   │   │   │   ├── homebase/
+│   │   │   │   │   │   ├── HomeBaseSetupScreen.kt
+│   │   │   │   │   │   ├── GoHomeScreen.kt
+│   │   │   │   │   │   ├── GoHomeViewModel.kt
+│   │   │   │   │   │   └── CompassArrow.kt
+│   │   │   │   │   ├── myday/
+│   │   │   │   │   │   ├── MyDayScreen.kt
+│   │   │   │   │   │   ├── MyDayViewModel.kt
+│   │   │   │   │   │   └── ConstraintPicker.kt
+│   │   │   │   │   ├── routecards/
+│   │   │   │   │   │   ├── RouteOverviewScreen.kt
+│   │   │   │   │   │   ├── NextStopScreen.kt
+│   │   │   │   │   │   └── RouteViewModel.kt
+│   │   │   │   │   ├── phrasebook/
+│   │   │   │   │   │   ├── PhrasebookScreen.kt
+│   │   │   │   │   │   ├── PhrasebookViewModel.kt
+│   │   │   │   │   │   └── PhraseDetailScreen.kt
+│   │   │   │   │   ├── search/
+│   │   │   │   │   │   ├── SearchScreen.kt
+│   │   │   │   │   │   └── SearchViewModel.kt
+│   │   │   │   │   ├── more/
+│   │   │   │   │   │   ├── MoreScreen.kt
+│   │   │   │   │   │   ├── CultureScreen.kt
+│   │   │   │   │   │   ├── TipsScreen.kt
+│   │   │   │   │   │   └── ItinerariesScreen.kt
+│   │   │   │   │   └── settings/
+│   │   │   │   │       ├── SettingsScreen.kt
+│   │   │   │   │       ├── DownloadsScreen.kt
+│   │   │   │   │       └── DiagnosticsScreen.kt
+│   │   │   │   ├── ui/
+│   │   │   │   │   ├── components/
+│   │   │   │   │   │   ├── Card.kt
+│   │   │   │   │   │   ├── Chip.kt
+│   │   │   │   │   │   ├── PriceTag.kt
+│   │   │   │   │   │   ├── MapPreview.kt
+│   │   │   │   │   │   ├── SearchBar.kt
+│   │   │   │   │   │   ├── SectionHeader.kt
+│   │   │   │   │   │   ├── ShareCardRenderer.kt
+│   │   │   │   │   │   └── OfflineBanner.kt
+│   │   │   │   │   ├── theme/
+│   │   │   │   │   │   ├── Theme.kt
+│   │   │   │   │   │   ├── Color.kt
+│   │   │   │   │   │   └── Type.kt
+│   │   │   │   │   └── navigation/
+│   │   │   │   │       ├── NavGraph.kt
+│   │   │   │   │       └── BottomNavBar.kt
+│   │   │   │   └── di/
+│   │   │   │       ├── AppModule.kt
+│   │   │   │       ├── DatabaseModule.kt
+│   │   │   │       └── ServiceModule.kt
+│   │   │   ├── res/
+│   │   │   │   ├── values/
+│   │   │   │   │   ├── strings.xml
+│   │   │   │   │   ├── themes.xml
+│   │   │   │   │   └── colors.xml
+│   │   │   │   ├── values-fr/
+│   │   │   │   │   └── strings.xml
+│   │   │   │   ├── drawable/
+│   │   │   │   └── raw/
+│   │   │   │       └── audio/
+│   │   │   └── assets/
+│   │   │       └── seed/
+│   │   │           └── content.db
+│   │   ├── test/
+│   │   └── androidTest/
+├── build.gradle.kts
+├── settings.gradle.kts
+└── gradle.properties
 ```
 
 ---
@@ -841,28 +1319,48 @@ marrakech-guide/
 
 ### QA checklist (minimum)
 
+**Both platforms:**
 - Works in airplane mode
-- VoiceOver/TalkBack smoke test on core flows (Quote → Action, Go Home, Route Cards, Search)
 - Works on low-memory devices
 - Map view doesn't crash with many markers (keep curated marker count reasonable)
 - Search works fast across content
 - All external links open correctly
-- Location flows tested:
-  - deny permission (app still usable)
-  - grant permission (Go Home + Route Cards work)
-  - heading unavailable (fallback UI still works)
-  - low power mode / Android battery optimizations (manual refresh still works)
+- Dark mode works correctly
+- RTL text (Arabic) renders correctly in phrasebook
+
+**iOS-specific:**
+- VoiceOver smoke test on core flows (Quote → Action, Go Home, Route Cards, Search)
+- Dynamic Type sizes (accessibility)
+- Works on oldest supported iOS version (16.0)
+- StoreKit 2 IAP flows (purchase, restore)
+- Background download resume after app termination
+
+**Android-specific:**
+- TalkBack smoke test on core flows
+- Font scaling (accessibility)
+- Works on oldest supported API level (26)
+- Play Billing flows (purchase, restore)
+- WorkManager download resume after process death
+- Battery optimization handling (Doze mode)
+
+**Location flows tested (both platforms):**
+- Deny permission (app still usable)
+- Grant permission (Go Home + Route Cards work)
+- Heading unavailable (fallback UI still works)
+- Low power mode / battery optimizations (manual refresh still works)
+- Location accuracy degraded (graceful handling)
 
 Add "paid app" reliability basics:
 
 - Interruption tests:
-  - content update download interrupted
-  - low storage during download
-  - app killed mid-import (must recover safely)
+  - content update download interrupted (resume works)
+  - low storage during download (clear error message)
+  - app killed mid-import (must recover safely on next launch)
 - Observability:
-  - crash reporting (privacy-forward; opt-in if preferred)
-  - lightweight logging around content import failures
-  - in-app Diagnostics screen + "Export debug report" (helps support without needing user screenshots)
+  - iOS: Crash reporting via MetricKit or Sentry (privacy-forward)
+  - Android: Crash reporting via Firebase Crashlytics or Sentry
+  - Lightweight logging around content import failures
+  - In-app Diagnostics screen + "Export debug report" (helps support without needing user screenshots)
 
 ---
 
@@ -890,19 +1388,53 @@ Screenshots should highlight:
 
 ## 14) What to build first (order of implementation, not milestones)
 
-1. App shell + theme + core components
-2. Content loading from bundled JSON + favorites/recents
-3. Explore list + place detail
-4. Prices list + price card detail (this is the money-maker)
-5. **Quote → Action** (reuses Price Cards; high value)
-6. Darija phrasebook + search
-7. Itineraries + tips/culture pages
-8. **Home Base compass** (location + heading; big confidence win)
-9. **My Day** plan builder (offline daily plan)
-10. **Route Cards** (execute itineraries with next-stop guidance)
-11. Map toggle + external directions
-12. Polish: offline UX, copywriting, store-ready screenshots
-13. Phase 2 Convex: content versioning + bundle downloads + optional user sync
+### Phase 0: Foundation (both platforms in parallel)
+
+1. **Shared content pipeline**
+   - JSON schema + validation scripts
+   - `build-bundle.ts` script (JSON → SQLite `content.db`)
+   - Seed content for development (5 places, 5 price cards, 20 phrases)
+
+2. **iOS foundation**
+   - Xcode project setup, SwiftUI app shell
+   - GRDB integration, DatabaseManager
+   - Basic theme + design system components
+   - Tab navigation structure
+
+3. **Android foundation**
+   - Gradle project setup, Compose app shell
+   - Room integration, DatabaseManager
+   - Basic theme + design system components (Material 3)
+   - Bottom navigation structure
+
+### Phase 1: Core features (build iOS first, then Android, or parallel if team allows)
+
+4. Content loading from bundled `content.db` + favorites/recents
+5. Explore list + place detail
+6. Prices list + price card detail (this is the money-maker)
+7. **Quote → Action** (reuses Price Cards; high value)
+8. Darija phrasebook + search (FTS5)
+9. Itineraries + tips/culture pages
+
+### Phase 2: Location features
+
+10. **Home Base compass** (CoreLocation / FusedLocation + heading sensors; big confidence win)
+11. **My Day** plan builder (offline daily plan)
+12. **Route Cards** (execute itineraries with next-stop guidance)
+13. Map integration + external directions (MapKit / Google Maps)
+
+### Phase 3: Polish & monetization
+
+14. IAP integration (StoreKit 2 / Play Billing)
+15. Downloads manager (audio packs, content updates)
+16. Offline UX polish, error states, empty states
+17. Accessibility audit (VoiceOver / TalkBack)
+18. Localization (EN/FR UI)
+19. Store-ready screenshots, App Store / Play Store metadata
+
+### Phase 4: Backend (optional)
+
+20. Phase 2 Convex: content versioning + bundle downloads + optional user sync
 
 ---
 
@@ -911,25 +1443,97 @@ Screenshots should highlight:
 
 - Convex schema: content tables + `contentVersions`
 - Upload pipeline for curated content (could be manual at first)
-- App sync module:
-  - read latest version
-  - compare with cached version
-  - download **manifest + bundle**
-  - verify hash/signature
-  - import with atomic swap (keep previous version for rollback)
-  - update local FTS/search tables
+
+**iOS sync module:**
+- `ContentSyncService` using URLSession for manifest + bundle downloads
+- Background download support via `URLSessionConfiguration.background`
+- Verify sha256 using `CryptoKit`
+- Atomic DB swap using `FileManager.replaceItemAt`
+- Rebuild FTS tables via GRDB
+
+**Android sync module:**
+- `ContentSyncService` using OkHttp + WorkManager for reliable background sync
+- Verify sha256 using `MessageDigest`
+- Atomic DB swap using `File.renameTo()` with temp file
+- Rebuild FTS tables via Room
+
+**Both platforms:**
+- Read latest version from Convex
+- Compare with cached version (stored in UserDefaults / DataStore)
+- Download manifest + bundle
+- Verify hash/signature
+- Import with atomic swap (keep previous version for rollback)
+- Update local FTS/search tables
+
 - Optional auth + user state sync (favorites/bookmarks)
 
 ---
 
-## 16) Definition of "done"
+## 16) Shared code & development workflow
+
+### What's shared between iOS and Android
+
+**Shared (in `shared/` directory):**
+- Content JSON files (places, prices, phrases, itineraries, tips, culture)
+- Content validation scripts (TypeScript/Node)
+- SQLite database build scripts (JSON → content.db)
+- JSON Schema definitions
+- Content changelog generation
+- Asset pipeline (image compression, audio encoding)
+
+**Not shared (implemented separately per platform):**
+- All UI code (SwiftUI / Jetpack Compose)
+- ViewModels and state management
+- Database access layer (GRDB / Room)
+- Services (location, downloads, sync)
+- Engines (pricing, planning, routing, geo) — same logic, different languages
+
+### Development workflow
+
+1. **Content updates:** Edit JSON in `shared/content/`, run validation, build `content.db`
+2. **iOS development:** Open Xcode, work in `ios/` directory
+3. **Android development:** Open Android Studio, work in `android/` directory
+4. **Testing:** Each platform has its own test suite; shared content has validation tests
+5. **Release:** Build and submit to App Store and Play Store independently
+
+### Code parity checklist
+
+Maintain a checklist to ensure feature parity:
+- [ ] Same screens exist on both platforms
+- [ ] Same business logic in engines (test with same inputs → same outputs)
+- [ ] Same content displayed (both use same `content.db`)
+- [ ] Same user flows (onboarding, IAP, downloads)
+- [ ] Same offline behavior
+- [ ] Same accessibility support
+
+### Shared logic via unit tests
+
+To ensure engines behave identically, write platform-agnostic test cases in JSON:
+```json
+{
+  "pricingEngine": [
+    {
+      "input": { "cardId": "taxi-short", "quotedMAD": 50, "modifiers": ["night"] },
+      "expected": { "fairness": "fair", "adjustedMax": 60 }
+    }
+  ]
+}
+```
+Both iOS and Android test suites read these cases and verify their engine implementations match.
+
+---
+
+## 17) Definition of "done"
 
 The app is "ready to sell" when:
 
-- It works great offline
+- It works great offline on both iOS and Android
 - Pricing + negotiation content feels trustworthy (ranges + reviewed date)
 - It's curated enough to feel premium (not empty, not bloated)
 - Tourists can plan a day, move around, eat well, negotiate, and avoid traps
 - Quote → Action, Go Home, My Day, and Route Cards work reliably offline (core "confidence" moments)
-- Store page clearly communicates the value in 5 seconds
+- Store pages (App Store + Play Store) clearly communicate the value in 5 seconds
 - Offline promise is validated via a repeatable test checklist (airplane mode + interrupted update + low storage)
+- Both platforms pass accessibility audits (VoiceOver + TalkBack)
+- IAP flows work reliably (purchase + restore) on both platforms
+- Feature parity confirmed between iOS and Android
