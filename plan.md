@@ -38,6 +38,8 @@ This is a **paid "confidence" app** for tourists in Marrakech (Morocco):
 ### Success metrics (so you can evaluate v1)
 
 - Activation: % of new users who view ≥1 Price Card + save ≥1 item in first session
+- Activation: % who complete "offline ready" setup (downloaded at least 1 pack OR confirmed "download later")
+- Trust: % who view Privacy/Permissions explainer (and do not churn immediately after)
 - Retention: % returning on day 2 / day 7 (tourists are short-lived—optimize for day 2)
 - Helpfulness: "Was this useful?" ≥80% positive on Price Cards
 
@@ -49,20 +51,29 @@ It's the "locals' practical guide" you can trust.
 
 ## 2) Monetization
 
-**Primary (recommended):** free download + one-time IAP unlock (no subscription)
+**Default (recommended):** free download + one-time IAP unlock (no subscription)
 - Reason: better conversion + lets users experience the "confidence" moment before paying.
+- Competitive reality: users punish subscriptions and "online-only / daily limit" walls in reviews.
 
 Two packaging options:
 
 - **Option A: paid install (current plan).**
   - Target: $4.99–$9.99 (consider regional pricing)
 - **Option B (default): free download + one-time IAP unlock (often higher conversion).**
-  - Free includes a small "starter pack" (e.g., 5 places + 5 price cards + 20 phrases).
-  - Starter pack should include at least 1 "high-stress" flow (e.g., Taxi + Quote → Action) so users feel value immediately.
+  - Free includes a **genuinely useful offline core** (avoid "5 entries/day" frustration):
+    - **Offline Medina Mini Map Pack** (core area) + POI search
+    - **Navigate to a saved place** (offline walking guidance in Medina; limited scope)
+    - Taxi essentials: airport + short-ride Price Cards + **Quote → Action**
+    - 1 arrival checklist + essential refusal scripts
+  - Free tier should still feel complete in a moment of need (lost/taxi/first hour).
   - Paywall triggers: after viewing X price cards, or after completing 1–2 Quote → Action checks (when confidence is highest).
-  - Unlock removes limits and downloads the full offline guide.
+  - Unlock removes limits and downloads full offline packs (districts + advanced navigation).
   - Pros: easier marketing + lets users "see the value" before paying.
   - Cons: slightly more implementation + store compliance work.
+
+**Offline paywall rules (important):**
+- If offline: "Purchase requires internet. Free core still works offline."
+- Never block safety-critical basics (emergency info, refusal scripts, Go Home if already set).
 
 **Optional IAP add-ons (keep simple):**
 
@@ -91,7 +102,13 @@ Curated entities with:
 - Hours + **Open now** indicator (offline, when structured hours are available)
 - **Expected cost range in MAD** + "last reviewed" date
 - "Local tips" and "watch outs"
+- **Not-a-tourist-trap cues (transparent):**
+  - Badge: "Local pick" / "Mixed" / "Tourist-heavy"
+  - Short explanation: "Why we recommend this" (1–3 bullets)
 - Directions (open in Apple Maps / Google Maps)
+- **Navigate (Medina-aware):**
+  - If Offline Map Pack is installed: show offline walking route guidance
+  - If not installed: explain and link to Downloads (never a blank map)
 - Save / share (including a clean, screenshot-friendly "share card")
 
 ### B) Eat (restaurants & cafés + what to order)
@@ -142,7 +159,7 @@ A fast tool for the exact high-stress moment tourists face: *"I was quoted X MAD
    - **Fairness meter**: Fair / High / Very High (with a confidence note)
    - **Expected range (adjusted)** + last reviewed + provenance
    - **Suggested counter-offer range** (polite + firm)
-   - **Best 1–3 scripts** (Darija + English)
+   - **Best 1–3 scripts** (Darija + English, + optional French for taxi/restaurant contexts)
    - **If they won't budge**: "what to do instead" alternatives
 
 **Implementation details:**
@@ -224,6 +241,13 @@ A lightweight planner that fulfills the core JTBD ("give me a realistic plan for
 
 This keeps the promise of "what should I do today?" even for users who never open the itineraries list.
 
+#### My Trip (offline 1/2/3-day builder)
+
+- Choose 1, 2, or 3 days
+- Auto-group by area (Medina/Gueliz/etc.) to keep days walkable
+- Drag-reorder stops (manual override)
+- Export/share a clean itinerary card (image)
+
 Each step links to places already in the app.
 
 #### Route Cards (execute itineraries without getting lost)
@@ -240,13 +264,22 @@ For each itinerary (and any generated plan later), provide a **Route Card** view
   - big stop name + quick facts
   - **compass arrow + distance** to the next stop (offline)
   - rough "walk time" estimate (offline heuristic)
+  - **Navigate** (offline within pack areas; online handoff optional)
+  - "Recenter" button (explicit; helps with GPS drift)
+  - "GPS is weak here" hint state (calm guidance: keep walking 20m then re-check)
   - optional "Open in maps" button (online-only)
   - "Mark as done" → advances to next stop
 - Optional: "route hints" for tricky legs (short text written by you)
 
+**Medina Mode (fallback UX):**
+- If GPS accuracy is poor or heading is unstable:
+  - simplify UI (direction + distance + landmark hint text)
+  - one-tap "Ask for directions" phrase card (large text)
+
 **Implementation details:**
 
-- No full offline navigation required.
+- Provide point-to-point walking guidance **within installed offline map pack areas** (Medina core first).
+- Fallback when routing is unavailable: compass + distance + route hints.
 - For each leg, compute straight-line distance with Haversine and estimate walk time with tuned speeds:
   - default: ~4.5 km/h (outside medina)
   - medina multiplier: slower (dense paths)
@@ -324,6 +357,22 @@ Users set a single "Home Base" once (their riad/hotel). Then the app can always 
 
 ## 4) UX & navigation (simple, premium)
 
+### First-run onboarding (60–90 seconds, skippable, re-runnable)
+
+Goal: prevent offline dead-ends and build trust immediately.
+
+1. Language + home currency
+2. "Offline promise" screen:
+   - What works offline (core guide + map packs)
+   - What needs internet (purchase/restore, updates)
+3. Pick offline downloads (district-based packs; sizes shown; Wi‑Fi-only toggle)
+4. Quick demo entry: Quote → Action (Taxi example)
+5. Privacy + Permissions explainer:
+   - No accounts required
+   - No ads / no data selling
+   - Location is optional and only used on-device
+   - Request location only when user taps Near Me / Go Home / Navigate
+
 ### Bottom tabs (recommended)
 
 1. **Home**
@@ -355,6 +404,7 @@ Users set a single "Home Base" once (their riad/hotel). Then the app can always 
 
 - Map/List toggle in Explore
 - Fast global search across places + prices + phrases + tips
+- Map screen includes a clear search bar + "Navigate to…" entrypoint (avoid "I can't find directions" confusion)
 - Deep links: shared items open directly to the correct Place/PriceCard screen
 - One-tap entrypoints for high-stress moments (Quote → Action, Go Home)
 - "Active route" banner when following a Route Card
@@ -421,16 +471,20 @@ Minimum pipeline (even if manual at first):
   - Optional warning if old (e.g., > 6 months):
     - "Prices may have changed"
 
-- Every place detail shows:
-  - "Last reviewed: YYYY-MM-DD" (hours/fees/tips)
-  - Optional warning if old (e.g., > 12 months): "Details may have changed"
+- Every place detail shows (field-level trust):
+  - "Verified: YYYY-MM-DD" (editor check)
+  - Hours verified date (if structured hours)
+  - Fees verified date (if fees shown)
+  - Staleness warnings based on per-field TTL (hours usually stricter than descriptions)
+  - Place status: Open / Temporarily closed / Permanently closed (with note if applicable)
 
 Add 2 lightweight credibility boosters:
 
 - **Provenance note** (1 short line): "based on recent quotes in 2026-01" / "posted fare" / "local hammam vs tourist hammam"
 - **Report outdated info**: simple button ("Was this accurate?" yes/no) with optional note.
-  - v1: store locally + open email composer
-  - phase 2: upload to backend when online
+  - v1: store locally in an offline "feedback outbox"
+    - quick reasons: closed/moved/hours wrong/price wrong/tourist-trap/other
+  - phase 2: upload outbox when online (no account required)
 
 ---
 
@@ -480,7 +534,10 @@ Both platforms follow the same architectural approach for consistency:
 
 - **Navigation:** NavigationStack (SwiftUI native)
 - **Localization:** String Catalogs + Foundation locale APIs
-- **Maps:** MapKit (native, offline-capable with cached tiles)
+- **Maps:** two-layer strategy (reliability > assumptions)
+  - Online browsing/handoff: MapKit + "Open in maps"
+  - Offline map packs: offline-capable map renderer (MBTiles/vector tiles)
+  - Offline routing (Medina core): on-device routing using a bundled walking graph inside the pack
 - **Location:** CoreLocation (CLLocationManager for GPS + heading)
 - **Sharing:** UIActivityViewController + ShareLink
 - **Image rendering:** ImageRenderer for share cards
@@ -494,7 +551,10 @@ Both platforms follow the same architectural approach for consistency:
 
 - **Navigation:** Jetpack Navigation Compose
 - **Localization:** Android resources + AppCompat locale APIs
-- **Maps:** Google Maps SDK (with offline caching) or MapLibre for offline-first
+- **Maps:** two-layer strategy
+  - Online browsing/handoff: Google Maps + "Open in maps"
+  - Offline map packs: offline-capable map renderer (MBTiles/vector tiles)
+  - Offline routing (Medina core): on-device routing using a bundled walking graph inside the pack
 - **Location:** FusedLocationProviderClient + SensorManager (for compass heading)
 - **Sharing:** Intent.ACTION_SEND + ShareSheet
 - **Image rendering:** Canvas + Bitmap for share cards
@@ -524,6 +584,11 @@ Both platforms use the same data architecture:
   - (Preferred) replace `content.db` with a prebuilt, verified DB file for that version
   - Atomic swap with rollback support
 
+**Non-blocking startup rule:**
+- Never block app startup on downloads/indexing/import
+- If an update/pack is incomplete, fall back to last-known-good content and show a small banner
+- Avoid infinite spinners: every download/import state must have timeout + retry + cancel
+
 ### Downloads & storage (offline packs)
 
 Treat downloads like a mini product: predictable, resumable, and easy to manage.
@@ -538,13 +603,25 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
 - WorkManager for reliable background downloads
 - Preflight: check available space via `StatFs`
 
-**Both platforms:**
+**Both platforms (packs are a product surface):**
 - Verify downloads (sha256 from manifest) before importing/using assets
 - Cache eviction policy:
   - Show total space used by packs
-  - Allow "delete audio pack" / "delete images pack"
+  - Allow uninstall per pack
   - Keep the last 1–2 content versions for rollback, then auto-clean older ones
 - Respect Wi‑Fi-only toggle (ConnectivityManager / Network.reachability)
+
+**Pack types (district-based + utility-based):**
+- Base Pack (ships in-app)
+- Medina Pack (offline map + routing graph + core POIs)
+- Gueliz Pack (offline POIs + map)
+- Day Trips Pack (offline guides; optional map)
+- Audio Pack (phrases + mini guides)
+- Images Pack (hi-res)
+
+**Data saver UX:**
+- Show pack sizes up front + "Wi‑Fi only" toggle
+- Allow cellular download with explicit confirmation for large packs
 
 ### Search
 
@@ -676,6 +753,7 @@ Convex is added to:
 - update content without app releases
 - optionally sync favorites/bookmarks across devices (if you add auth)
 - manage content with a lightweight admin workflow
+- optionally ship a small curated "What's on this week" events feed (online-first + cached; never required)
 
 ### What Convex should store
 
@@ -687,6 +765,7 @@ Convex is added to:
 - `cultureArticles`
 - `itineraries`
 - `tips`
+- `events` (phase 2): small curated weekly list with timestamps + expiration
 
 **Versioning:**
 
@@ -725,6 +804,10 @@ Pros: smaller updates.
 Cons: more edge cases.
 
 **Recommendation:** Start with **bundle-based**.
+
+**Events approach (phase 2, optional):**
+- Small JSON feed with `expiresAt` so stale events disappear automatically
+- Cache last successful fetch so it's usable briefly offline (with "Last updated" label)
 
 ### Hardening (strongly recommended once updates ship)
 
@@ -767,11 +850,16 @@ Landmarks, restaurants, shops, markets can share a base shape.
 |--------|------|-------|
 | `id` | TEXT PK | |
 | `name` | TEXT | |
+| `aliases` | TEXT | JSON array of alternate spellings/names (optional but high leverage) |
 | `category` | TEXT | "landmark", "museum", "garden", "neighborhood", "restaurant", "cafe", "shopping", etc. |
 | `short_description` | TEXT | |
 | `long_description` | TEXT | nullable |
 | `reviewed_at` | TEXT | YYYY-MM-DD, nullable |
+| `status` | TEXT | "open" / "temporarily_closed" / "permanently_closed" |
+| `status_note` | TEXT | nullable (e.g., renovation, moved) |
 | `confidence` | TEXT | "high", "medium", "low", nullable |
+| `tourist_trap_level` | TEXT | "low" / "mixed" / "high" |
+| `why_recommended` | TEXT | JSON array; short bullets |
 | `neighborhood` | TEXT | nullable |
 | `address` | TEXT | nullable |
 | `lat` | REAL | nullable |
@@ -780,6 +868,7 @@ Landmarks, restaurants, shops, markets can share a base shape.
 | `hours_timezone` | TEXT | nullable |
 | `hours_weekly` | TEXT | JSON array, nullable; enables "Open now" |
 | `hours_verified_at` | TEXT | nullable |
+| `hours_stale_after_days` | INTEGER | nullable; default by category |
 | `fees_min_mad` | INTEGER | nullable |
 | `fees_max_mad` | INTEGER | nullable |
 | `fees_notes` | TEXT | nullable |
@@ -787,6 +876,7 @@ Landmarks, restaurants, shops, markets can share a base shape.
 | `expected_cost_max_mad` | INTEGER | nullable |
 | `expected_cost_notes` | TEXT | nullable |
 | `expected_cost_updated_at` | TEXT | nullable |
+| `expected_cost_stale_after_days` | INTEGER | nullable; default by category |
 | `estimated_visit_time` | TEXT | e.g., "45–90 min", nullable |
 | `best_time_to_go` | TEXT | nullable |
 | `tags` | TEXT | JSON array |
@@ -869,7 +959,7 @@ enum class Confidence { HIGH, MEDIUM, LOW }
 | `expected_cost_notes` | TEXT | nullable |
 | `expected_cost_updated_at` | TEXT | |
 | `what_influences_price` | TEXT | JSON array |
-| `negotiation_scripts` | TEXT | JSON array of {darijaLatin, english} |
+| `negotiation_scripts` | TEXT | JSON array of {darijaLatin, arabic?, french?, english} |
 | `red_flags` | TEXT | JSON array |
 | `what_to_do_instead` | TEXT | JSON array |
 | `context_modifiers` | TEXT | JSON array of modifier objects |
@@ -942,9 +1032,10 @@ Keys: `homeBase`, `activeRoute`, `travelProfile`, `exchangeRate`
 ### Navigation + shell
 
 - Tab navigator layout
+- Onboarding flow (first-run + re-runnable from Settings)
 - Global search modal/screen
 - Shared "detail" screens (place detail, price card detail)
-- Settings screen (offline downloads/**Downloads manager**, exchange rate, **language**, privacy, diagnostics, "What's new")
+- Settings screen (offline downloads/**Downloads manager**, exchange rate, **language**, privacy, Privacy Center, diagnostics, "What's new")
 - Diagnostics screen (content version, last sync/import status, storage usage, export debug report)
 
 ### Home
@@ -989,7 +1080,8 @@ Keys: `homeBase`, `activeRoute`, `travelProfile`, `exchangeRate`
 - Culture & etiquette pages
 - Darija phrasebook: categories + search + phrase detail
 - Itineraries list + itinerary detail
-- **Route Card** (route overview + next stop)
+- **My Trip builder** (1/2/3 day planner + drag reorder)
+- **Route Card** (route overview + next stop + Medina Mode)
 - Tips & safety pages
 
 ### Cross-cutting features
@@ -1304,6 +1396,8 @@ android/
   - cold start target (mid-tier device)
   - search response time target (p95)
   - memory ceiling in Explore + Map views
+  - offline map render performance (fps target on mid-tier device)
+  - offline route computation budget (time-to-route for Medina core)
 
 ### Offline behavior
 
@@ -1313,9 +1407,18 @@ android/
 
 ### Privacy
 
-- "Near me" is optional
-- Location used only on device for sorting
-- No selling data, no ad tracking
+- Trust + privacy are product pillars:
+  - "Near me" is optional
+  - Location used only on-device (sorting, Go Home, Navigate) and only while those screens are open
+  - No contacts/photos permissions (ever)
+  - No ads, no selling data, no shady SDKs
+  - If crash reporting exists, make it privacy-forward and explain it in-app (opt-in preferred)
+
+### Privacy Center (in Settings)
+- Plain-language explanation of:
+  - what data is stored on-device
+  - what leaves the device (ideally nothing in v1)
+  - why permissions are requested (location only, on-demand)
 
 ### QA checklist (minimum)
 
@@ -1349,10 +1452,12 @@ android/
 - Heading unavailable (fallback UI still works)
 - Low power mode / battery optimizations (manual refresh still works)
 - Location accuracy degraded (graceful handling)
+- Offline navigation running for 10 minutes (battery + stability)
 
 Add "paid app" reliability basics:
 
 - Interruption tests:
+  - app launch while downloads are in progress (must still be usable)
   - content update download interrupted (resume works)
   - low storage during download (clear error message)
   - app killed mid-import (must recover safely on next launch)
@@ -1520,6 +1625,20 @@ To ensure engines behave identically, write platform-agnostic test cases in JSON
 }
 ```
 Both iOS and Android test suites read these cases and verify their engine implementations match.
+
+### CI gates (required for "paid quality")
+
+- Validate content schema + references on every PR
+- Build `content.db` and ensure it includes required tables + FTS tables
+- Run the shared engine test vectors on iOS + Android
+- Generate changelog artifact used for in-app "What's new" + store notes
+
+### Trust & reliability gates (additions)
+
+- Pack integrity test: verify manifests + sha256 + install/uninstall flows (simulated)
+- Offline smoke test script: core flows must work in airplane mode
+- Forbidden-permissions check (AndroidManifest + iOS entitlements):
+  - fail build if contacts/photos permissions appear
 
 ---
 
