@@ -2,7 +2,8 @@
 
 ## 1) Product thesis
 
-This is a **paid "confidence" app** for tourists in Marrakech (Morocco):
+This is a **paid, offline-first "confidence companion"** for first-time tourists in Marrakech (Morocco).
+It replaces the need for multiple apps (maps, blogs, phrasebooks, pricing guesses) with one trusted guide.
 
 - Know **what to do today** (curated, not overwhelming) — plus a 1-tap **My Day plan** that fits your time/budget.
 - Know **what things should cost** (MAD ranges + negotiation scripts)
@@ -51,41 +52,32 @@ It's the "locals' practical guide" you can trust.
 
 ## 2) Monetization
 
-**Default (recommended):** free download + one-time IAP unlock (no subscription)
-- Reason: better conversion + lets users experience the "confidence" moment before paying.
-- Competitive reality: users punish subscriptions and "online-only / daily limit" walls in reviews.
+**Paid-only model (v1):**
 
-Two packaging options:
+- Users pay once to download the app and get the full core experience.
+- No free tier, no subscriptions, no daily limits.
+- Target price: **$4.99–$9.99** (regional pricing enabled).
 
-- **Option A: paid install (current plan).**
-  - Target: $4.99–$9.99 (consider regional pricing)
-- **Option B (default): free download + one-time IAP unlock (often higher conversion).**
-  - Free includes a **genuinely useful offline core** (avoid "5 entries/day" frustration):
-    - **Offline Medina Mini Map Pack** (core area) + POI search
-    - **Navigate to a saved place** (offline walking guidance in Medina; limited scope)
-    - Taxi essentials: airport + short-ride Price Cards + **Quote → Action**
-    - 1 arrival checklist + essential refusal scripts
-  - Free tier should still feel complete in a moment of need (lost/taxi/first hour).
-  - Paywall triggers: after viewing X price cards, or after completing 1–2 Quote → Action checks (when confidence is highest).
-  - Unlock removes limits and downloads full offline packs (districts + advanced navigation).
-  - Pros: easier marketing + lets users "see the value" before paying.
-  - Cons: slightly more implementation + store compliance work.
+**Why paid-only works for this app:**
+- Acquisition is influencer/IG/FB-driven (value is pre-sold before install).
+- First-time tourists want reliability, not experiments.
+- Competitive research shows backlash against subscriptions and restrictive free tiers.
 
-**Offline paywall rules (important):**
-- If offline: "Purchase requires internet. Free core still works offline."
-- Never block safety-critical basics (emergency info, refusal scripts, Go Home if already set).
+**What "paid" guarantees to the user:**
+- Everything essential works offline after install.
+- No surprise paywalls.
+- No account required.
+- No ads. No data selling.
 
-**Optional IAP add-ons (keep simple):**
+**Optional add-ons (only if clearly optional, not required):**
+- Audio Pack (spoken Darija phrases, mini guides)
+- Extra regions / day trips pack
 
-- Offline **Audio Pack** (Darija phrases + mini audio guides)
-- "Fresh Content Pack" (not required, but could fund continuous updates—optional)
+**Important rule:**
+- Core Marrakech experience must feel complete without any add-ons.
 
-No ads. No subscriptions unless you later add heavy ongoing services (not needed).
-
-Store-quality details to plan for:
-
-- "Restore purchases" flow (required on iOS).
-- Clear messaging on what's included offline vs downloaded packs (sizes, Wi‑Fi-only toggle).
+**Downloads screen:**
+- Clear messaging on what's included vs optional packs (sizes, Wi‑Fi-only toggle).
 - A simple **Downloads** screen: pause/resume, progress, error states, and "free space required" preflight.
 
 ---
@@ -363,8 +355,8 @@ Goal: prevent offline dead-ends and build trust immediately.
 
 1. Language + home currency
 2. "Offline promise" screen:
-   - What works offline (core guide + map packs)
-   - What needs internet (purchase/restore, updates)
+   - What works offline (almost everything)
+   - What needs internet (optional updates, optional downloads)
 3. Pick offline downloads (district-based packs; sizes shown; Wi‑Fi-only toggle)
 4. Quick demo entry: Quote → Action (Taxi example)
 5. Privacy + Permissions explainer:
@@ -543,7 +535,6 @@ Both platforms follow the same architectural approach for consistency:
 - **Image rendering:** ImageRenderer for share cards
 - **Database:** SQLite via GRDB.swift (Swift-friendly, supports FTS5)
 - **Networking:** URLSession (native, supports background downloads)
-- **IAP:** StoreKit 2 (modern async API)
 - **Storage:** FileManager + App Groups for shared data
 - **Preferences:** UserDefaults (small settings only)
 
@@ -560,7 +551,6 @@ Both platforms follow the same architectural approach for consistency:
 - **Image rendering:** Canvas + Bitmap for share cards
 - **Database:** SQLite via Room (with FTS4/FTS5 support)
 - **Networking:** OkHttp + Retrofit (supports resumable downloads)
-- **IAP:** Google Play Billing Library 6.x
 - **Storage:** Context.filesDir + SharedPreferences
 - **Preferences:** DataStore (for typed preferences)
 
@@ -642,7 +632,7 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
 MarrakechGuide.app
 ├─ App/
 │   ├─ MarrakechGuideApp.swift (entry point)
-│   └─ AppDelegate.swift (lifecycle, push notifications)
+│   └─ AppDelegate.swift (lifecycle only; no push notifications in v1)
 ├─ Core/
 │   ├─ Database/
 │   │   ├─ ContentDatabase.swift (GRDB, read-only content)
@@ -1405,6 +1395,11 @@ android/
 - Online features are additive only
 - Clear messaging when offline, not scary
 
+**Paid-app guarantee:**
+- Core value works immediately after install, offline.
+- No blocking "downloading resources…" screen on first launch.
+- If optional packs are not downloaded, the app still remains fully usable.
+
 ### Privacy
 
 - Trust + privacy are product pillars:
@@ -1435,14 +1430,12 @@ android/
 - VoiceOver smoke test on core flows (Quote → Action, Go Home, Route Cards, Search)
 - Dynamic Type sizes (accessibility)
 - Works on oldest supported iOS version (16.0)
-- StoreKit 2 IAP flows (purchase, restore)
 - Background download resume after app termination
 
 **Android-specific:**
 - TalkBack smoke test on core flows
 - Font scaling (accessibility)
 - Works on oldest supported API level (26)
-- Play Billing flows (purchase, restore)
 - WorkManager download resume after process death
 - Battery optimization handling (Doze mode)
 
@@ -1456,6 +1449,7 @@ android/
 
 Add "paid app" reliability basics:
 
+- **App must be fully usable in airplane mode immediately after fresh install**
 - Interruption tests:
   - app launch while downloads are in progress (must still be usable)
   - content update download interrupted (resume works)
@@ -1471,7 +1465,10 @@ Add "paid app" reliability basics:
 
 ## 13) Store listing strategy (so paid installs convert)
 
-Your App Store / Play Store copy should sell outcomes:
+Your App Store / Play Store copy must **prove value before purchase**:
+
+**Positioning line:**
+"The offline Marrakech guide you can trust — prices, navigation, and cultural confidence."
 
 - "Fair prices in MAD + negotiation scripts"
 - "Offline-first: works without internet"
@@ -1481,13 +1478,13 @@ Your App Store / Play Store copy should sell outcomes:
 
 Screenshots should highlight:
 
-- Price card UI
-- Itinerary UI
-- Phrasebook UI
-- Arrival mode + converter (shows "paid utility" immediately)
+- Works offline (airplane mode screenshot)
+- Offline Medina navigation (not just pins)
+- Fair prices in MAD + negotiation scripts
+- No subscriptions / no ads / no data selling
 - Quote → Action + Go Home + Route Cards (shows "confidence in the moment")
 - Shareable Price Card "snapshot" (helps marketing + word-of-mouth)
-- Offline mode
+- Arrival mode + converter (shows "paid utility" immediately)
 
 ---
 
@@ -1528,9 +1525,9 @@ Screenshots should highlight:
 12. **Route Cards** (execute itineraries with next-stop guidance)
 13. Map integration + external directions (MapKit / Google Maps)
 
-### Phase 3: Polish & monetization
+### Phase 3: Polish & store readiness
 
-14. IAP integration (StoreKit 2 / Play Billing)
+14. Store-ready polish (screenshots, App Store video, copy)
 15. Downloads manager (audio packs, content updates)
 16. Offline UX polish, error states, empty states
 17. Accessibility audit (VoiceOver / TalkBack)
@@ -1654,5 +1651,5 @@ The app is "ready to sell" when:
 - Store pages (App Store + Play Store) clearly communicate the value in 5 seconds
 - Offline promise is validated via a repeatable test checklist (airplane mode + interrupted update + low storage)
 - Both platforms pass accessibility audits (VoiceOver + TalkBack)
-- IAP flows work reliably (purchase + restore) on both platforms
+- No billing flows exist; app is fully accessible after paid install
 - Feature parity confirmed between iOS and Android
