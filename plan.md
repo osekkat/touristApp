@@ -39,7 +39,9 @@ It replaces the need for multiple apps (maps, blogs, phrasebooks, pricing guesse
 ### Success metrics (so you can evaluate v1)
 
 - Activation: % of new users who view ≥1 Price Card + save ≥1 item in first session
-- Activation: % who complete "offline ready" setup (downloaded at least 1 pack OR confirmed "download later")
+- Activation: % who complete "offline ready" setup (downloaded recommended packs OR explicitly choose "download later")
+- Reliability: % who pass **Offline Readiness Check** in onboarding (integrity OK + core flows usable offline)
+- Support load: # of users who open Diagnostics/Offline Readiness (proxy for "something feels broken")
 - Trust: % who view Privacy/Permissions explainer (and do not churn immediately after)
 - Retention: % returning on day 2 / day 7 (tourists are short-lived—optimize for day 2)
 - Helpfulness: "Was this useful?" ≥80% positive on Price Cards
@@ -52,20 +54,27 @@ It's the "locals' practical guide" you can trust.
 
 ## 2) Monetization
 
-**Paid-only model (v1):**
+**Monetization options (choose one early):**
 
+**Option A — Paid up-front (current plan):**
 - Users pay once to download the app and get the full core experience.
 - No free tier, no subscriptions, no daily limits.
 - Target price: **$4.99–$9.99** (regional pricing enabled).
+- Simplest implementation; no gating logic.
 
-**Why paid-only works for this app:**
+**Option B — Free download + one-time unlock (recommended for conversion):**
+- Free offline preview pack (small but genuinely useful: 3 price cards + 5 places + 20 phrases + arrival checklist)
+- One-time purchase unlocks full Marrakech content + all offline features
+- Still: no subscriptions, no accounts, no ads, no data selling
+
+**Why these models work for this app:**
 - Acquisition is influencer/IG/FB-driven (value is pre-sold before install).
 - First-time tourists want reliability, not experiments.
 - Competitive research shows backlash against subscriptions and restrictive free tiers.
 
-**What "paid" guarantees to the user:**
-- Everything essential works offline after install.
-- No surprise paywalls.
+**What the app guarantees to the user:**
+- Everything essential works offline after install/unlock.
+- No surprise paywalls beyond the one-time unlock (if Option B).
 - No account required.
 - No ads. No data selling.
 
@@ -102,6 +111,10 @@ Curated entities with:
   - If Offline Map Pack is installed: show offline walking route guidance
   - If not installed: explain and link to Downloads (never a blank map)
 - Save / share (including a clean, screenshot-friendly "share card")
+- **Related** (small, curated cross-links):
+  - Relevant Price Cards (e.g., fees, taxi, nearby bargaining categories)
+  - Useful Darija phrases (large-text driver mode when relevant)
+  - Tips & safety items tied to this place (scams, etiquette, "watch outs")
 
 ### B) Eat (restaurants & cafés + what to order)
 
@@ -129,6 +142,7 @@ Structured "Price Cards" for common tourist spend categories:
 Each price card includes:
 
 - **Expected MAD range** (with unit like *per ride / per person / per item*) + last reviewed
+- **Related "Do this safely" links** (optional): curated places or safer alternatives when relevant
 - **Provenance note** (how this range was derived) + optional seasonality tags
 - **Confidence + volatility** indicator (helps users interpret how strict the range is, and triggers staleness warnings sooner for volatile categories)
 - "What influences price"
@@ -148,27 +162,31 @@ A fast tool for the exact high-stress moment tourists face: *"I was quoted X MAD
    - The UI always shows the unit to avoid apples-to-oranges comparisons.
 4. Optional context toggles adjust the expected range (e.g., night, peak season, group size, distance tier)
 5. Results screen shows:
-   - **Fairness meter**: Fair / High / Very High (with a confidence note)
+   - **Fairness meter**: Low (confirm details) / Fair / High / Very High (with a confidence note)
    - **Expected range (adjusted)** + last reviewed + provenance
    - **Suggested counter-offer range** (polite + firm)
    - **Best 1–3 scripts** (Darija + English, + optional French for taxi/restaurant contexts)
+   - If **Low**: "Confirm what's included" checklist + 1–2 clarification scripts
    - **If they won't budge**: "what to do instead" alternatives
+   - **Compare quotes** (optional): keep 2–3 recent quotes for the same Price Card and show a quick comparison view
 
 **Implementation details:**
 
 - All logic is deterministic and on-device; no AI required.
 - Add a small `pricingEngine` module:
-- Inputs: `priceCard.expectedCostMAD`, `priceCard.unit`, `quoteMAD`, optional `quantity`, selected `contextModifiers`
+- Inputs: `priceCard.expectedCostMAD`, `priceCard.unit`, `quoteMAD` (or `homeCurrencyAmount` + stored rate), optional `quantity`, selected `contextModifiers`
 - Output: `{ adjustedRange, fairnessLevel, suggestedCounterRange, scripts, explanation, confidence }`
 - Fairness heuristic (simple + explainable, tunable per card):
+  - `Low` if `quoteMAD < adjustedMin * lowMultiplier` (default 0.75; override per card)
   - `Fair` if `quoteMAD <= adjustedMax`
   - `High` if `quoteMAD <= adjustedMax * highMultiplier`
   - `Very High` if `quoteMAD > adjustedMax * highMultiplier`
-  - Where `highMultiplier` defaults to `1.25`, but can be overridden per Price Card/category (e.g., souks are higher-variance than posted fees).
+  - Where `highMultiplier` defaults to `1.25`, `lowMultiplier` defaults to `0.75`, but can be overridden per Price Card/category.
 - Suggested counter range:
   - `counterMin = adjustedMin` (or slightly above in high-friction categories)
   - `counterMax = adjustedMax` (or `adjustedMax * 0.95`)
 - Store the user's last 10 Quote → Action checks locally (recents) so they can quickly re-open.
+- Extend PriceCard to include optional `lowMultiplier` and `inclusionsChecklist` (short bullets shown only when helpful)
 
 **Data requirements:**
 
@@ -201,6 +219,7 @@ Skimmable, useful:
   - English meaning
   - RTL display support (Arabic shown right-to-left; "show large text" mode for taxi drivers)
   - Optional audio playback
+  - Optional: **"Used in" shortcuts** (links to relevant Price Cards / Tips / Arrival flows)
 - Include **numbers** and bargaining essentials (very high utility)
 
 ### F) Itineraries (opinionated, day-by-day)
@@ -224,11 +243,15 @@ A lightweight planner that fulfills the core JTBD ("give me a realistic plan for
    - Home Base (if set)
    - A neighborhood (manual selection)
 3. The app builds a plan with 3–7 stops + suggested meal/drink breaks.
+   - Avoids closed stops when structured hours are available
+   - Prefers geographically coherent clusters (minimize backtracking)
+   - Respects "best time to go" windows when provided (morning/afternoon/evening)
 4. Tap "Start" to follow it via **Route Cards**. You can skip a stop and the plan reflows.
 
 **Implementation approach:** deterministic `planEngine` using your curated content.
 - Inputs: `availableMinutes`, `startPoint`, `interests[]`, `pace`, `budgetTier`
-- Data: per-place `estimatedVisitTime`, `bestTimeToGo`, tags, and optional `crowdLevel`/`kidFriendly` tags
+- Data: per-place `visitMinMinutes`/`visitMaxMinutes`, `bestTimeWindows`, structured hours (if present), tags, and optional `crowdLevel`/`kidFriendly` tags
+- Travel-time model (offline): region clustering + simple travel-time estimates between regions (or tuned distance heuristics)
 - Output: ordered `Plan` (a list of place ids + time blocks) suitable for Route Cards
 
 This keeps the promise of "what should I do today?" even for users who never open the itineraries list.
@@ -270,8 +293,14 @@ For each itinerary (and any generated plan later), provide a **Route Card** view
 
 **Implementation details:**
 
+- Define **Routing Capability Levels** (to avoid "half-working" UX):
+  - Level 0: compass + distance + landmark hint (always available)
+  - Level 1: offline map display + user dot + bearing line (no routing)
+  - Level 2: offline route polyline from bundled walking graph (no turn-by-turn)
+  - Level 3: optional future turn-by-turn (only if reliability is proven)
 - Provide point-to-point walking guidance **within installed offline map pack areas** (Medina core first).
-- Fallback when routing is unavailable: compass + distance + route hints.
+- Cache per-leg route results locally (routeId + stepIndex → polyline + distance + ETA) for stability and performance
+- Fallback when routing is unavailable: Level 0 + short "Medina Mode" hint text + one-tap "Ask for directions" phrase card
 - For each leg, compute straight-line distance with Haversine and estimate walk time with tuned speeds:
   - default: ~4.5 km/h (outside medina)
   - medina multiplier: slower (dense paths)
@@ -358,6 +387,7 @@ Goal: prevent offline dead-ends and build trust immediately.
    - What works offline (almost everything)
    - What needs internet (optional updates, optional downloads)
 3. Pick offline downloads (district-based packs; sizes shown; Wi‑Fi-only toggle)
+3b. **Offline Readiness Check** (fast local validation + "Test in Airplane Mode" checklist)
 4. Quick demo entry: Quote → Action (Taxi example)
 5. Privacy + Permissions explainer:
    - No accounts required
@@ -503,14 +533,14 @@ This app is built natively (Swift/SwiftUI for iOS, Kotlin/Compose for Android) r
 **iOS (Swift)**
 - Swift 5.9+ with Swift Concurrency (async/await)
 - SwiftUI for UI (with UIKit interop where needed)
-- Minimum deployment: iOS 16.0
-- Xcode 15+
+- Minimum deployment: iOS 16.0 (re-evaluate yearly based on device share + QA budget)
+- **Build toolchain:** keep current with App Store submission requirements (e.g., Xcode/SDK minimums)
 
 **Android (Kotlin)**
 - Kotlin 1.9+ with Coroutines
 - Jetpack Compose for UI
 - Minimum SDK: 26 (Android 8.0)
-- Target SDK: 34
+- **Target SDK:** align with Google Play policy deadlines (e.g., API 35+ for submissions as required)
 - Android Studio Hedgehog+
 
 ### Shared architecture patterns
@@ -594,7 +624,12 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
 - Preflight: check available space via `StatFs`
 
 **Both platforms (packs are a product surface):**
+- Pack manifest supports **dependencies** (e.g., routing_graph depends on medina_map_tiles)
+- "Recommended downloads" (based on selected itinerary / trip length / Home Base region)
 - Verify downloads (sha256 from manifest) before importing/using assets
+- **Signed manifest (recommended even in v1 if any packs are hosted remotely):** Ed25519 signature with pinned public key
+- Safe install pipeline: download → verify → unpack to temp → validate → atomic move → register
+- Rollback: keep last-known-good pack version; auto-revert on validation failure
 - Cache eviction policy:
   - Show total space used by packs
   - Allow uninstall per pack
@@ -604,6 +639,7 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
 **Pack types (district-based + utility-based):**
 - Base Pack (ships in-app)
 - Medina Pack (offline map + routing graph + core POIs)
+  - Declare explicit subcomponents: tiles + routing graph + POIs (lets you diagnose failures clearly)
 - Gueliz Pack (offline POIs + map)
 - Day Trips Pack (offline guides; optional map)
 - Audio Pack (phrases + mini guides)
@@ -615,9 +651,12 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
 
 ### Search
 
-- **SQLite FTS5** on both platforms for fast, consistent on-device search:
+- **SQLite full-text search** for fast, consistent on-device search (FTS5 preferred where feasible):
   - FTS across places, price cards, phrases, tips/articles
-  - Add lightweight ranking boosts (category, exact/prefix match)
+  - Add a shared **normalization spec** (Arabic/Latin/digits) applied at index + query time
+  - Index `aliases` aggressively (high leverage for tourists)
+  - Add lightweight ranking boosts: exact match > alias match > prefix match > contains
+  - Add "Did you mean?" suggestions using aliases + prefix candidates (offline, deterministic)
   - iOS: GRDB.swift has excellent FTS5 support
   - Android: Room supports FTS4 out of the box; FTS5 via custom SQLite build or direct queries
 
@@ -799,7 +838,7 @@ Cons: more edge cases.
 - Small JSON feed with `expiresAt` so stale events disappear automatically
 - Cache last successful fetch so it's usable briefly offline (with "Last updated" label)
 
-### Hardening (strongly recommended once updates ship)
+### Hardening (strongly recommended once *any* remote downloads ship — packs or updates)
 
 - Add a **signed content manifest**:
   - manifest contains: `version`, `locale`, `bundleUrl`/`dbUrl`, `sizeBytes`, `sha256`, `releasedAt`, `minSupportedAppVersion`, `expiresAt`, `signature`
@@ -841,6 +880,7 @@ Landmarks, restaurants, shops, markets can share a base shape.
 | `id` | TEXT PK | |
 | `name` | TEXT | |
 | `aliases` | TEXT | JSON array of alternate spellings/names (optional but high leverage) |
+| `region_id` | TEXT | pack/district id (e.g., "medina_core", "gueliz") |
 | `category` | TEXT | "landmark", "museum", "garden", "neighborhood", "restaurant", "cafe", "shopping", etc. |
 | `short_description` | TEXT | |
 | `long_description` | TEXT | nullable |
@@ -857,6 +897,7 @@ Landmarks, restaurants, shops, markets can share a base shape.
 | `hours_text` | TEXT | always shown |
 | `hours_timezone` | TEXT | nullable |
 | `hours_weekly` | TEXT | JSON array, nullable; enables "Open now" |
+| `hours_exceptions` | TEXT | JSON array, nullable (Ramadan/holidays/one-off closures) |
 | `hours_verified_at` | TEXT | nullable |
 | `hours_stale_after_days` | INTEGER | nullable; default by category |
 | `fees_min_mad` | INTEGER | nullable |
@@ -867,13 +908,16 @@ Landmarks, restaurants, shops, markets can share a base shape.
 | `expected_cost_notes` | TEXT | nullable |
 | `expected_cost_updated_at` | TEXT | nullable |
 | `expected_cost_stale_after_days` | INTEGER | nullable; default by category |
-| `estimated_visit_time` | TEXT | e.g., "45–90 min", nullable |
-| `best_time_to_go` | TEXT | nullable |
+| `visit_min_minutes` | INTEGER | nullable |
+| `visit_max_minutes` | INTEGER | nullable |
+| `best_time_to_go` | TEXT | nullable (human-readable) |
+| `best_time_windows` | TEXT | JSON array, nullable (machine: "morning"/"afternoon"/"evening") |
 | `tags` | TEXT | JSON array |
 | `local_tips` | TEXT | JSON array |
 | `scam_warnings` | TEXT | JSON array |
 | `do_and_dont` | TEXT | JSON array |
 | `images` | TEXT | JSON array of asset refs or URLs |
+| `related_links` | TEXT | JSON array (optional, authoring-time convenience; compiled to content_links) |
 
 **iOS Model (Swift)**
 ```swift
@@ -1015,6 +1059,21 @@ Keys: `homeBase`, `activeRoute`, `travelProfile`, `exchangeRate`
 | `inputs` | TEXT | JSON object |
 | `steps` | TEXT | JSON array |
 
+### Content link graph (recommended)
+
+Add a SQLite table `content_links` in `content.db` (generated at build time):
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | INTEGER PK | autoincrement |
+| `from_type` | TEXT | "place", "price_card", "tip", "phrase" |
+| `from_id` | TEXT | |
+| `to_type` | TEXT | "place", "price_card", "tip", "phrase" |
+| `to_id` | TEXT | |
+| `link_kind` | TEXT | "related_price", "useful_phrase", "avoid_scam", "safe_alternative" |
+
+This powers cross-links without hardcoding per-feature logic.
+
 ---
 
 ## 10) Screen list (everything that needs to be built)
@@ -1026,11 +1085,12 @@ Keys: `homeBase`, `activeRoute`, `travelProfile`, `exchangeRate`
 - Global search modal/screen
 - Shared "detail" screens (place detail, price card detail)
 - Settings screen (offline downloads/**Downloads manager**, exchange rate, **language**, privacy, Privacy Center, diagnostics, "What's new")
-- Diagnostics screen (content version, last sync/import status, storage usage, export debug report)
+- Diagnostics screen (content version, last sync/import status, storage usage, **Offline Readiness**, export debug report)
 
 ### Home
 
 - Quick actions
+- **Offline Ready** chip (shows: Ready / Missing recommended pack / Integrity issue → one-tap fix path)
 - **My Day** plan builder (constraints → generated plan → Route Cards)
 - Today's tip
 - Phrase of the day
@@ -1415,6 +1475,10 @@ android/
   - what leaves the device (ideally nothing in v1)
   - why permissions are requested (location only, on-demand)
 
+### Store policy resilience
+- CI check: fail release builds if iOS build SDK / Android target SDK are below current store requirements
+- Re-evaluate minimum deployment targets yearly based on device share + QA budget
+
 ### QA checklist (minimum)
 
 **Both platforms:**
@@ -1456,10 +1520,9 @@ Add "paid app" reliability basics:
   - low storage during download (clear error message)
   - app killed mid-import (must recover safely on next launch)
 - Observability:
-  - iOS: Crash reporting via MetricKit or Sentry (privacy-forward)
-  - Android: Crash reporting via Firebase Crashlytics or Sentry
-  - Lightweight logging around content import failures
-  - In-app Diagnostics screen + "Export debug report" (helps support without needing user screenshots)
+  - Crash reporting: **opt-in preferred**, privacy-forward messaging in Privacy Center
+  - On-device ring-buffer logs (redacted; no precise location; no user-entered notes)
+  - Export debug report includes pack/version state + recent redacted events (helps support without screenshots)
 
 ---
 
@@ -1610,7 +1673,11 @@ Maintain a checklist to ensure feature parity:
 
 ### Shared logic via unit tests
 
-To ensure engines behave identically, write platform-agnostic test cases in JSON:
+To ensure engines behave identically, write platform-agnostic test cases in JSON for:
+- PricingEngine
+- PlanEngine
+- RouteEngine + GeoEngine
+- Staleness / trust-label logic
 ```json
 {
   "pricingEngine": [
@@ -1637,6 +1704,11 @@ Both iOS and Android test suites read these cases and verify their engine implem
 - Forbidden-permissions check (AndroidManifest + iOS entitlements):
   - fail build if contacts/photos permissions appear
 
+### Schema-driven codegen (recommended)
+
+- Generate Swift/Kotlin model code + enum lists from shared schema to reduce drift
+- CI gate: fail if generated artifacts are out of date vs schema changes
+
 ---
 
 ## 17) Definition of "done"
@@ -1651,5 +1723,6 @@ The app is "ready to sell" when:
 - Store pages (App Store + Play Store) clearly communicate the value in 5 seconds
 - Offline promise is validated via a repeatable test checklist (airplane mode + interrupted update + low storage)
 - Both platforms pass accessibility audits (VoiceOver + TalkBack)
-- No billing flows exist; app is fully accessible after paid install
+- If using Option A (paid up-front): no billing flows; app is fully accessible after paid install
+- If using Option B (free + unlock): purchase + restore flows are reliable and clearly explained (still usable offline after unlock)
 - Feature parity confirmed between iOS and Android
