@@ -87,7 +87,11 @@ It's the "locals' practical guide" you can trust.
 
 **Downloads screen:**
 - Clear messaging on what's included vs optional packs (sizes, Wi‑Fi-only toggle).
-- A simple **Downloads** screen: pause/resume, progress, error states, and "free space required" preflight.
+- A simple **Downloads** screen (treat packs like a product surface):
+  - Determinate progress (bytes + %) + per-pack state: queued → downloading → verifying → installing → ready (or failed)
+  - Pause/resume/cancel + retry with clear error reasons (no ambiguous failures)
+  - "Free space required" preflight + Wi‑Fi-only toggle + cellular confirmation for large packs
+  - State persists across app restarts/process death so downloads reliably resume
 
 ---
 
@@ -358,14 +362,22 @@ Users set a single "Home Base" once (their riad/hotel). Then the app can always 
 - `startUpdatingLocation()` **only while compass screen is visible**
 - `startUpdatingHeading()` for magnetometer compass; fallback to "bearing only" if unavailable
 - Use `CLLocationManager.headingFilter` to reduce update frequency
+- Choose the least-accurate setting that still meets UX needs (e.g., start at `kCLLocationAccuracyNearestTenMeters` and temporarily bump to `kCLLocationAccuracyBest` on explicit refresh)
+- Throttle UI redraw (arrow rotation) to a fixed cadence (e.g., 10–20 Hz) regardless of sensor frequency
+- Add a safety timeout so location/heading updates stop automatically after X minutes if the screen is left in a weird lifecycle state (prevents silent battery drain)
+- Expose a "Heading confidence" state (good / weak / unavailable) that can trigger simplified guidance when sensors are unreliable
 - Provide a manual "Refresh location" button
 
 **Android (FusedLocation + Sensors):**
 - Use `FusedLocationProviderClient` with `LocationRequest.PRIORITY_HIGH_ACCURACY`
 - `getCurrentLocation()` for initial fix
 - `requestLocationUpdates()` **only while compass screen is visible** (use lifecycle-aware scope)
+- Default to balanced accuracy and escalate to high accuracy only when actively navigating or on explicit "Recenter/Refresh"
+- Set a stop-updates timeout (guards against leaks/bugs that would drain battery)
 - Use `SensorManager` with `TYPE_ROTATION_VECTOR` (preferred) or `TYPE_MAGNETIC_FIELD` + `TYPE_ACCELEROMETER` for compass heading
 - Register sensor listeners only when screen is active; unregister in `onPause()`
+- Throttle UI redraw (arrow rotation) to a fixed cadence (e.g., 10–20 Hz) regardless of sensor frequency
+- Track and surface sensor accuracy so the UI can calmly warn when heading is unreliable
 
 **Both platforms compute:**
 - `distanceMeters = haversine(current, homeBase)`
@@ -394,6 +406,8 @@ Goal: prevent offline dead-ends and build trust immediately.
    - No ads / no data selling
    - Location is optional and only used on-device
    - Request location only when user taps Near Me / Go Home / Navigate
+   - Request **foreground/"When in Use"** location only (never background location in v1)
+   - Show a short pre-permission explanation so the system prompt is never surprising; denial path must keep the app usable
 
 ### Bottom tabs (recommended)
 
@@ -402,6 +416,20 @@ Goal: prevent offline dead-ends and build trust immediately.
 3. **Eat**
 4. **Prices**
 5. **More** (Darija, Itineraries, Tips, Culture, Settings)
+
+### Platform-native navigation rules (non-negotiable)
+
+These rules prevent "it feels off" moments that undermine trust in a paid utility app.
+
+**iOS**
+- Keep the 5 bottom tabs as the *only* top-level navigation. Avoid custom navigation metaphors.
+- Use standard push navigation for drill-down flows (NavigationStack) and preserve interactive swipe-back.
+- Use sheets/modals only for focused, temporary tasks (filters, pickers), not primary navigation.
+
+**Android**
+- Use Material navigation patterns: Navigation Bar for top-level tabs + Jetpack Navigation Compose for routing.
+- Follow Back/Up principles: Back pops history; Up never exits the app.
+- Ensure gesture navigation compatibility and implement predictive back support for any custom transitions/animations.
 
 ### Home (paid-app feel)
 
@@ -437,7 +465,21 @@ Goal: prevent offline dead-ends and build trust immediately.
 - Language support: **localized UI** (EN/FR first; Arabic UI later) + locale-aware dates/numbers/currency formatting
 - RTL readiness: ensure Arabic text renders correctly (alignment, numerals, shaping) in phrasebook + taxi-driver cards
 - Dark mode
-- Accessibility: dynamic type, contrast, touch targets
+- Accessibility: dynamic type, contrast, touch targets (iOS hit targets ≥44×44 pt; Android hit targets ≥48×48 dp) + correct focus order for VoiceOver/TalkBack
+
+#### Loading, progress, and error UX (standardized)
+
+Every screen must follow the same state model so the app never feels "stuck" or inconsistent:
+
+- `loading` → show skeleton/placeholder content (no blank screens)
+- `content` → normal state
+- `refreshing` → keep content visible; show subtle progress
+- `offline` → show cached content + clear "what still works" message
+- `error` → explain what failed + provide a next action (Retry / Downloads / Work offline)
+
+Progress indicator rules:
+- Prefer **determinate** progress for downloads/imports (bytes + % + pause/resume/cancel).
+- Use **indeterminate** spinners only for short unknown-duration work; if >10s, show recovery actions.
 
 ---
 
@@ -599,10 +641,15 @@ Both platforms use the same data architecture:
 
 **Offline content store:**
 - Ship bundled seed content in app bundle/assets
-- On first run, copy seed `content.db` to writable location (and build FTS if needed)
+- On first run, copy seed `content.db` to writable location (**FTS tables must ship prebuilt**; if a rebuild is ever required, do it in the background and keep core search usable)
 - Cache updated bundles; verify; then:
   - (Preferred) replace `content.db` with a prebuilt, verified DB file for that version
   - Atomic swap with rollback support
+
+- Activation must be exclusive and crash-safe:
+  - Pause reads, close DB connections, swap the file, then reopen the DB pool
+  - **iOS:** use `FileManager.replaceItem(...)` (with optional backup name) to replace the DB file safely
+  - **Android:** close and recreate the Room/SQLite instance; swap using an atomic move/rename on the same filesystem (temp file + rollback)
 
 **Non-blocking startup rule:**
 - Never block app startup on downloads/indexing/import
@@ -634,6 +681,9 @@ Treat downloads like a mini product: predictable, resumable, and easy to manage.
   - Show total space used by packs
   - Allow uninstall per pack
   - Keep the last 1–2 content versions for rollback, then auto-clean older ones
+- Backup policy (critical for large offline packs):
+  - Exclude re-downloadable packs/tiles/audio/images and cached `content.db` copies from backups (iCloud / Auto Backup) to keep backups small and restores fast
+  - Backup only user intent/state (`user.db` + small settings like language, exchange rate, Wi‑Fi-only toggle)
 - Respect Wi‑Fi-only toggle (ConnectivityManager / Network.reachability)
 
 **Pack types (district-based + utility-based):**
@@ -1440,8 +1490,12 @@ android/
 ### Performance
 
 - Fast startup (avoid heavy network calls on launch)
+- Responsiveness is non-negotiable: never do disk IO / network / JSON decoding on the main/UI thread; use platform tooling to catch regressions (iOS hang analysis; Android StrictMode + jank tooling)
 - Lazy-load images
 - Build search index once and reuse
+- Measure and enforce startup performance:
+  - **iOS:** profile launch time and eliminate UI hangs/hitches on core flows (Quote → Action, Go Home, Route Cards)
+  - **Android:** track TTID/TTFD, generate **Baseline Profiles**, and run **Macrobenchmark** in CI to prevent regressions
 - Set performance budgets:
   - cold start target (mid-tier device)
   - search response time target (p95)
@@ -1484,7 +1538,7 @@ android/
 **Both platforms:**
 - Works in airplane mode
 - Works on low-memory devices
-- Map view doesn't crash with many markers (keep curated marker count reasonable)
+- Map view doesn't crash with many markers (keep curated marker count reasonable; enforce a marker budget via clustering/progressive disclosure)
 - Search works fast across content
 - All external links open correctly
 - Dark mode works correctly
@@ -1523,6 +1577,7 @@ Add "paid app" reliability basics:
   - Crash reporting: **opt-in preferred**, privacy-forward messaging in Privacy Center
   - On-device ring-buffer logs (redacted; no precise location; no user-entered notes)
   - Export debug report includes pack/version state + recent redacted events (helps support without screenshots)
+  - Operational quality gates: monitor **Android vitals** (crash + ANR rates) and iOS crash/hang metrics (Xcode Organizer/MetricKit) as release blockers, not "nice to haves"
 
 ---
 
