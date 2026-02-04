@@ -519,6 +519,249 @@ Both iOS and Android test suites read these and verify engine implementations ma
 
 ---
 
+## UBS — Ultimate Bug Scanner
+
+**Golden Rule:** `ubs <changed-files>` before every commit. Exit 0 = safe. Exit >0 = fix & re-run.
+
+### Commands
+
+```bash
+ubs file.swift file2.kt                # Specific files (< 1s) — USE THIS
+ubs $(git diff --name-only --cached)   # Staged files — before commit
+ubs --only=swift,kt src/               # Language filter (3-5x faster)
+ubs --ci --fail-on-warning .           # CI mode — before PR
+ubs --help                             # Full command reference
+ubs sessions --entries 1               # Tail the latest session log
+ubs .                                  # Whole project (ignores build/, .gradle/, Pods/)
+```
+
+### Output Format
+
+```
+⚠️  Category (N errors)
+    file.swift:42:5 – Issue description
+    💡 Suggested fix
+Exit code: 1
+```
+
+Parse: `file:line:col` → location | 💡 → how to fix | Exit 0/1 → pass/fail
+
+### Fix Workflow
+
+1. Read finding → category + fix suggestion
+2. Navigate `file:line:col` → view context
+3. Verify real issue (not false positive)
+4. Fix root cause (not symptom)
+5. Re-run `ubs <file>` → exit 0
+6. Commit
+
+### Bug Severity
+
+- **Critical (always fix):** Memory leaks, null safety, async/await issues, data exposure
+- **Important (production):** Unhandled errors, force unwraps, type issues, retain cycles
+- **Contextual (judgment):** TODO/FIXME, print debugging, unused variables
+
+### Speed Critical
+
+Scope to changed files. `ubs ios/file.swift` (< 1s) vs `ubs .` (30s). **Never full scan for small edits.**
+
+### Anti-Patterns
+
+- ❌ Ignore findings → ✅ Investigate each
+- ❌ Full scan per edit → ✅ Scope to file
+- ❌ Fix symptom (`if x != nil { x!.y }`) → ✅ Root cause (`x?.y`)
+
+---
+
+## ast-grep vs ripgrep
+
+**Use `ast-grep` when structure matters.** It parses code and matches AST nodes, ignoring comments/strings, and can **safely rewrite** code.
+
+- Refactors/codemods: rename APIs, change import forms
+- Policy checks: enforce patterns across a repo
+- Editor/automation: LSP mode, `--json` output
+
+**Use `ripgrep` when text is enough.** Fastest way to grep literals/regex.
+
+- Recon: find strings, TODOs, log lines, config values
+- Pre-filter: narrow candidate files before ast-grep
+
+### Rule of Thumb
+
+- Need correctness or **applying changes** → `ast-grep`
+- Need raw speed or **hunting text** → `rg`
+- Often combine: `rg` to shortlist files, then `ast-grep` to match/modify
+
+### Swift/Kotlin Examples
+
+```bash
+# Find structured code (ignores comments)
+ast-grep run -l Swift -p 'func $NAME($$$ARGS) -> $RET { $$$BODY }'
+ast-grep run -l Kotlin -p 'fun $NAME($$$ARGS): $RET { $$$BODY }'
+
+# Find all print/Log calls
+ast-grep run -l Swift -p 'print($$$ARGS)'
+ast-grep run -l Kotlin -p 'Log.d($$$ARGS)'
+
+# Find force unwraps in Swift
+ast-grep run -l Swift -p '$EXPR!'
+
+# Quick textual hunt
+rg -n 'TODO' -t swift -t kotlin
+
+# Combine speed + precision
+rg -l -t swift 'URLSession' | xargs ast-grep run -l Swift -p 'URLSession.$METHOD' --json
+```
+
+---
+
+## Morph Warp Grep — AI-Powered Code Search
+
+**Use `mcp__morph-mcp__warp_grep` for exploratory "how does X work?" questions.** An AI agent expands your query, greps the codebase, reads relevant files, and returns precise line ranges with full context.
+
+**Use `ripgrep` for targeted searches.** When you know exactly what you're looking for.
+
+**Use `ast-grep` for structural patterns.** When you need AST precision for matching/rewriting.
+
+### When to Use What
+
+| Scenario | Tool | Why |
+|----------|------|-----|
+| "How is the pricing engine implemented?" | `warp_grep` | Exploratory; don't know where to start |
+| "Where is the compass heading calculated?" | `warp_grep` | Need to understand architecture |
+| "Find all uses of `LocationService`" | `ripgrep` | Targeted literal search |
+| "Find files with force unwraps" | `ripgrep` | Simple pattern |
+| "Replace all `print()` with `Logger.debug()`" | `ast-grep` | Structural refactor |
+
+### warp_grep Usage
+
+```
+mcp__morph-mcp__warp_grep(
+  repoPath: "/data/projects/touristApp",
+  query: "How does the Quote → Action fairness calculation work?"
+)
+```
+
+Returns structured results with file paths, line ranges, and extracted code snippets.
+
+### Anti-Patterns
+
+- **Don't** use `warp_grep` to find a specific function name → use `ripgrep`
+- **Don't** use `ripgrep` to understand "how does X work" → wastes time with manual reads
+- **Don't** use `ripgrep` for codemods → risks collateral edits
+
+---
+
+## cass — Cross-Agent Search
+
+`cass` indexes prior agent conversations (Claude Code, Codex, Cursor, Gemini, ChatGPT, etc.) so we can reuse solved problems.
+
+Rules:
+
+- Never run bare `cass` (TUI). Always use `--robot` or `--json`.
+
+Examples:
+
+```bash
+cass health
+cass search "pricing engine error" --robot --limit 5
+cass view /path/to/session.jsonl -n 42 --json
+cass expand /path/to/session.jsonl -n 42 -C 3 --json
+cass capabilities --json
+cass robot-docs guide
+```
+
+Tips:
+
+- Use `--fields minimal` for lean output.
+- Filter by agent with `--agent`.
+- Use `--days N` to limit to recent history.
+
+stdout is data-only, stderr is diagnostics; exit code 0 means success.
+
+Treat cass as a way to avoid re-solving problems other agents already handled.
+
+---
+
+## Memory System: cass-memory (cm)
+
+The Cass Memory System (cm) gives agents effective memory based on searching across previous coding agent sessions and extracting useful lessons.
+
+### Quick Start
+
+```bash
+# 1. Check status and see recommendations
+cm onboard status
+
+# 2. Get sessions to analyze (filtered by gaps in your playbook)
+cm onboard sample --fill-gaps
+
+# 3. Read a session with rich context
+cm onboard read /path/to/session.jsonl --template
+
+# 4. Add extracted rules (one at a time or batch)
+cm playbook add "Your rule content" --category "debugging"
+# Or batch add:
+cm playbook add --file rules.json
+
+# 5. Mark session as processed
+cm onboard mark-done /path/to/session.jsonl
+```
+
+Before starting complex tasks, retrieve relevant context:
+
+```bash
+cm context "<task description>" --json
+```
+
+This returns:
+
+- **relevantBullets**: Rules that may help with your task
+- **antiPatterns**: Pitfalls to avoid
+- **historySnippets**: Past sessions that solved similar problems
+- **suggestedCassQueries**: Searches for deeper investigation
+
+### Protocol
+
+1. **START**: Run `cm context "<task>" --json` before non-trivial work
+2. **WORK**: Reference rule IDs when following them (e.g., "Following b-8f3a2c...")
+3. **FEEDBACK**: Leave inline comments when rules help/hurt:
+   - `// [cass: helpful b-xyz] - reason`
+   - `// [cass: harmful b-xyz] - reason`
+4. **END**: Just finish your work. Learning happens automatically.
+
+### Key Flags
+
+| Flag           | Purpose                                      |
+| -------------- | -------------------------------------------- |
+| `--json`       | Machine-readable JSON output (required!)     |
+| `--limit N`    | Cap number of rules returned                 |
+| `--no-history` | Skip historical snippets for faster response |
+
+stdout = data only, stderr = diagnostics. Exit 0 = success.
+
+---
+
+## Third-Party Library Usage
+
+If you aren't 100% sure how to use a third-party library, **SEARCH ONLINE** to find the latest documentation and current best practices.
+
+- **iOS**: Check Apple Developer docs, Swift Package Index, GitHub repos
+- **Android**: Check Android Developers docs, KotlinLang docs, library GitHub pages
+- **Don't guess** at APIs or patterns that may have changed
+
+---
+
+## Console Output
+
+- Prefer **structured, minimal logs** (avoid spammy debug output)
+- Treat user-facing UX as UI-first; logs are for operators/debugging
+- **iOS**: Use `os_log` or `Logger` for structured logging
+- **Android**: Use `Timber` or `Log` with appropriate levels
+- Remove `print()` / `println()` / `Log.d()` debugging statements before commit
+
+---
+
 ## Code Editing Discipline
 
 - Do **not** run scripts that bulk-modify code (codemods, invented one-off scripts, giant `sed`/regex refactors).
@@ -541,6 +784,64 @@ New files are only for genuinely new domains that don't fit existing modules. Th
   - Kotlin models from JSON Schema
   - SQLite content.db from JSON content
 - **Convention:** Document generator commands; regenerate rather than hand-edit.
+
+---
+
+## Backwards Compatibility
+
+We do not care about backwards compatibility—we're in early development with no users. We want to do things the **RIGHT** way with **NO TECH DEBT**.
+
+- Never create "compatibility shims"
+- Never create wrapper functions for deprecated APIs
+- Never create variations like `MainV2.swift` or `main_improved.kt`
+- Just fix the code directly
+
+---
+
+## Compiler & Linter Checks (CRITICAL)
+
+**After any substantive code changes, you MUST verify no errors were introduced:**
+
+### iOS
+
+```bash
+# Check for compiler errors and warnings
+xcodebuild build -scheme MarrakechGuide -destination 'generic/platform=iOS' 2>&1 | xcpretty
+
+# Run SwiftLint (if configured)
+swiftlint lint --strict
+
+# Verify formatting
+swiftformat --lint ios/
+```
+
+### Android
+
+```bash
+# Check for compiler errors
+./gradlew compileDebugKotlin
+
+# Run Android Lint
+./gradlew lint
+
+# Check Kotlin formatting
+./gradlew ktlintCheck
+
+# Run detekt (if configured)
+./gradlew detekt
+```
+
+### Content
+
+```bash
+# Validate content schema
+node shared/scripts/validate-content.ts
+
+# Check internal links
+node shared/scripts/check-links.ts
+```
+
+If you see errors, **carefully understand and resolve each issue**. Read sufficient context to fix them the RIGHT way.
 
 ---
 
@@ -695,47 +996,155 @@ Both platforms run test vectors from `shared/tests/engine-vectors.json`.
 
 All issue tracking goes through **br**. No other TODO systems.
 
-**Note:** `br` is non-invasive—it never executes git commands directly.
+**Note:** `br` is non-invasive—it never executes git commands directly. After `br sync --flush-only`, you must manually run `git add .beads/` and `git commit`.
 
 Key invariants:
 
 - `.beads/` is authoritative state and **must always be committed** with code changes.
 - Do not edit `.beads/*.jsonl` directly; only via `br`.
 
-### Basics
+### Essential Commands
 
 ```bash
-br ready --json                           # Check ready work
-br create "Issue title" -t bug -p 1 --json  # Create issue
-br update br-42 --status in_progress --json # Update
-br close br-42 --reason "Completed" --json  # Complete
+# View issues (launches TUI - avoid in automated sessions)
+bv
+
+# CLI commands for agents (use these instead)
+br ready              # Show issues ready to work (no blockers)
+br ready --json       # JSON output for parsing
+br list --status=open # All open issues
+br show <id>          # Full issue details with dependencies
+br create --title="..." --type=task --priority=2
+br update <id> --status=in_progress
+br close <id> --reason="Completed"
+br close <id1> <id2>  # Close multiple issues at once
+br sync --flush-only  # Flush changes to .beads/ (does NOT run git)
 ```
 
 Types: `bug`, `feature`, `task`, `epic`, `chore`
 
 Priorities: `0` critical, `1` high, `2` medium (default), `3` low, `4` backlog
 
-### Agent Workflow
+### Workflow Pattern
 
-1. `br ready` to find unblocked work
-2. Claim: `br update <id> --status in_progress`
-3. Implement + test
-4. If you discover new work, create new bead with `discovered-from:<parent-id>`
-5. Close when done
-6. `br sync --flush-only`, then `git add .beads/ && git commit`
+1. **Start**: Run `br ready` to find actionable work
+2. **Claim**: Use `br update <id> --status in_progress`
+3. **Work**: Implement the task
+4. **Complete**: Use `br close <id> --reason "Completed"`
+5. **Sync**: Always run `br sync --flush-only` then `git add .beads/ && git commit` at session end
+
+### Key Concepts
+
+- **Dependencies**: Issues can block other issues. `br ready` shows only unblocked work.
+- **Blocking**: `br dep add <issue> <depends-on>` to add dependencies
+- **Shared IDs**: Use Beads issue ID (e.g., `br-123`) as Mail `thread_id` and prefix subjects with `[br-123]`
+- **Reservations**: When starting a task, call `file_reservation_paths()` with the issue ID in `reason`
+
+### Mapping Cheat Sheet
+
+| Concept | Value |
+|---------|-------|
+| Mail `thread_id` | `br-###` |
+| Mail subject | `[br-###] ...` |
+| File reservation `reason` | `br-###` |
+| Commit messages | Include `br-###` for traceability |
 
 ---
 
 ## bv — Graph-Aware Triage Engine
 
+bv is a graph-aware triage engine for Beads projects (`.beads/beads.jsonl`). Instead of parsing JSONL or hallucinating graph traversal, use robot flags for deterministic, dependency-aware outputs with precomputed metrics (PageRank, betweenness, critical path, cycles, HITS, eigenvector, k-core).
+
+**Scope boundary:** bv handles _what to work on_ (triage, priority, planning). For agent-to-agent coordination (messaging, work claiming, file reservations), use MCP Agent Mail, which should be available to you as an MCP server. If it's not, flag to the user—they may need to start Agent Mail using the `am` alias.
+
 **⚠️ CRITICAL: Use ONLY `--robot-*` flags. Bare `bv` launches an interactive TUI that blocks your session.**
+
+### The Workflow: Start With Triage
+
+**`bv --robot-triage` is your single entry point.** It returns everything you need in one call:
+
+- `quick_ref`: at-a-glance counts + top 3 picks
+- `recommendations`: ranked actionable items with scores, reasons, unblock info
+- `quick_wins`: low-effort high-impact items
+- `blockers_to_clear`: items that unblock the most downstream work
+- `project_health`: status/type/priority distributions, graph metrics
+- `commands`: copy-paste shell commands for next steps
 
 ```bash
 bv --robot-triage        # THE MEGA-COMMAND: start here
-bv --robot-next          # Minimal: just the single top pick
-bv --robot-plan          # Parallel execution tracks
-bv --robot-insights      # Full metrics: PageRank, cycles, etc.
+bv --robot-next          # Minimal: just the single top pick + claim command
 ```
+
+### Command Reference
+
+**Planning:**
+| Command | Returns |
+|---------|---------|
+| `--robot-plan` | Parallel execution tracks with `unblocks` lists |
+| `--robot-priority` | Priority misalignment detection with confidence |
+
+**Graph Analysis:**
+| Command | Returns |
+|---------|---------|
+| `--robot-insights` | Full metrics: PageRank, betweenness, HITS (hubs/authorities), eigenvector, critical path, cycles, k-core, articulation points, slack |
+| `--robot-label-health` | Per-label health: `health_level` (healthy\|warning\|critical), `velocity_score`, `staleness`, `blocked_count` |
+| `--robot-label-flow` | Cross-label dependency: `flow_matrix`, `dependencies`, `bottleneck_labels` |
+| `--robot-label-attention [--attention-limit=N]` | Attention-ranked labels by: (pagerank × staleness × block_impact) / velocity |
+
+**History & Change Tracking:**
+| Command | Returns |
+|---------|---------|
+| `--robot-history` | Bead-to-commit correlations: `stats`, `histories` (per-bead events/commits/milestones), `commit_index` |
+| `--robot-diff --diff-since <ref>` | Changes since ref: new/closed/modified issues, cycles introduced/resolved |
+
+**Other:**
+| Command | Returns |
+|---------|---------|
+| `--robot-burndown <sprint>` | Sprint burndown, scope changes, at-risk items |
+| `--robot-forecast <id\|all>` | ETA predictions with dependency-aware scheduling |
+| `--robot-alerts` | Stale issues, blocking cascades, priority mismatches |
+| `--robot-suggest` | Hygiene: duplicates, missing deps, label suggestions, cycle breaks |
+| `--robot-graph [--graph-format=json\|dot\|mermaid]` | Dependency graph export |
+| `--export-graph <file.html>` | Self-contained interactive HTML visualization |
+
+### Scoping & Filtering
+
+```bash
+bv --robot-plan --label backend              # Scope to label's subgraph
+bv --robot-insights --as-of HEAD~30          # Historical point-in-time
+bv --recipe actionable --robot-plan          # Pre-filter: ready to work (no blockers)
+bv --recipe high-impact --robot-triage       # Pre-filter: top PageRank scores
+bv --robot-triage --robot-triage-by-track    # Group by parallel work streams
+bv --robot-triage --robot-triage-by-label    # Group by domain
+```
+
+### Understanding Robot Output
+
+**All robot JSON includes:**
+
+- `data_hash` — Fingerprint of source beads.jsonl (verify consistency across calls)
+- `status` — Per-metric state: `computed|approx|timeout|skipped` + elapsed ms
+- `as_of` / `as_of_commit` — Present when using `--as-of`; contains ref and resolved SHA
+
+**Two-phase analysis:**
+
+- **Phase 1 (instant):** degree, topo sort, density — always available immediately
+- **Phase 2 (async, 500ms timeout):** PageRank, betweenness, HITS, eigenvector, cycles — check `status` flags
+
+**For large graphs (>500 nodes):** Some metrics may be approximated or skipped. Always check `status`.
+
+### jq Quick Reference
+
+```bash
+bv --robot-triage | jq '.quick_ref'                        # At-a-glance summary
+bv --robot-triage | jq '.recommendations[0]'               # Top recommendation
+bv --robot-plan | jq '.plan.summary.highest_impact'        # Best unblock target
+bv --robot-insights | jq '.status'                         # Check metric readiness
+bv --robot-insights | jq '.Cycles'                         # Circular deps (must fix!)
+bv --robot-label-health | jq '.results.labels[] | select(.health_level == "critical")'
+```
+
+**Performance:** Phase 1 instant, Phase 2 async (500ms timeout). Prefer `--robot-plan` over `--robot-insights` when speed matters. Results cached by data hash.
 
 Use bv instead of parsing beads.jsonl—it computes PageRank, critical paths, cycles, and parallel tracks deterministically.
 
@@ -747,26 +1156,43 @@ Agent Mail is available as an MCP server for coordinating work across agents.
 
 ### CRITICAL: How Agents Access Agent Mail
 
-**Coding agents access Agent Mail NATIVELY via MCP tools.**
+**Coding agents (Claude Code, Codex, Gemini CLI) access Agent Mail NATIVELY via MCP tools.**
 
-- You do NOT need HTTP wrappers or client classes
-- MCP tools are available directly (e.g., `macro_start_session`, `send_message`, `fetch_inbox`)
-- If MCP tools aren't available, flag it to the user
+- You do NOT need to implement HTTP wrappers, client classes, or JSON-RPC handling
+- MCP tools are available directly in your environment (e.g., `macro_start_session`, `send_message`, `fetch_inbox`)
+- If MCP tools aren't available, flag it to the user — they may need to start the Agent Mail server
 
-### Core Patterns
+**DO NOT** create HTTP wrappers or unify "client code" for agent-to-Agent-Mail communication — this is already handled by your MCP runtime.
 
-1. **Register identity:**
-   - `ensure_project` then `register_agent` with repo's absolute path as `project_key`
+What Agent Mail gives:
 
-2. **Reserve files before editing:**
-   - `file_reservation_paths(project_key, agent_name, ["ios/**"], ttl_seconds=3600, exclusive=true)`
+- Identities, inbox/outbox, searchable threads.
+- Advisory file reservations (leases) to avoid agents clobbering each other.
+- Persistent artifacts in git (human-auditable).
 
-3. **Communicate:**
-   - `send_message(..., thread_id="FEAT-123")`
-   - `fetch_inbox`, then `acknowledge_message`
+Core patterns:
 
-4. **Macros:**
-   - `macro_start_session`, `macro_prepare_thread`, `macro_file_reservation_cycle`
+1. **Same repo**
+   - Register identity:
+     - `ensure_project` then `register_agent` with the repo's absolute path as `project_key`.
+   - Reserve files before editing:
+     - `file_reservation_paths(project_key, agent_name, ["ios/**", "android/**"], ttl_seconds=3600, exclusive=true)`.
+   - Communicate:
+     - `send_message(..., thread_id="FEAT-123")`.
+     - `fetch_inbox`, then `acknowledge_message`.
+   - Fast reads:
+     - `resource://inbox/{Agent}?project=<abs-path>&limit=20`.
+     - `resource://thread/{id}?project=<abs-path>&include_bodies=true`.
+
+2. **Macros vs granular:**
+   - Prefer macros when speed is more important than fine-grained control:
+     - `macro_start_session`, `macro_prepare_thread`, `macro_file_reservation_cycle`, `macro_contact_handshake`.
+   - Use granular tools when you need explicit behavior.
+
+Common pitfalls:
+
+- "from_agent not registered" → call `register_agent` with correct `project_key`.
+- `FILE_RESERVATION_CONFLICT` → adjust patterns, wait for expiry, or use non-exclusive reservation.
 
 ---
 
