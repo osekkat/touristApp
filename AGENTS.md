@@ -45,15 +45,6 @@ If that audit trail is missing, then you must act as if the operation never happ
 
 ---
 
-## Git Branch: ONLY Use `main`, NEVER `master`
-
-**The default branch is `main`.**
-
-- **All work happens on `main`** — commits, PRs, feature branches all merge to `main`
-- **Never reference `master` in code or docs** — if you see `master` anywhere, it's a bug that needs fixing
-
----
-
 ## Product Overview
 
 This is a **paid, offline-first "confidence companion"** for first-time tourists in Marrakech. Built natively for iOS (Swift/SwiftUI) and Android (Kotlin/Compose).
