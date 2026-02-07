@@ -1208,7 +1208,7 @@ You may see changes in the working tree that you did not make. These are changes
 
 ---
 
-## Note for Codex/GPT-5.2
+## Note for Codex/GPT-5.3
 
 You constantly bother me with questions about unexpected changes. NEVER DO THAT. Those are changes from other agents working concurrently. Just treat them as your own changes. NEVER stash, revert, or disturb other agents' work.
 
