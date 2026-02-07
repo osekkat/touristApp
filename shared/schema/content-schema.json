@@ -1,0 +1,1089 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marrakechguide.app/schema/content-schema.json",
+  "title": "Marrakech Guide Shared Content Schema",
+  "description": "Schema for validating any shared/content/*.json bundle. Cross-record checks (for example duplicate IDs and min<=max across sibling fields) are enforced by validation scripts.",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/placesCollection"
+    },
+    {
+      "$ref": "#/$defs/priceCardsCollection"
+    },
+    {
+      "$ref": "#/$defs/glossaryCollection"
+    },
+    {
+      "$ref": "#/$defs/itinerariesCollection"
+    },
+    {
+      "$ref": "#/$defs/tipsCollection"
+    },
+    {
+      "$ref": "#/$defs/cultureCollection"
+    },
+    {
+      "$ref": "#/$defs/activitiesCollection"
+    },
+    {
+      "$ref": "#/$defs/eventsCollection"
+    }
+  ],
+  "$defs": {
+    "contentId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dateString": {
+      "type": "string",
+      "format": "date"
+    },
+    "dateTimeString": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "stringList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "sourceRefs": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "minItems": 1
+    },
+    "madAmount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_at",
+        "source_document",
+        "notes"
+      ],
+      "properties": {
+        "generated_at": {
+          "$ref": "#/$defs/dateTimeString"
+        },
+        "source_document": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "generated_by": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
+    "negotiationScript": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "darija_latin",
+        "english"
+      ],
+      "properties": {
+        "darija_latin": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "english": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "darija_arabic": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "french": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "contextModifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "factor_min": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "factor_max": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "add_min": {
+          "type": "number"
+        },
+        "add_max": {
+          "type": "number"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "factor_min",
+            "factor_max"
+          ]
+        },
+        {
+          "required": [
+            "add_min",
+            "add_max"
+          ]
+        }
+      ]
+    },
+    "placeItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "aliases",
+        "region_id",
+        "category",
+        "short_description",
+        "reviewed_at",
+        "status",
+        "confidence",
+        "tourist_trap_level",
+        "why_recommended",
+        "neighborhood",
+        "lat",
+        "lng",
+        "hours_text",
+        "hours_verified_at",
+        "visit_min_minutes",
+        "visit_max_minutes",
+        "best_time_windows",
+        "tags",
+        "local_tips",
+        "scam_warnings",
+        "do_and_dont",
+        "source_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "aliases": {
+          "$ref": "#/$defs/stringList"
+        },
+        "region_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "cafe",
+            "garden",
+            "historic_site",
+            "landmark",
+            "market",
+            "museum",
+            "nature",
+            "neighborhood",
+            "restaurant"
+          ]
+        },
+        "short_description": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "reviewed_at": {
+          "$ref": "#/$defs/dateString"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "temporarily_closed",
+            "closed"
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "tourist_trap_level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "mixed",
+            "high"
+          ]
+        },
+        "why_recommended": {
+          "$ref": "#/$defs/stringList"
+        },
+        "neighborhood": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "hours_text": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "hours_weekly": {
+          "$ref": "#/$defs/stringList"
+        },
+        "hours_verified_at": {
+          "$ref": "#/$defs/dateString"
+        },
+        "fees_min_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "fees_max_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "expected_cost_min_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "expected_cost_max_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "visit_min_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "visit_max_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "best_time_to_go": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "best_time_windows": {
+          "$ref": "#/$defs/stringList"
+        },
+        "tags": {
+          "$ref": "#/$defs/stringList"
+        },
+        "local_tips": {
+          "$ref": "#/$defs/stringList"
+        },
+        "scam_warnings": {
+          "$ref": "#/$defs/stringList"
+        },
+        "do_and_dont": {
+          "$ref": "#/$defs/stringList"
+        },
+        "images": {
+          "$ref": "#/$defs/stringList"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        }
+      }
+    },
+    "priceCardItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "category",
+        "unit",
+        "volatility",
+        "confidence",
+        "expected_cost_min_mad",
+        "expected_cost_max_mad",
+        "expected_cost_notes",
+        "expected_cost_updated_at",
+        "provenance_note",
+        "what_influences_price",
+        "inclusions_checklist",
+        "negotiation_scripts",
+        "red_flags",
+        "what_to_do_instead",
+        "context_modifiers",
+        "fairness_low_multiplier",
+        "fairness_high_multiplier",
+        "source_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "activities",
+            "food",
+            "guides",
+            "hammam",
+            "souks",
+            "taxi"
+          ]
+        },
+        "unit": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "volatility": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "expected_cost_min_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "expected_cost_max_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "expected_cost_notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "expected_cost_updated_at": {
+          "$ref": "#/$defs/dateString"
+        },
+        "provenance_note": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "what_influences_price": {
+          "$ref": "#/$defs/stringList"
+        },
+        "inclusions_checklist": {
+          "$ref": "#/$defs/stringList"
+        },
+        "negotiation_scripts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/negotiationScript"
+          }
+        },
+        "red_flags": {
+          "$ref": "#/$defs/stringList"
+        },
+        "what_to_do_instead": {
+          "$ref": "#/$defs/stringList"
+        },
+        "context_modifiers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contextModifier"
+          }
+        },
+        "fairness_low_multiplier": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "fairness_high_multiplier": {
+          "type": "number",
+          "minimum": 1
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        }
+      }
+    },
+    "glossaryItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category",
+        "arabic",
+        "latin",
+        "english",
+        "audio",
+        "verification_status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "communication",
+            "courtesy",
+            "directions",
+            "emergency",
+            "food",
+            "greetings",
+            "numbers",
+            "polite_refusal",
+            "shopping"
+          ]
+        },
+        "arabic": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "latin": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "english": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "audio": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "needs_native_review",
+            "verified"
+          ]
+        }
+      }
+    },
+    "itineraryStepPlace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "place_id",
+        "estimated_stop_minutes",
+        "route_hint"
+      ],
+      "properties": {
+        "type": {
+          "const": "place"
+        },
+        "place_id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "estimated_stop_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "route_hint": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "itineraryStepMeal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "place_id",
+        "estimated_stop_minutes",
+        "route_hint"
+      ],
+      "properties": {
+        "type": {
+          "const": "meal"
+        },
+        "place_id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "estimated_stop_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "route_hint": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "itineraryStepActivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "activity_id",
+        "estimated_stop_minutes",
+        "route_hint"
+      ],
+      "properties": {
+        "type": {
+          "const": "activity"
+        },
+        "activity_id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "estimated_stop_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "route_hint": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "itineraryItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "duration",
+        "style",
+        "steps",
+        "source_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "duration": {
+          "type": "string",
+          "enum": [
+            "1 day",
+            "2 days",
+            "3 days"
+          ]
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "balanced",
+            "classic-highlights",
+            "coastal-day-trip",
+            "culture",
+            "experience",
+            "family-friendly",
+            "food-focused"
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/itineraryStepPlace"
+              },
+              {
+                "$ref": "#/$defs/itineraryStepMeal"
+              },
+              {
+                "$ref": "#/$defs/itineraryStepActivity"
+              }
+            ]
+          }
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        }
+      }
+    },
+    "tipItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "category",
+        "summary",
+        "actions",
+        "severity",
+        "updated_at",
+        "source_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "accessibility",
+            "accommodation",
+            "booking",
+            "day_trip",
+            "experience",
+            "family_travel",
+            "food_safety",
+            "health_safety",
+            "lgbtiq",
+            "money",
+            "navigation",
+            "planning",
+            "responsible_travel",
+            "scam_awareness",
+            "transport"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "important",
+            "critical"
+          ]
+        },
+        "updated_at": {
+          "$ref": "#/$defs/dateString"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        },
+        "related_place_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contentId"
+          }
+        },
+        "related_price_card_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contentId"
+          }
+        }
+      }
+    },
+    "cultureItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "summary",
+        "do",
+        "dont",
+        "updated_at",
+        "source_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "summary": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "do": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "dont": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "updated_at": {
+          "$ref": "#/$defs/dateString"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        }
+      }
+    },
+    "activityItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "category",
+        "region_id",
+        "duration_min_minutes",
+        "duration_max_minutes",
+        "pickup_available",
+        "typical_price_min_mad",
+        "typical_price_max_mad",
+        "rating_signal",
+        "review_count_signal",
+        "best_time_windows",
+        "tags",
+        "source_refs",
+        "notes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "adventure",
+            "city_tour",
+            "day_trip",
+            "food_tour",
+            "multi_day",
+            "wellness"
+          ]
+        },
+        "region_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "duration_min_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "duration_max_minutes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pickup_available": {
+          "type": "boolean"
+        },
+        "typical_price_min_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "typical_price_max_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "rating_signal": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "review_count_signal": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "best_time_windows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "tags": {
+          "$ref": "#/$defs/stringList"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        },
+        "notes": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "eventItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "category",
+        "city",
+        "venue",
+        "start_at",
+        "end_at",
+        "price_min_mad",
+        "price_max_mad",
+        "ticket_status",
+        "captured_at",
+        "source_refs",
+        "source_url"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/contentId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "concerts_festivals",
+            "salon_formation"
+          ]
+        },
+        "city": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "venue": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "start_at": {
+          "$ref": "#/$defs/dateTimeString"
+        },
+        "end_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "price_min_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "price_max_mad": {
+          "$ref": "#/$defs/madAmount"
+        },
+        "ticket_status": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "open",
+            "sold_out",
+            "cancelled"
+          ]
+        },
+        "captured_at": {
+          "$ref": "#/$defs/dateTimeString"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/sourceRefs"
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        }
+      }
+    },
+    "placesCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/placeItem"
+          }
+        }
+      }
+    },
+    "priceCardsCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/priceCardItem"
+          }
+        }
+      }
+    },
+    "glossaryCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/glossaryItem"
+          }
+        }
+      }
+    },
+    "itinerariesCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/itineraryItem"
+          }
+        }
+      }
+    },
+    "tipsCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/tipItem"
+          }
+        }
+      }
+    },
+    "cultureCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/cultureItem"
+          }
+        }
+      }
+    },
+    "activitiesCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/activityItem"
+          }
+        }
+      }
+    },
+    "eventsCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "items"
+      ],
+      "properties": {
+        "meta": {
+          "$ref": "#/$defs/meta"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/eventItem"
+          }
+        }
+      }
+    }
+  }
+}

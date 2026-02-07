@@ -24,6 +24,12 @@ build/
 *.so
 *.dylib
 
+# Android / Gradle
+.gradle/
+android/.gradle/
+android/local.properties
+android/app/build/
+
 # Logs
 *.log
 logs/
@@ -39,3 +45,6 @@ coverage/
 
 # bv (beads viewer) local config and caches
 .bv/
+
+# Generated content bundles (rebuilt by pipeline)
+shared/output/

@@ -1,0 +1,681 @@
+{
+  "meta": {
+    "description": "Shared test vectors for PricingEngine - both iOS and Android must produce identical outputs",
+    "version": "1.0.0",
+    "created_at": "2026-02-07",
+    "algorithm_version": "1.0"
+  },
+  "algorithm": {
+    "description": "PricingEngine evaluates quoted prices against expected ranges with context modifiers",
+    "steps": [
+      "1. Base range: minMad = expectedCostMinMad, maxMad = expectedCostMaxMad",
+      "2. Apply modifiers: for each modifier, minMad *= factorMin, maxMad *= factorMax",
+      "3. Apply quantity: adjustedMin = minMad * quantity, adjustedMax = maxMad * quantity",
+      "4. Determine fairness based on thresholds",
+      "5. Calculate suggested counter range"
+    ],
+    "fairness_thresholds": {
+      "low": "quotedMAD < adjustedMin * lowMultiplier (default 0.75)",
+      "fair": "quotedMAD <= adjustedMax",
+      "high": "quotedMAD <= adjustedMax * highMultiplier (default 1.25)",
+      "veryHigh": "quotedMAD > adjustedMax * highMultiplier"
+    },
+    "counter_formula": {
+      "counterMin": "adjustedMin",
+      "counterMax": "adjustedMax * 0.95"
+    }
+  },
+  "vectors": [
+    {
+      "name": "Basic taxi - fair price (middle of range)",
+      "description": "Quote of 35 MAD for short taxi (20-50 range) should be fair",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 35,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "fair",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - fair price (at max boundary)",
+      "description": "Quote exactly at max should still be fair",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 50,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "fair",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - fair price (at min boundary)",
+      "description": "Quote exactly at min should be fair",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 20,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "fair",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - low price (suspiciously cheap)",
+      "description": "Quote of 10 MAD for 20-50 range is below 0.75 * 20 = 15, so suspiciously low",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 10,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "low",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - low boundary exact",
+      "description": "Quote at exactly 15 MAD (0.75 * 20) should be fair, not low",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 15,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "fair",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - high price (slightly overpriced)",
+      "description": "Quote of 60 MAD is above 50 max but within 1.30 * 50 = 65, so high",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 60,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "high",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - high boundary exact",
+      "description": "Quote at exactly 65 MAD (1.30 * 50) should still be high, not veryHigh",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 65,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "high",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Basic taxi - very high price (significantly overpriced)",
+      "description": "Quote of 100 MAD is above 1.30 * 50 = 65, so veryHigh",
+      "input": {
+        "expectedCostMinMad": 20,
+        "expectedCostMaxMad": 50,
+        "quotedMad": 100,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 50,
+        "fairness": "veryHigh",
+        "counterMin": 20,
+        "counterMax": 47.5
+      }
+    },
+    {
+      "name": "Airport taxi - night modifier applied",
+      "description": "Airport taxi (120-220) with night modifier (1.1-1.2x) adjusts to 132-264",
+      "input": {
+        "expectedCostMinMad": 120,
+        "expectedCostMaxMad": 220,
+        "quotedMad": 200,
+        "modifiers": [
+          { "factorMin": 1.1, "factorMax": 1.2 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 132,
+        "adjustedMax": 264,
+        "fairness": "fair",
+        "counterMin": 132,
+        "counterMax": 250.8
+      }
+    },
+    {
+      "name": "Airport taxi - night modifier makes high quote fair",
+      "description": "250 MAD would be high without modifier, but fair with night premium",
+      "input": {
+        "expectedCostMinMad": 120,
+        "expectedCostMaxMad": 220,
+        "quotedMad": 250,
+        "modifiers": [
+          { "factorMin": 1.1, "factorMax": 1.2 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 132,
+        "adjustedMax": 264,
+        "fairness": "fair",
+        "counterMin": 132,
+        "counterMax": 250.8
+      }
+    },
+    {
+      "name": "Airport taxi - multiple modifiers stack",
+      "description": "Night (1.1-1.2) + peak arrivals (1.05-1.15) modifiers multiply together",
+      "input": {
+        "expectedCostMinMad": 120,
+        "expectedCostMaxMad": 220,
+        "quotedMad": 280,
+        "modifiers": [
+          { "factorMin": 1.1, "factorMax": 1.2 },
+          { "factorMin": 1.05, "factorMax": 1.15 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 138.6,
+        "adjustedMax": 303.6,
+        "fairness": "fair",
+        "counterMin": 138.6,
+        "counterMax": 288.42
+      }
+    },
+    {
+      "name": "Quantity multiplier - 2 mint teas",
+      "description": "Two mint teas at 15 MAD each = 30 MAD total",
+      "input": {
+        "expectedCostMinMad": 10,
+        "expectedCostMaxMad": 30,
+        "quotedMad": 60,
+        "modifiers": [],
+        "quantity": 2,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.40
+      },
+      "expected": {
+        "adjustedMin": 20,
+        "adjustedMax": 60,
+        "fairness": "fair",
+        "counterMin": 20,
+        "counterMax": 57
+      }
+    },
+    {
+      "name": "Quantity with modifier - 2 rooftop teas",
+      "description": "Two mint teas on rooftop (1.3-1.8x view premium)",
+      "input": {
+        "expectedCostMinMad": 10,
+        "expectedCostMaxMad": 30,
+        "quotedMad": 90,
+        "modifiers": [
+          { "factorMin": 1.3, "factorMax": 1.8 }
+        ],
+        "quantity": 2,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.40
+      },
+      "expected": {
+        "adjustedMin": 26,
+        "adjustedMax": 108,
+        "fairness": "fair",
+        "counterMin": 26,
+        "counterMax": 102.6
+      }
+    },
+    {
+      "name": "Agafay package - private group premium",
+      "description": "Agafay (290-550) with private group modifier (1.4-2.0x)",
+      "input": {
+        "expectedCostMinMad": 290,
+        "expectedCostMaxMad": 550,
+        "quotedMad": 800,
+        "modifiers": [
+          { "factorMin": 1.4, "factorMax": 2.0 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 406,
+        "adjustedMax": 1100,
+        "fairness": "fair",
+        "counterMin": 406,
+        "counterMax": 1045
+      }
+    },
+    {
+      "name": "Agafay package - private + sunset slot",
+      "description": "Compound modifiers: private (1.4-2.0) + sunset (1.05-1.2)",
+      "input": {
+        "expectedCostMinMad": 290,
+        "expectedCostMaxMad": 550,
+        "quotedMad": 1200,
+        "modifiers": [
+          { "factorMin": 1.4, "factorMax": 2.0 },
+          { "factorMin": 1.05, "factorMax": 1.2 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 426.3,
+        "adjustedMax": 1320,
+        "fairness": "fair",
+        "counterMin": 426.3,
+        "counterMax": 1254
+      }
+    },
+    {
+      "name": "Hammam basic - fair at low end",
+      "description": "Basic hammam (120-300) at 130 MAD is fair",
+      "input": {
+        "expectedCostMinMad": 120,
+        "expectedCostMaxMad": 300,
+        "quotedMad": 130,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.35
+      },
+      "expected": {
+        "adjustedMin": 120,
+        "adjustedMax": 300,
+        "fairness": "fair",
+        "counterMin": 120,
+        "counterMax": 285
+      }
+    },
+    {
+      "name": "Hammam tourist spa - high price",
+      "description": "Tourist spa (350-900) quoted at 1000 MAD is high but within 1.35x",
+      "input": {
+        "expectedCostMinMad": 350,
+        "expectedCostMaxMad": 900,
+        "quotedMad": 1000,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.35
+      },
+      "expected": {
+        "adjustedMin": 350,
+        "adjustedMax": 900,
+        "fairness": "high",
+        "counterMin": 350,
+        "counterMax": 855
+      }
+    },
+    {
+      "name": "Souk argan oil - tourist lane markup",
+      "description": "Argan oil (60-180) in tourist lane (1.2-1.8x) adjusts to 72-324",
+      "input": {
+        "expectedCostMinMad": 60,
+        "expectedCostMaxMad": 180,
+        "quotedMad": 250,
+        "modifiers": [
+          { "factorMin": 1.2, "factorMax": 1.8 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.70,
+        "fairnessHighMultiplier": 1.50
+      },
+      "expected": {
+        "adjustedMin": 72,
+        "adjustedMax": 324,
+        "fairness": "fair",
+        "counterMin": 72,
+        "counterMax": 307.8
+      }
+    },
+    {
+      "name": "Souk lantern - fine handwork premium",
+      "description": "Lantern (120-450) with fine handwork (1.2-1.6x)",
+      "input": {
+        "expectedCostMinMad": 120,
+        "expectedCostMaxMad": 450,
+        "quotedMad": 600,
+        "modifiers": [
+          { "factorMin": 1.2, "factorMax": 1.6 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.70,
+        "fairnessHighMultiplier": 1.50
+      },
+      "expected": {
+        "adjustedMin": 144,
+        "adjustedMax": 720,
+        "fairness": "fair",
+        "counterMin": 144,
+        "counterMax": 684
+      }
+    },
+    {
+      "name": "Balloon flight - private basket very high",
+      "description": "Balloon (1100-2100) with private basket (1.8-3.0x), quote of 8000 is veryHigh",
+      "input": {
+        "expectedCostMinMad": 1100,
+        "expectedCostMaxMad": 2100,
+        "quotedMad": 8000,
+        "modifiers": [
+          { "factorMin": 1.8, "factorMax": 3.0 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 1980,
+        "adjustedMax": 6300,
+        "fairness": "veryHigh",
+        "counterMin": 1980,
+        "counterMax": 5985
+      }
+    },
+    {
+      "name": "Desert tour - group of 2",
+      "description": "Merzouga 3-day (1200-2600) for 2 people = 2400-5200 total",
+      "input": {
+        "expectedCostMinMad": 1200,
+        "expectedCostMaxMad": 2600,
+        "quotedMad": 4500,
+        "modifiers": [],
+        "quantity": 2,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 2400,
+        "adjustedMax": 5200,
+        "fairness": "fair",
+        "counterMin": 2400,
+        "counterMax": 4940
+      }
+    },
+    {
+      "name": "Street harira - suspiciously cheap",
+      "description": "Harira (8-20) quoted at 3 MAD is below 0.70 * 8 = 5.6, so low",
+      "input": {
+        "expectedCostMinMad": 8,
+        "expectedCostMaxMad": 20,
+        "quotedMad": 3,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.70,
+        "fairnessHighMultiplier": 1.50
+      },
+      "expected": {
+        "adjustedMin": 8,
+        "adjustedMax": 20,
+        "fairness": "low",
+        "counterMin": 8,
+        "counterMax": 19
+      }
+    },
+    {
+      "name": "City tour - per group pricing",
+      "description": "Half-day tour (350-900 per group) quoted at 600 is fair",
+      "input": {
+        "expectedCostMinMad": 350,
+        "expectedCostMaxMad": 900,
+        "quotedMad": 600,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 350,
+        "adjustedMax": 900,
+        "fairness": "fair",
+        "counterMin": 350,
+        "counterMax": 855
+      }
+    },
+    {
+      "name": "City tour - private group modifier",
+      "description": "Half-day tour with private guide (1.2-1.8x premium)",
+      "input": {
+        "expectedCostMinMad": 350,
+        "expectedCostMaxMad": 900,
+        "quotedMad": 1400,
+        "modifiers": [
+          { "factorMin": 1.2, "factorMax": 1.8 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 420,
+        "adjustedMax": 1620,
+        "fairness": "fair",
+        "counterMin": 420,
+        "counterMax": 1539
+      }
+    },
+    {
+      "name": "Edge case - zero modifiers empty array",
+      "description": "Empty modifiers array should not affect calculation",
+      "input": {
+        "expectedCostMinMad": 100,
+        "expectedCostMaxMad": 200,
+        "quotedMad": 150,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 100,
+        "adjustedMax": 200,
+        "fairness": "fair",
+        "counterMin": 100,
+        "counterMax": 190
+      }
+    },
+    {
+      "name": "Edge case - quote exactly at adjusted min",
+      "description": "Quote at exactly the minimum should be fair",
+      "input": {
+        "expectedCostMinMad": 100,
+        "expectedCostMaxMad": 200,
+        "quotedMad": 100,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 100,
+        "adjustedMax": 200,
+        "fairness": "fair",
+        "counterMin": 100,
+        "counterMax": 190
+      }
+    },
+    {
+      "name": "Edge case - just above veryHigh threshold",
+      "description": "Quote just above 1.25 * max should be veryHigh",
+      "input": {
+        "expectedCostMinMad": 100,
+        "expectedCostMaxMad": 200,
+        "quotedMad": 251,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 100,
+        "adjustedMax": 200,
+        "fairness": "veryHigh",
+        "counterMin": 100,
+        "counterMax": 190
+      }
+    },
+    {
+      "name": "Edge case - single item quantity explicitly stated",
+      "description": "Quantity of 1 should not change the calculation",
+      "input": {
+        "expectedCostMinMad": 50,
+        "expectedCostMaxMad": 100,
+        "quotedMad": 75,
+        "modifiers": [],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 50,
+        "adjustedMax": 100,
+        "fairness": "fair",
+        "counterMin": 50,
+        "counterMax": 95
+      }
+    },
+    {
+      "name": "Edge case - large quantity (group of 4)",
+      "description": "4 people at balloon flight should quadruple range",
+      "input": {
+        "expectedCostMinMad": 1100,
+        "expectedCostMaxMad": 2100,
+        "quotedMad": 7000,
+        "modifiers": [],
+        "quantity": 4,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 4400,
+        "adjustedMax": 8400,
+        "fairness": "fair",
+        "counterMin": 4400,
+        "counterMax": 7980
+      }
+    },
+    {
+      "name": "Precision test - decimal rounding",
+      "description": "Ensure consistent decimal handling across platforms",
+      "input": {
+        "expectedCostMinMad": 33,
+        "expectedCostMaxMad": 77,
+        "quotedMad": 55,
+        "modifiers": [
+          { "factorMin": 1.15, "factorMax": 1.25 }
+        ],
+        "quantity": 3,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.25
+      },
+      "expected": {
+        "adjustedMin": 113.85,
+        "adjustedMax": 288.75,
+        "fairness": "low",
+        "counterMin": 113.85,
+        "counterMax": 274.3125
+      }
+    },
+    {
+      "name": "Real scenario - Ourika with lunch, private",
+      "description": "Ourika day trip (170-420) with private group (1.5-2.4x)",
+      "input": {
+        "expectedCostMinMad": 170,
+        "expectedCostMaxMad": 420,
+        "quotedMad": 750,
+        "modifiers": [
+          { "factorMin": 1.5, "factorMax": 2.4 }
+        ],
+        "quantity": 1,
+        "fairnessLowMultiplier": 0.75,
+        "fairnessHighMultiplier": 1.30
+      },
+      "expected": {
+        "adjustedMin": 255,
+        "adjustedMax": 1008,
+        "fairness": "fair",
+        "counterMin": 255,
+        "counterMax": 957.6
+      }
+    }
+  ],
+  "tolerance": {
+    "description": "Allow small floating-point differences across platforms",
+    "absoluteTolerance": 0.01,
+    "note": "All numeric comparisons should use this tolerance for cross-platform consistency"
+  }
+}
