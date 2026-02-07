@@ -249,6 +249,12 @@ These rules prevent "it feels off" moments that undermine trust in a paid utilit
 
 ## UI/UX Standards
 
+### Mandatory Skill Usage for UI Work
+
+- For any UI/UX, visual design, theming, or interaction-design task, the model **must use the `front-end design` skill** before implementing changes.
+- The skill must guide decisions on layout, typography, color, motion, and component styling so design output is intentional (not generic boilerplate).
+- If the `front-end design` skill is unavailable in the current session, the model must explicitly say so and then follow the UI/UX standards in this file as the fallback.
+
 ### Loading, Progress, and Error UX (Standardized)
 
 Every screen must follow the same state model:

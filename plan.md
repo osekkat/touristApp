@@ -431,6 +431,17 @@ These rules prevent "it feels off" moments that undermine trust in a paid utilit
 - Follow Back/Up principles: Back pops history; Up never exits the app.
 - Ensure gesture navigation compatibility and implement predictive back support for any custom transitions/animations.
 
+### Visual design language (Marrakech identity)
+
+The app should feel unmistakably rooted in Marrakech while staying modern and readable.
+
+- Use **Islamic geometric patterns** as a recurring motif in surfaces and separators (cards, section headers, onboarding backgrounds, loading/skeleton states, share cards).
+- Keep patterns subtle and low-contrast behind content so legibility always wins over decoration.
+- Build a color system anchored in **Marrakech terracotta tones** (warm clay/earth palette), supported by neutrals and a small number of accent colors for status/action states.
+- Prefer warm terracotta gradients/tints for empty states, onboarding atmosphere, and hero surfaces; avoid cold/default generic palettes.
+- Define these choices as design tokens on both platforms (color, spacing, corner radius, pattern opacity) so iOS and Android remain visually consistent.
+- Respect accessibility with this style: maintain contrast targets, avoid pattern noise behind body text, and ensure dark mode keeps the same identity (warm earthy base, not generic blue/purple dark themes).
+
 ### Home (paid-app feel)
 
 - "What do you need right now?" quick actions:
