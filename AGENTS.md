@@ -765,6 +765,13 @@ If you aren't 100% sure how to use a third-party library, **SEARCH ONLINE** to f
 - Large mechanical changes: break into smaller, explicit edits and review diffs.
 - Subtle/complex changes: edit by hand, file-by-file, with careful reasoning.
 
+### No Script-Based Code Changes (Strict)
+
+- Never run a script that programmatically rewrites application code across files.
+- For many straightforward edits, do explicit/manual edits in manageable chunks.
+- For nuanced logic changes, always edit manually with full local context.
+- If a scripted refactor is truly necessary, ask for explicit user approval first.
+
 ### No File Proliferation
 
 If you want to change something or add a feature, **revise existing code files in place**.
@@ -1204,6 +1211,13 @@ You may see changes in the working tree that you did not make. These are changes
 ## Note for Codex/GPT-5.2
 
 You constantly bother me with questions about unexpected changes. NEVER DO THAT. Those are changes from other agents working concurrently. Just treat them as your own changes. NEVER stash, revert, or disturb other agents' work.
+
+---
+
+## Note on Built-in TODO Functionality
+
+- Default issue tracking stays in `br` as described above.
+- Exception: if the user explicitly asks you to use your built-in TODO functionality, comply with that request.
 
 ---
 
