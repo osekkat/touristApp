@@ -1129,6 +1129,72 @@ Add a SQLite table `content_links` in `content.db` (generated at build time):
 
 This powers cross-links without hardcoding per-feature logic.
 
+### Imported dataset notes (current workspace)
+
+The current `shared/content/*.json` files (including the newly added Lonely Planet extraction) follow this envelope:
+
+```json
+{
+  "meta": { "generated_at": "...", "source_document": "...", "notes": [] },
+  "items": [ ... ]
+}
+```
+
+- `items[].id` is the stable primary key used for joins and user state references.
+- `source_refs` is used as editorial provenance (for the imported guide content, values map to guide page numbers).
+- Current populated domains are `places`, `price_cards`, `activities`, `itineraries`, `tips`, `culture`, `glossary`, and `events`.
+- Relationship conventions in current data:
+- `itineraries.items[].steps[]` references `place_id` (for `type: "place"` or `type: "meal"`) and `activity_id` (for `type: "activity"`).
+- `tips` can include `related_place_ids` and/or `related_price_card_ids`.
+- `favorites`/`recents` (in `user.db`) reference content by `content_type` + `content_id`.
+
+**Image linkage in current imported data**
+
+- Place records now use an `images` array (for example in `shared/content/places.json`) and currently point to local extraction paths.
+- Use `docs/lonely_planet_extracted/images_rgb_canonical/` as the preferred upload source (RGB-safe + deduplicated).
+- Do not use `docs/lonely_planet_extracted/images/` as the primary upload source for production; it includes raw extraction outputs that may contain CMYK color artifacts.
+- Image manifests and mapping files:
+- `docs/lonely_planet_extracted/images_rgb/manifest_rgb.json` (RGB extraction inventory + hashes)
+- `docs/lonely_planet_extracted/images_rgb/canonical_upload_list.json` (deduplicated upload list)
+- `docs/lonely_planet_extracted/images/place_image_candidates.json` (place-to-image mapping, including `suggested_relative_path_rgb`; fallback mappings are flagged with `suggested_match_type: "nearest_page_fallback"`)
+
+**Implementation guidance (when wiring the app)**
+
+- During asset upload, replace local `images` paths with stable remote URLs, but keep the same place IDs so app/database joins remain unchanged.
+- Treat `images[0]` as hero image and additional entries as optional gallery images.
+- If mapping is marked as fallback (`nearest_page_fallback`), treat it as provisional and queue it for editorial review.
+- Never block rendering on missing images; always fall back to text-first cards/placeholders.
+- Keep imports deterministic: same input JSON + same asset map should produce the same `content.db`.
+
+**How to use each `shared/content` file in app implementation**
+
+- `shared/content/places.json`
+- Primary source for Explore/Eat place cards and detail screens.
+- Also used by Route Cards, My Day planner inputs, map markers, and related-item chips.
+- `shared/content/price_cards.json`
+- Source for Prices list/detail and Quote → Action engine inputs (`expected_cost_*`, scripts, modifiers, fairness multipliers).
+- Should be joinable from place/tip UI via related IDs or `content_links`.
+- `shared/content/activities.json`
+- Source for day-trip/experience cards and itinerary `activity` steps.
+- Use for optional “book later” and planning modules; keep offline summaries first.
+- `shared/content/itineraries.json`
+- Source for itinerary list/detail and Route Card execution flows.
+- Parse `steps[]` by `type` and resolve referenced `place_id` / `activity_id` before render.
+- `shared/content/tips.json`
+- Source for safety, scam awareness, arrival, accessibility, family, and practical decision cards.
+- Use `related_place_ids` / `related_price_card_ids` to surface contextual tips in detail pages.
+- `shared/content/culture.json`
+- Source for concise etiquette/culture do-don’t modules in More/Culture screens.
+- Keep these lightweight and skimmable; they are not long-form articles.
+- `shared/content/glossary.json`
+- Source for phrasebook categories + phrase detail cards.
+- Respect RTL behavior when Arabic is present and preserve `verification_status` for QA workflows.
+- `shared/content/events.json`
+- Optional online-first module; if stale/unavailable, hide gracefully without impacting core offline value.
+- `shared/content` `meta` blocks
+- Use for diagnostics (“content generated at”, source provenance) and internal QA visibility.
+- Do not block runtime UX on `meta` parse failures; treat missing meta as non-fatal.
+
 ---
 
 ## 10) Screen list (everything that needs to be built)

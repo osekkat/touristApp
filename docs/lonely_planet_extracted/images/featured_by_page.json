@@ -1,0 +1,493 @@
+{
+  "generated_at": "2026-02-07T21:45:00+01:00",
+  "source_pdf": "lonely-planet-pocket-marrakesh-7-ebook.pdf",
+  "featured_image_count": 54,
+  "featured_by_page": [
+    {
+      "page": 1,
+      "asset_id": "lp-pocket-mar7-img-003",
+      "file_name": "img-003.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-003.jpg",
+      "width": 843,
+      "height": 1209,
+      "file_size_bytes": 439939
+    },
+    {
+      "page": 3,
+      "asset_id": "lp-pocket-mar7-img-008",
+      "file_name": "img-008.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-008.jpg",
+      "width": 896,
+      "height": 644,
+      "file_size_bytes": 400762
+    },
+    {
+      "page": 4,
+      "asset_id": "lp-pocket-mar7-img-009",
+      "file_name": "img-009.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-009.jpg",
+      "width": 423,
+      "height": 644,
+      "file_size_bytes": 182040
+    },
+    {
+      "page": 5,
+      "asset_id": "lp-pocket-mar7-img-010",
+      "file_name": "img-010.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-010.jpg",
+      "width": 327,
+      "height": 1255,
+      "file_size_bytes": 255242
+    },
+    {
+      "page": 6,
+      "asset_id": "lp-pocket-mar7-img-012",
+      "file_name": "img-012.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-012.jpg",
+      "width": 904,
+      "height": 1255,
+      "file_size_bytes": 791106
+    },
+    {
+      "page": 7,
+      "asset_id": "lp-pocket-mar7-img-015",
+      "file_name": "img-015.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-015.jpg",
+      "width": 345,
+      "height": 345,
+      "file_size_bytes": 143745
+    },
+    {
+      "page": 8,
+      "asset_id": "lp-pocket-mar7-img-016",
+      "file_name": "img-016.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-016.jpg",
+      "width": 857,
+      "height": 1257,
+      "file_size_bytes": 684333
+    },
+    {
+      "page": 9,
+      "asset_id": "lp-pocket-mar7-img-017",
+      "file_name": "img-017.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-017.jpg",
+      "width": 345,
+      "height": 345,
+      "file_size_bytes": 105417
+    },
+    {
+      "page": 10,
+      "asset_id": "lp-pocket-mar7-img-019",
+      "file_name": "img-019.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-019.jpg",
+      "width": 708,
+      "height": 490,
+      "file_size_bytes": 238619
+    },
+    {
+      "page": 11,
+      "asset_id": "lp-pocket-mar7-img-022",
+      "file_name": "img-022.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-022.jpg",
+      "width": 345,
+      "height": 344,
+      "file_size_bytes": 131811
+    },
+    {
+      "page": 12,
+      "asset_id": "lp-pocket-mar7-img-023",
+      "file_name": "img-023.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-023.jpg",
+      "width": 865,
+      "height": 1258,
+      "file_size_bytes": 225212
+    },
+    {
+      "page": 13,
+      "asset_id": "lp-pocket-mar7-img-024",
+      "file_name": "img-024.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-024.jpg",
+      "width": 708,
+      "height": 512,
+      "file_size_bytes": 339904
+    },
+    {
+      "page": 14,
+      "asset_id": "lp-pocket-mar7-img-026",
+      "file_name": "img-026.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-026.jpg",
+      "width": 345,
+      "height": 345,
+      "file_size_bytes": 124202
+    },
+    {
+      "page": 15,
+      "asset_id": "lp-pocket-mar7-img-029",
+      "file_name": "img-029.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-029.jpg",
+      "width": 345,
+      "height": 345,
+      "file_size_bytes": 118511
+    },
+    {
+      "page": 16,
+      "asset_id": "lp-pocket-mar7-img-030",
+      "file_name": "img-030.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-030.jpg",
+      "width": 864,
+      "height": 1252,
+      "file_size_bytes": 486746
+    },
+    {
+      "page": 17,
+      "asset_id": "lp-pocket-mar7-img-031",
+      "file_name": "img-031.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-031.jpg",
+      "width": 707,
+      "height": 500,
+      "file_size_bytes": 229847
+    },
+    {
+      "page": 18,
+      "asset_id": "lp-pocket-mar7-img-032",
+      "file_name": "img-032.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-032.jpg",
+      "width": 707,
+      "height": 479,
+      "file_size_bytes": 298825
+    },
+    {
+      "page": 19,
+      "asset_id": "lp-pocket-mar7-img-034",
+      "file_name": "img-034.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-034.jpg",
+      "width": 346,
+      "height": 345,
+      "file_size_bytes": 145863
+    },
+    {
+      "page": 21,
+      "asset_id": "lp-pocket-mar7-img-035",
+      "file_name": "img-035.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-035.jpg",
+      "width": 345,
+      "height": 496,
+      "file_size_bytes": 143329
+    },
+    {
+      "page": 22,
+      "asset_id": "lp-pocket-mar7-img-038",
+      "file_name": "img-038.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-038.jpg",
+      "width": 345,
+      "height": 343,
+      "file_size_bytes": 121345
+    },
+    {
+      "page": 23,
+      "asset_id": "lp-pocket-mar7-img-039",
+      "file_name": "img-039.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-039.jpg",
+      "width": 707,
+      "height": 505,
+      "file_size_bytes": 166608
+    },
+    {
+      "page": 24,
+      "asset_id": "lp-pocket-mar7-img-040",
+      "file_name": "img-040.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-040.jpg",
+      "width": 345,
+      "height": 345,
+      "file_size_bytes": 93096
+    },
+    {
+      "page": 28,
+      "asset_id": "lp-pocket-mar7-img-049",
+      "file_name": "img-049.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-049.jpg",
+      "width": 708,
+      "height": 460,
+      "file_size_bytes": 216582
+    },
+    {
+      "page": 30,
+      "asset_id": "lp-pocket-mar7-img-051",
+      "file_name": "img-051.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-051.jpg",
+      "width": 346,
+      "height": 342,
+      "file_size_bytes": 112428
+    },
+    {
+      "page": 34,
+      "asset_id": "lp-pocket-mar7-img-052",
+      "file_name": "img-052.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-052.jpg",
+      "width": 707,
+      "height": 518,
+      "file_size_bytes": 165039
+    },
+    {
+      "page": 35,
+      "asset_id": "lp-pocket-mar7-img-053",
+      "file_name": "img-053.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-053.jpg",
+      "width": 707,
+      "height": 518,
+      "file_size_bytes": 219555
+    },
+    {
+      "page": 37,
+      "asset_id": "lp-pocket-mar7-img-054",
+      "file_name": "img-054.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-054.jpg",
+      "width": 903,
+      "height": 1258,
+      "file_size_bytes": 934249
+    },
+    {
+      "page": 38,
+      "asset_id": "lp-pocket-mar7-img-055",
+      "file_name": "img-055.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-055.jpg",
+      "width": 335,
+      "height": 1258,
+      "file_size_bytes": 333860
+    },
+    {
+      "page": 39,
+      "asset_id": "lp-pocket-mar7-img-056",
+      "file_name": "img-056.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-056.jpg",
+      "width": 854,
+      "height": 1258,
+      "file_size_bytes": 455589
+    },
+    {
+      "page": 44,
+      "asset_id": "lp-pocket-mar7-img-059",
+      "file_name": "img-059.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-059.jpg",
+      "width": 771,
+      "height": 586,
+      "file_size_bytes": 269348
+    },
+    {
+      "page": 45,
+      "asset_id": "lp-pocket-mar7-img-060",
+      "file_name": "img-060.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-060.jpg",
+      "width": 770,
+      "height": 570,
+      "file_size_bytes": 289484
+    },
+    {
+      "page": 47,
+      "asset_id": "lp-pocket-mar7-img-062",
+      "file_name": "img-062.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-062.jpg",
+      "width": 723,
+      "height": 526,
+      "file_size_bytes": 228014
+    },
+    {
+      "page": 49,
+      "asset_id": "lp-pocket-mar7-img-063",
+      "file_name": "img-063.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-063.jpg",
+      "width": 725,
+      "height": 574,
+      "file_size_bytes": 225461
+    },
+    {
+      "page": 51,
+      "asset_id": "lp-pocket-mar7-img-064",
+      "file_name": "img-064.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-064.jpg",
+      "width": 770,
+      "height": 530,
+      "file_size_bytes": 268427
+    },
+    {
+      "page": 63,
+      "asset_id": "lp-pocket-mar7-img-066",
+      "file_name": "img-066.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-066.jpg",
+      "width": 865,
+      "height": 1259,
+      "file_size_bytes": 525110
+    },
+    {
+      "page": 68,
+      "asset_id": "lp-pocket-mar7-img-069",
+      "file_name": "img-069.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-069.jpg",
+      "width": 770,
+      "height": 573,
+      "file_size_bytes": 402737
+    },
+    {
+      "page": 81,
+      "asset_id": "lp-pocket-mar7-img-070",
+      "file_name": "img-070.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-070.jpg",
+      "width": 908,
+      "height": 1286,
+      "file_size_bytes": 496567
+    },
+    {
+      "page": 82,
+      "asset_id": "lp-pocket-mar7-img-071",
+      "file_name": "img-071.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-071.jpg",
+      "width": 90,
+      "height": 1255,
+      "file_size_bytes": 42551
+    },
+    {
+      "page": 86,
+      "asset_id": "lp-pocket-mar7-img-073",
+      "file_name": "img-073.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-073.jpg",
+      "width": 770,
+      "height": 574,
+      "file_size_bytes": 423027
+    },
+    {
+      "page": 95,
+      "asset_id": "lp-pocket-mar7-img-074",
+      "file_name": "img-074.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-074.jpg",
+      "width": 865,
+      "height": 1258,
+      "file_size_bytes": 517634
+    },
+    {
+      "page": 100,
+      "asset_id": "lp-pocket-mar7-img-077",
+      "file_name": "img-077.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-077.jpg",
+      "width": 770,
+      "height": 574,
+      "file_size_bytes": 331842
+    },
+    {
+      "page": 102,
+      "asset_id": "lp-pocket-mar7-img-079",
+      "file_name": "img-079.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-079.jpg",
+      "width": 770,
+      "height": 574,
+      "file_size_bytes": 287485
+    },
+    {
+      "page": 109,
+      "asset_id": "lp-pocket-mar7-img-080",
+      "file_name": "img-080.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-080.jpg",
+      "width": 860,
+      "height": 1256,
+      "file_size_bytes": 810046
+    },
+    {
+      "page": 119,
+      "asset_id": "lp-pocket-mar7-img-082",
+      "file_name": "img-082.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-082.jpg",
+      "width": 862,
+      "height": 1258,
+      "file_size_bytes": 645761
+    },
+    {
+      "page": 124,
+      "asset_id": "lp-pocket-mar7-img-085",
+      "file_name": "img-085.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-085.jpg",
+      "width": 771,
+      "height": 586,
+      "file_size_bytes": 460529
+    },
+    {
+      "page": 125,
+      "asset_id": "lp-pocket-mar7-img-086",
+      "file_name": "img-086.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-086.jpg",
+      "width": 771,
+      "height": 518,
+      "file_size_bytes": 404889
+    },
+    {
+      "page": 127,
+      "asset_id": "lp-pocket-mar7-img-088",
+      "file_name": "img-088.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-088.jpg",
+      "width": 728,
+      "height": 520,
+      "file_size_bytes": 295452
+    },
+    {
+      "page": 129,
+      "asset_id": "lp-pocket-mar7-img-090",
+      "file_name": "img-090.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-090.jpg",
+      "width": 770,
+      "height": 526,
+      "file_size_bytes": 305426
+    },
+    {
+      "page": 130,
+      "asset_id": "lp-pocket-mar7-img-091",
+      "file_name": "img-091.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-091.jpg",
+      "width": 770,
+      "height": 573,
+      "file_size_bytes": 413942
+    },
+    {
+      "page": 133,
+      "asset_id": "lp-pocket-mar7-img-094",
+      "file_name": "img-094.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-094.jpg",
+      "width": 770,
+      "height": 526,
+      "file_size_bytes": 418583
+    },
+    {
+      "page": 134,
+      "asset_id": "lp-pocket-mar7-img-095",
+      "file_name": "img-095.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-095.jpg",
+      "width": 771,
+      "height": 601,
+      "file_size_bytes": 308213
+    },
+    {
+      "page": 142,
+      "asset_id": "lp-pocket-mar7-img-098",
+      "file_name": "img-098.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-098.jpg",
+      "width": 770,
+      "height": 574,
+      "file_size_bytes": 266500
+    },
+    {
+      "page": 143,
+      "asset_id": "lp-pocket-mar7-img-099",
+      "file_name": "img-099.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-099.jpg",
+      "width": 904,
+      "height": 1259,
+      "file_size_bytes": 535922
+    },
+    {
+      "page": 144,
+      "asset_id": "lp-pocket-mar7-img-100",
+      "file_name": "img-100.jpg",
+      "relative_path": "docs/lonely_planet_extracted/images/img-100.jpg",
+      "width": 342,
+      "height": 1259,
+      "file_size_bytes": 183700
+    }
+  ]
+}

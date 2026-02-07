@@ -1,0 +1,798 @@
+{
+  "generated_at": "2026-02-07T22:00:00+01:00",
+  "total_canonical_files": 132,
+  "files": [
+    {
+      "file_name": "img-000.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-000.png",
+      "size_bytes": 3664,
+      "sha256": "51c4461fda54a57b5397da17ab009459f19d56ac3c2446bc2a4404927b0dfff4"
+    },
+    {
+      "file_name": "img-001.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-001.png",
+      "size_bytes": 1295,
+      "sha256": "b73af547e47a173e3ddcc0b1635947111a29766526becb06eeb5ec95100cf3d7"
+    },
+    {
+      "file_name": "img-002.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-002.png",
+      "size_bytes": 6520,
+      "sha256": "3b92bce1e6992e9a2b716f97e1915977ebc2d89cd0bc2a51fcb6466a5f91ab5a"
+    },
+    {
+      "file_name": "img-003.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-003.png",
+      "size_bytes": 1837198,
+      "sha256": "0b16b75488dfa9dfc01ecde906ad19093cc102025b1351650502c39890f6e691"
+    },
+    {
+      "file_name": "img-007.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-007.png",
+      "size_bytes": 286870,
+      "sha256": "665d54f621d34d1aea1627b3025108c1b1e7d96792a565fddff2471f2873e1f6"
+    },
+    {
+      "file_name": "img-008.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-008.png",
+      "size_bytes": 1207715,
+      "sha256": "f6505be3b84b357a3c571dbb39fe0fb24251e6531be56e1560125e4a5019fe55"
+    },
+    {
+      "file_name": "img-009.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-009.png",
+      "size_bytes": 571449,
+      "sha256": "d26443754ed9b4d234967e4ab850dbfe45ba5d530ed4562f36c46c9f77715781"
+    },
+    {
+      "file_name": "img-010.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-010.png",
+      "size_bytes": 836862,
+      "sha256": "bf49144d2c750b21bf199c0d5e83a1857ce0e4e9a5526d85f2141caa3e3750c4"
+    },
+    {
+      "file_name": "img-011.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-011.png",
+      "size_bytes": 44427,
+      "sha256": "0dce49367763460158301e5ebf992f0e9e2f424a1765952216e97a8fd068ce3f"
+    },
+    {
+      "file_name": "img-012.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-012.png",
+      "size_bytes": 2544947,
+      "sha256": "7ed2b03d7363e3db299d44316a6588c4d95fe06f53f663fd485a4cb8b8be597a"
+    },
+    {
+      "file_name": "img-013.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-013.png",
+      "size_bytes": 115909,
+      "sha256": "c77e5e1279b2b0551adbf2a112ac90a401f5cecc568137820e2ed0499aa803f5"
+    },
+    {
+      "file_name": "img-014.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-014.png",
+      "size_bytes": 305934,
+      "sha256": "a447fcfd99b8c0f99f6bcba0c9441a002e71d0216c4c3692d9bd8e16278a55e0"
+    },
+    {
+      "file_name": "img-015.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-015.png",
+      "size_bytes": 314213,
+      "sha256": "6d9260cabac8c5fae749d08a0d5843a925f5a95c6cdd25df08374403ebf941cf"
+    },
+    {
+      "file_name": "img-016.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-016.png",
+      "size_bytes": 2514119,
+      "sha256": "dee154e5e3351435e1b683b8de46b944659c3c0199be393ad68a0a527d135cf0"
+    },
+    {
+      "file_name": "img-017.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-017.png",
+      "size_bytes": 261600,
+      "sha256": "c834a830f6f1d92abdc19279965d746784222113e480071b42143834f5962a06"
+    },
+    {
+      "file_name": "img-018.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-018.png",
+      "size_bytes": 257556,
+      "sha256": "258f8d2bbb06f6ffca6f00f8a381f211490c5cedf8446c44c0af0cd73b0f08b0"
+    },
+    {
+      "file_name": "img-019.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-019.png",
+      "size_bytes": 739845,
+      "sha256": "633b3617a557d4aee6cf9451fb65dcdcf8756adaf78529a1f846651845d82b4f"
+    },
+    {
+      "file_name": "img-020.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-020.png",
+      "size_bytes": 60340,
+      "sha256": "93fa846031fc8c9fd8c78845744029a56a6de374598a472fd51b761ef5c3b5fd"
+    },
+    {
+      "file_name": "img-021.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-021.png",
+      "size_bytes": 193202,
+      "sha256": "2120461b1ce43f32bdc3fecae5c733e26323c799001452ff6c113aab9f7f9db2"
+    },
+    {
+      "file_name": "img-022.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-022.png",
+      "size_bytes": 298748,
+      "sha256": "5222039ef697c7a7ccb828965c52c7364653debf54338926fb6a6622023b5849"
+    },
+    {
+      "file_name": "img-023.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-023.png",
+      "size_bytes": 1219335,
+      "sha256": "8f015e1e099dc984194b8329220277b04520151e59feeb075c8c36184c2b66cb"
+    },
+    {
+      "file_name": "img-024.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-024.png",
+      "size_bytes": 906150,
+      "sha256": "7dc6e4df8377c0fb3b672ce885a3e7aaa42a8d20bddcb8422b3edb65dfc30070"
+    },
+    {
+      "file_name": "img-025.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-025.png",
+      "size_bytes": 292639,
+      "sha256": "ac78571c197ee331034bc6ca0bef2726373e9d02068dc4fae80860f464907c4e"
+    },
+    {
+      "file_name": "img-026.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-026.png",
+      "size_bytes": 280223,
+      "sha256": "642f603c749f25ecfb8f16a9ca0fcc7f25193a0cddba95583452bae71f4b1a35"
+    },
+    {
+      "file_name": "img-027.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-027.png",
+      "size_bytes": 110680,
+      "sha256": "2cbd8d885c5234a40cc42338f1879f22a55bfe3f82aa1f04d006977c06ed7736"
+    },
+    {
+      "file_name": "img-028.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-028.png",
+      "size_bytes": 300987,
+      "sha256": "a1076056132abdb111b7693e2b6dd25c31b1bb5a29a56112d5d57ffa9c24bcb8"
+    },
+    {
+      "file_name": "img-029.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-029.png",
+      "size_bytes": 301036,
+      "sha256": "32e6218dfb8ab4b00d079483416dd1e4f2edf3f2df9feb615ae0b734bb159fc4"
+    },
+    {
+      "file_name": "img-030.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-030.png",
+      "size_bytes": 1927827,
+      "sha256": "ed6b35c38d213fc03600e37e110acdc5fd7fc47108b2969661ce3f3ee934d49e"
+    },
+    {
+      "file_name": "img-031.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-031.png",
+      "size_bytes": 590303,
+      "sha256": "3f0a4df2c5e5fb0bf2575ad5d40d28d3eb28f409847ba9da6ab4a15b02f92b3f"
+    },
+    {
+      "file_name": "img-032.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-032.png",
+      "size_bytes": 841922,
+      "sha256": "27e7e55a6f63117a29887ebcf8444c665a16bd8bcf1750d953428f95a5b27980"
+    },
+    {
+      "file_name": "img-033.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-033.png",
+      "size_bytes": 239539,
+      "sha256": "4728a67a3bb61a15fc2ba5c486fb0110af95c391af9569c0df81bebbeee65559"
+    },
+    {
+      "file_name": "img-034.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-034.png",
+      "size_bytes": 318186,
+      "sha256": "7cb8f74a38810bfebc524a51b2ef9644f8b39dc545ee6a284123334c1593c5d8"
+    },
+    {
+      "file_name": "img-035.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-035.png",
+      "size_bytes": 407762,
+      "sha256": "0f97cdd135abb725b6bb3f28838b4b558078b97fb8f3e97f88d253af380cb2fb"
+    },
+    {
+      "file_name": "img-036.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-036.png",
+      "size_bytes": 243699,
+      "sha256": "f3e4c364a3ba75666231de8b617ffd568b6112f77cf02f90fc2541e64b9832a7"
+    },
+    {
+      "file_name": "img-037.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-037.png",
+      "size_bytes": 279284,
+      "sha256": "de47935acf252e50de732665208e3493b4aa0b32674ce44c7b3810cb726211f4"
+    },
+    {
+      "file_name": "img-038.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-038.png",
+      "size_bytes": 288447,
+      "sha256": "e9ea3d4f4b13a7419c4f7ccf2da2a7f9676fa46b604d10514d6ce5831a45d7c0"
+    },
+    {
+      "file_name": "img-039.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-039.png",
+      "size_bytes": 444904,
+      "sha256": "a21117ec583ef0bdee5c5fed44c9817ce692a9c6663961b3f2c903cd4414020a"
+    },
+    {
+      "file_name": "img-040.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-040.png",
+      "size_bytes": 269429,
+      "sha256": "cf86117ac78f2dde3b45ee6fae8b4f8b7cd33d0ff669fccda61084d19edf98f4"
+    },
+    {
+      "file_name": "img-041.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-041.png",
+      "size_bytes": 210831,
+      "sha256": "01a6b50a84588ce9a33b4ce55549cc2b9c2605dd7964cddeb89761c8d923fde0"
+    },
+    {
+      "file_name": "img-042.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-042.png",
+      "size_bytes": 16298,
+      "sha256": "fa94ff44e6a5085214d3756d5741a302071d81a12294dcbad53b6929d282abeb"
+    },
+    {
+      "file_name": "img-043.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-043.png",
+      "size_bytes": 29529,
+      "sha256": "ef5ff7d3bbb8d7e707b758ad008483a7588acb09a0cb6a05adf04c290f2e6116"
+    },
+    {
+      "file_name": "img-044.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-044.png",
+      "size_bytes": 172,
+      "sha256": "9aa6d8a23c375a85823f3aeb5bdfa01f2591bb3db8b2448056a19d036f2b6bae"
+    },
+    {
+      "file_name": "img-045.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-045.png",
+      "size_bytes": 142,
+      "sha256": "f0b09d4e8ac37d287cc3d5293f87ad9e512ec560a60b13644e4753bd52d4cfb2"
+    },
+    {
+      "file_name": "img-046.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-046.png",
+      "size_bytes": 146,
+      "sha256": "213beb3c383995c5a10d633751776d65d532b757137cfe8c50144635bf1b0c36"
+    },
+    {
+      "file_name": "img-047.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-047.png",
+      "size_bytes": 143,
+      "sha256": "7d10d5f3259076a8f7f294793671c559e3173af131e2e2b9d9ce0417bf6cadbb"
+    },
+    {
+      "file_name": "img-048.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-048.png",
+      "size_bytes": 147,
+      "sha256": "b99aa4d68b301a293ef0f017896a2537c1c3a7b215d25a34f0c4bc1dbab7b60e"
+    },
+    {
+      "file_name": "img-049.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-049.png",
+      "size_bytes": 627842,
+      "sha256": "a246e7ac473231292835748a7e8a411d54f5e9cfdb295efb8fad35d9cc31fa0b"
+    },
+    {
+      "file_name": "img-050.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-050.png",
+      "size_bytes": 24503,
+      "sha256": "07731ee4e9ab0ce539b879db7f85ce99f99ab712e00fdb39b93fc7e3ba7e1b1f"
+    },
+    {
+      "file_name": "img-051.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-051.png",
+      "size_bytes": 278764,
+      "sha256": "58809c2fdd2619bfe6163897e1aae616ac91a49a0e2bcd04433fd4eedf904571"
+    },
+    {
+      "file_name": "img-052.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-052.png",
+      "size_bytes": 613013,
+      "sha256": "07b392041b677bcf20fa5d921b7fef1d134e35a6e9bbc0ac8fd39e36e68a4453"
+    },
+    {
+      "file_name": "img-053.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-053.png",
+      "size_bytes": 608589,
+      "sha256": "75358e4eae0b9fa06cb7dba8c4ecf10ea5343a6f597f466434649d107294b191"
+    },
+    {
+      "file_name": "img-054.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-054.png",
+      "size_bytes": 2813170,
+      "sha256": "c1f80aa6079ebe7f5eff9d8422f45ec6a57ce4b6fab792f6b73a8febb90ab6f7"
+    },
+    {
+      "file_name": "img-055.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-055.png",
+      "size_bytes": 1014946,
+      "sha256": "ee959d20cb4997970305fd7bc39313a40cca96091c79d71d3d409450248bd4ab"
+    },
+    {
+      "file_name": "img-056.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-056.png",
+      "size_bytes": 1742878,
+      "sha256": "8124247660b5111d6b80a88e359d0c96667dbd492776f4a219100c0c5cff9b75"
+    },
+    {
+      "file_name": "img-057.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-057.png",
+      "size_bytes": 48511,
+      "sha256": "1b8c75bde975bdd706c9f827eff277b8721e832a8c275f7e82ea70a5ab7eac43"
+    },
+    {
+      "file_name": "img-058.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-058.png",
+      "size_bytes": 39202,
+      "sha256": "f24ca592bee1a887976cdf9d75fecf65da3ed70d706a0af1f5e97e9d26f1d772"
+    },
+    {
+      "file_name": "img-059.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-059.png",
+      "size_bytes": 805433,
+      "sha256": "daec5db206b0332834a21b09bbc217836977a88c45eb29c4766c7bf7e6f3133f"
+    },
+    {
+      "file_name": "img-060.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-060.png",
+      "size_bytes": 860859,
+      "sha256": "235367ac53de7185103b45cc9af3e612ec65cb1a4755711bba93f33983abacb6"
+    },
+    {
+      "file_name": "img-061.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-061.png",
+      "size_bytes": 52382,
+      "sha256": "46c97a1aa3ee4d1421f3612616a4a81090e45c232ba40f1e391f37b6baf4d48d"
+    },
+    {
+      "file_name": "img-062.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-062.png",
+      "size_bytes": 789472,
+      "sha256": "a48ccc95bf4f4abb282b82843d4d172526880b6c3c852c86a7bdf4f47540d0a1"
+    },
+    {
+      "file_name": "img-063.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-063.png",
+      "size_bytes": 587464,
+      "sha256": "4437e954a92c7e949bd515f0941fcf550d0d8f34aac4f09a1ba588073d1a1920"
+    },
+    {
+      "file_name": "img-064.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-064.png",
+      "size_bytes": 718886,
+      "sha256": "518f919d1a1a93cdc5d48c6b70a3daf1cdff85ee9bafc195f274da67b76bbffb"
+    },
+    {
+      "file_name": "img-065.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-065.png",
+      "size_bytes": 43019,
+      "sha256": "3fb8742e4e29432bf6a90c335a58414ad8b40ba93ec19d9397d0923e89bfa25c"
+    },
+    {
+      "file_name": "img-066.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-066.png",
+      "size_bytes": 2032366,
+      "sha256": "c060fd64814c1687c62a13b8670e39e806ba1494a1745a7733d15044fa0a81aa"
+    },
+    {
+      "file_name": "img-067.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-067.png",
+      "size_bytes": 81993,
+      "sha256": "c380386fd846ae29a11830d258945e728b241a7db6dfd2cec3d8ed915591daba"
+    },
+    {
+      "file_name": "img-068.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-068.png",
+      "size_bytes": 60649,
+      "sha256": "4489b49ad971bea9bdecf5472e6a7dc5b348d2d509a98d6339c68b3b2f6be2f2"
+    },
+    {
+      "file_name": "img-069.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-069.png",
+      "size_bytes": 1014859,
+      "sha256": "6f5319c0f7cc8d34ac705eb0fb2f356f1532b273cff01a5468d80d58620b6a7c"
+    },
+    {
+      "file_name": "img-070.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-070.png",
+      "size_bytes": 1958898,
+      "sha256": "658605b1f017453d68614c9ebb342afe4831f4aab5773d7d74a7d450617a1a18"
+    },
+    {
+      "file_name": "img-071.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-071.png",
+      "size_bytes": 169846,
+      "sha256": "4c4e483a3fc71a0aadfcb8133150a1f29abbdf4c51252b1256ca3e4dcf825506"
+    },
+    {
+      "file_name": "img-072.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-072.png",
+      "size_bytes": 58636,
+      "sha256": "92afc1b60ebd66ed3714b5f1bb75b57c4c9c070d4c9b305f7357fc01b8b37563"
+    },
+    {
+      "file_name": "img-073.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-073.png",
+      "size_bytes": 1028115,
+      "sha256": "b0dd4a8e20d1d941dbdf477bcb417c359d8c48cbbf82b64e06c10cd440b8853a"
+    },
+    {
+      "file_name": "img-074.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-074.png",
+      "size_bytes": 2172247,
+      "sha256": "f09d38d75041b21c66b8932191ec9e47d51fbc89ffdd773fe532bb6650373a2f"
+    },
+    {
+      "file_name": "img-075.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-075.png",
+      "size_bytes": 109823,
+      "sha256": "354bd82ec910cc730527eebbce79f3d685c2dd1adfbde70b9526caef0c2cdf8c"
+    },
+    {
+      "file_name": "img-076.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-076.png",
+      "size_bytes": 40706,
+      "sha256": "28ce77e7c6aa1a53a8990bf1f38a4c474b2e7763e62bc5a104ffebfdb02477ae"
+    },
+    {
+      "file_name": "img-077.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-077.png",
+      "size_bytes": 921919,
+      "sha256": "d49f06f77ccd87366402d5e9e81ef9474b0b9dbba9d3f39b4b5e8462c00d3f2a"
+    },
+    {
+      "file_name": "img-078.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-078.png",
+      "size_bytes": 29513,
+      "sha256": "cf3f8dc6396d88ab077c59a692364b608be621a7eca175f61d7a21023a5a6255"
+    },
+    {
+      "file_name": "img-079.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-079.png",
+      "size_bytes": 1015804,
+      "sha256": "474dae3486485e65d4ac7def0bc5af2a178c5481440b2df76c57b7b4f8a62cb5"
+    },
+    {
+      "file_name": "img-080.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-080.png",
+      "size_bytes": 2583284,
+      "sha256": "00466b701e427d664019e91e4a5af08b65d2e51736435430f46d8bf46be1fec7"
+    },
+    {
+      "file_name": "img-081.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-081.png",
+      "size_bytes": 127652,
+      "sha256": "e017c127a07e25818408d0f0a08fd318e47a514c37a5725f61cc0b87b7c775e2"
+    },
+    {
+      "file_name": "img-082.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-082.png",
+      "size_bytes": 1912320,
+      "sha256": "581d6424a0dcd5046f0ecb2a2fadae4ca18dd387dbf8b5e0e66f1305fa0f53cc"
+    },
+    {
+      "file_name": "img-083.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-083.png",
+      "size_bytes": 95943,
+      "sha256": "56208e860104a9a933226447d4f3e023104419f9ad9bec9320d4c33f2188fc1c"
+    },
+    {
+      "file_name": "img-084.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-084.png",
+      "size_bytes": 62160,
+      "sha256": "04e9744f618674a036dd1382382d340374edef0258e37eff8abda6430e816b71"
+    },
+    {
+      "file_name": "img-085.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-085.png",
+      "size_bytes": 1094274,
+      "sha256": "9e43ff19da9063046e9dd8a703433bc98665e8efa862397896ba39c3bed249c2"
+    },
+    {
+      "file_name": "img-086.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-086.png",
+      "size_bytes": 989540,
+      "sha256": "4a7a1e4c2e65d8d5b31b6e2515f314b0f1897a555e0c7fc3a7a7fec76a173b50"
+    },
+    {
+      "file_name": "img-087.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-087.png",
+      "size_bytes": 55701,
+      "sha256": "bea0946aae201faf7a61bdd8e3a1152a9eb62409659192a746607d4e7e2d6e0c"
+    },
+    {
+      "file_name": "img-088.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-088.png",
+      "size_bytes": 754008,
+      "sha256": "5ea4ebc94c56b2ac79f247e0a18dd7bc28b301a703229ff457855747e22db033"
+    },
+    {
+      "file_name": "img-089.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-089.png",
+      "size_bytes": 64099,
+      "sha256": "f1ef5d995e8a909dad441079dea69be9f171b88335ab6935cfb3393a2bc5549d"
+    },
+    {
+      "file_name": "img-090.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-090.png",
+      "size_bytes": 916746,
+      "sha256": "4637941495f3a1ae5e510035d88d8f9118172b717f190a977c81d4e0f963be1f"
+    },
+    {
+      "file_name": "img-091.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-091.png",
+      "size_bytes": 1225621,
+      "sha256": "c61a5d1541416e16674e866f1cce319012b5637dbd0e47867f9d19a5e1fd8700"
+    },
+    {
+      "file_name": "img-092.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-092.png",
+      "size_bytes": 65164,
+      "sha256": "f6c5dc034186edc43dbeaa9d2e88ee88d648ae2956cd78a85c35702de531a6b0"
+    },
+    {
+      "file_name": "img-093.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-093.png",
+      "size_bytes": 41635,
+      "sha256": "f4e9b1a788400a3483697dbab80db75c86506ec978ea7bf23495498c796c4c91"
+    },
+    {
+      "file_name": "img-094.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-094.png",
+      "size_bytes": 1033386,
+      "sha256": "b7efb39c6b2bf43c5124f50fc979435acb0989c7fe5467c8664669a7b49869e1"
+    },
+    {
+      "file_name": "img-095.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-095.png",
+      "size_bytes": 781094,
+      "sha256": "cfdf69ea2cf5db9b3b68dcfb7581988af2ead7763a7872524f0efc3de624b2ef"
+    },
+    {
+      "file_name": "img-096.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-096.png",
+      "size_bytes": 66551,
+      "sha256": "3ca4aa4abbf89c2aecd1dd82e0cfd68719cfe5b4eb32649ef3a8ec4d4512bddc"
+    },
+    {
+      "file_name": "img-097.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-097.png",
+      "size_bytes": 56876,
+      "sha256": "ccfeaba5f975980c4a6488bd71c509290e3bb08ab1c10569fdc0305db349c528"
+    },
+    {
+      "file_name": "img-098.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-098.png",
+      "size_bytes": 939965,
+      "sha256": "28cbdf9f02b50c1d1630e215958d3cfbbe7ed7db758837ac80cc70802482e117"
+    },
+    {
+      "file_name": "img-099.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-099.png",
+      "size_bytes": 2011202,
+      "sha256": "d8ff77a875b63a3716db20b88047c70a9e969f9f874ad74546c86981454bd0f3"
+    },
+    {
+      "file_name": "img-100.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-100.png",
+      "size_bytes": 619386,
+      "sha256": "8513b1a59a7cf678e501ef77ee399e02db8eef8dafd1f7434afc36ad6c0077c3"
+    },
+    {
+      "file_name": "img-101.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-101.png",
+      "size_bytes": 246,
+      "sha256": "c46b57cf0a006645997a1b66037000cac882a63581c2074fd5f869b70b61dc6a"
+    },
+    {
+      "file_name": "img-102.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-102.png",
+      "size_bytes": 3007,
+      "sha256": "b162355a6f078f5c5d9fb2e94e4b143c9a081a45a8dc8a68ae6572531b422337"
+    },
+    {
+      "file_name": "img-103.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-103.png",
+      "size_bytes": 5814,
+      "sha256": "265f43f7153369230723c7ad02ce34008ac2e3c56c443cbaadea54b938f830b8"
+    },
+    {
+      "file_name": "img-104.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-104.png",
+      "size_bytes": 2542,
+      "sha256": "ac687b7c14901c6a5e6dd613012595ba76af5e8586995d552eb965380125d513"
+    },
+    {
+      "file_name": "img-105.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-105.png",
+      "size_bytes": 8297,
+      "sha256": "c3133d084b62b8b9e5ec983e61dd768123a438512362ac009923db3eb83055b3"
+    },
+    {
+      "file_name": "img-106.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-106.png",
+      "size_bytes": 11588,
+      "sha256": "d68e5048c1bd5f4aa4698da1e21c5c2e6b4443f3767f466293863118329b3552"
+    },
+    {
+      "file_name": "img-107.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-107.png",
+      "size_bytes": 9475,
+      "sha256": "60b09b0d8505a64f97eaad263cf6c06f549a2bea9d8ff4b61442b4793adc7901"
+    },
+    {
+      "file_name": "img-108.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-108.png",
+      "size_bytes": 8704,
+      "sha256": "079b4ffbc6d410d23eaa8daa504ccbf378bcd69e26ec667ee997d31cb5990e9e"
+    },
+    {
+      "file_name": "img-109.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-109.png",
+      "size_bytes": 3547,
+      "sha256": "73260871ce99817ee28a29711dfd2fd585590177fba65074504e25643714c77f"
+    },
+    {
+      "file_name": "img-110.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-110.png",
+      "size_bytes": 5629,
+      "sha256": "2453f241ed8a9f91a9e115f1d150d338a71c062fe1cd45c72030a4b6cbccae31"
+    },
+    {
+      "file_name": "img-111.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-111.png",
+      "size_bytes": 2415,
+      "sha256": "d26470f34166eb5b65890c0db539ca0b94fe7bffe3fd179b927869c86a53b867"
+    },
+    {
+      "file_name": "img-112.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-112.png",
+      "size_bytes": 2570,
+      "sha256": "c3ae61ea3694b1d8c2f0fda04e3564bec7d7b088f0e49826605252b88bb7af7e"
+    },
+    {
+      "file_name": "img-113.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-113.png",
+      "size_bytes": 197,
+      "sha256": "db43d618fc55261d4095c8350aa1eff061a65fa16a98c7fe700bef542c67a76b"
+    },
+    {
+      "file_name": "img-114.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-114.png",
+      "size_bytes": 191,
+      "sha256": "0fbf44244a5e2b20a926f616ccf2d7a67356cdea04d0a0063ff66047110bc309"
+    },
+    {
+      "file_name": "img-115.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-115.png",
+      "size_bytes": 154,
+      "sha256": "253624147520837864224e6a1648fd0cdcdc55956aefc9dc120614114d02f327"
+    },
+    {
+      "file_name": "img-116.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-116.png",
+      "size_bytes": 117,
+      "sha256": "51b3b5c262b0e273efa0e7e6e035be044993edfc3ad3c948e3715e83b63cfc2f"
+    },
+    {
+      "file_name": "img-117.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-117.png",
+      "size_bytes": 118,
+      "sha256": "ad2d72c6da9ab6401f765cf13993f83fa550730d89d4d987c141465a13e99041"
+    },
+    {
+      "file_name": "img-118.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-118.png",
+      "size_bytes": 2572,
+      "sha256": "d64f37873f2f88f86453ab97f619006b0a0fec8539169f5f44408fe819fbe806"
+    },
+    {
+      "file_name": "img-119.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-119.png",
+      "size_bytes": 12889,
+      "sha256": "142546b9ab80ec9d60a7e0b89bac0239bfc4040ca20faf67a1b10f0809633553"
+    },
+    {
+      "file_name": "img-120.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-120.png",
+      "size_bytes": 10952,
+      "sha256": "9c245c5788ad03d4202e64dc0c39faeeb5fcd7437db66c542ad2053a4200eb92"
+    },
+    {
+      "file_name": "img-121.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-121.png",
+      "size_bytes": 8671,
+      "sha256": "a98a793553456a241dc42f6236c3ff37d22476afb4d579e4f0ebd53ab79b8f36"
+    },
+    {
+      "file_name": "img-122.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-122.png",
+      "size_bytes": 9090,
+      "sha256": "c89d4bbce03e913816702826c10cae85892f4ce8a645bbc41261577bcdd150c1"
+    },
+    {
+      "file_name": "img-123.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-123.png",
+      "size_bytes": 16209,
+      "sha256": "588d4de0e51e4815a909958bd44a8ad9d674825a6ddd5334009b0dff81ae3cfb"
+    },
+    {
+      "file_name": "img-124.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-124.png",
+      "size_bytes": 16516,
+      "sha256": "0a7f4934fff313d0a46f0d55750d6528c57f6f59d3e9d16b30de4497f5e17031"
+    },
+    {
+      "file_name": "img-125.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-125.png",
+      "size_bytes": 8872,
+      "sha256": "1c3e2adcdfb936fce4e9f0a5b477a51bb08f09e77402793fab5f0bce76abd62c"
+    },
+    {
+      "file_name": "img-126.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-126.png",
+      "size_bytes": 3735,
+      "sha256": "401d12144a902815349b5071df5c78033db9ef6b51bd305ca7f35f099a8ffeb6"
+    },
+    {
+      "file_name": "img-127.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-127.png",
+      "size_bytes": 14969,
+      "sha256": "6dbe3bbd4e1d6527d286740344289a625bac8debc52ee1a9ff6e0da972bc8c1e"
+    },
+    {
+      "file_name": "img-128.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-128.png",
+      "size_bytes": 14857,
+      "sha256": "4dafc55bbd27d933e65de45f17e82472c9ad60e03ae55607fab6bf193166b326"
+    },
+    {
+      "file_name": "img-129.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-129.png",
+      "size_bytes": 7995,
+      "sha256": "0d39a2e8f291b22004eef3020bf0f5be57aba7809b7ca8db2a0760dcfa9212d2"
+    },
+    {
+      "file_name": "img-130.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-130.png",
+      "size_bytes": 130,
+      "sha256": "a2a0ed10a4402b8256396fcbd0ea65227d476dcf04a5388a8be877f9f6e0f74e"
+    },
+    {
+      "file_name": "img-131.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-131.png",
+      "size_bytes": 62077,
+      "sha256": "206d03ebcedf260f6fec52c52bb433b588dc2241e5bdf6c4f9db273e1f003db6"
+    },
+    {
+      "file_name": "img-132.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-132.png",
+      "size_bytes": 82892,
+      "sha256": "3831aff594590f09417c16bdd5c54604fac5cd964325c7ab293cc173480a7fc4"
+    },
+    {
+      "file_name": "img-133.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-133.png",
+      "size_bytes": 6059,
+      "sha256": "328d7afb966973e20ebdc6b4eaa6e0ed72fecc01e77200fdb7b96d781c1231bf"
+    },
+    {
+      "file_name": "img-134.png",
+      "relative_path": "docs/lonely_planet_extracted/images_rgb/img-134.png",
+      "size_bytes": 1694,
+      "sha256": "a268d6641b5643c40a5fac23474b0fa7996d51863d47a6b98d90c450efcbe759"
+    }
+  ]
+}

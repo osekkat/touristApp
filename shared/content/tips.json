@@ -1,11 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-07T17:20:00+01:00",
-    "source_document": "Marrakech_data_ressources.md",
+    "generated_at": "2026-02-07T21:45:00+01:00",
+    "source_document": "Marrakech_data_ressources.md; lonely-planet-pocket-marrakesh-7-ebook.pdf",
     "notes": [
       "Seed entries are extracted from high-confidence recurring signals in listed resources.",
       "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
-      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+      "Glossary entries are marked needs_native_review for linguistic QA before production use.",
+      "Includes curated extraction from Lonely Planet · Pocket Marrakesh 7 (PDF, 161 pages), processed on 2026-02-07."
     ]
   },
   "items": [
@@ -181,6 +182,350 @@
       "updated_at": "2026-02-07",
       "source_refs": [
         16
+      ]
+    },
+    {
+      "id": "tip-family-food-flexibility",
+      "title": "Mix local staples with familiar food for kids",
+      "category": "family_travel",
+      "summary": "Street-food snacks and classic dishes can work well for adventurous children, while pizza/pasta options are widely available for picky eaters.",
+      "actions": [
+        "Start with simple options like plain couscous, harira or grilled sandwiches",
+        "Keep one familiar fallback meal option per day"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        144
+      ]
+    },
+    {
+      "id": "tip-family-transport-grand-taxi",
+      "title": "Use grand taxis for larger families",
+      "category": "family_travel",
+      "summary": "Petits taxis usually allow three passengers only, so families often need a grand taxi or alternate transport.",
+      "actions": [
+        "Confirm passenger count before getting in",
+        "Use calèches or tuk tuk when children are tired and walking tolerance drops"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        144
+      ]
+    },
+    {
+      "id": "tip-family-no-stroller-medina",
+      "title": "Avoid pushchairs in the medina",
+      "category": "family_travel",
+      "summary": "Dense lanes and uneven surfaces make strollers impractical in core medina routes.",
+      "actions": [
+        "Use baby carrier, sling or lightweight child-carry setup",
+        "Plan shorter route segments with regular rest stops"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        144
+      ]
+    },
+    {
+      "id": "tip-family-early-souq-window",
+      "title": "Do souqs early for family comfort",
+      "category": "family_travel",
+      "summary": "Early mornings are quieter in souq lanes, with less crowd pressure and better visibility of crafts.",
+      "actions": [
+        "Enter souqs early and reserve afternoons for lower-density stops",
+        "Avoid peak midday crowd and heat windows"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        144
+      ]
+    },
+    {
+      "id": "tip-family-evening-djemaa-window",
+      "title": "Family-friendly Djemaa window is around 18:00-20:00",
+      "category": "family_travel",
+      "summary": "The early evening window captures dance/music atmosphere while avoiding a very late finish for children.",
+      "actions": [
+        "Plan dinner and performance viewing before bedtime fatigue",
+        "Use rooftop viewpoints if the square becomes overwhelming"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        144
+      ]
+    },
+    {
+      "id": "tip-accommodation-medina-riad-baseline",
+      "title": "Marrakesh accommodation baseline is riad-heavy in the medina",
+      "category": "accommodation",
+      "summary": "Core city stays are dominated by traditional riad guesthouses across budget, midrange and high-end tiers.",
+      "actions": [
+        "Choose medina riad when you want architecture and walkable souq access",
+        "Confirm room accessibility details before booking"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        145
+      ]
+    },
+    {
+      "id": "tip-accommodation-near-djemaa",
+      "title": "Stay near Djemaa for nightlife and easy evening access",
+      "category": "accommodation",
+      "summary": "Djemaa and southern central souqs give strong evening energy and broad accommodation coverage across price levels.",
+      "actions": [
+        "Prioritize this zone if night square access matters most",
+        "Check for sound insulation if you are a light sleeper"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        39,
+        145
+      ]
+    },
+    {
+      "id": "tip-accommodation-mouassine-shopping",
+      "title": "Stay in Mouassine for shopping and museum density",
+      "category": "accommodation",
+      "summary": "Mouassine/Central Souqs offers high shopping density, growing design presence and multiple museums.",
+      "actions": [
+        "Choose this area when souq access is your top priority",
+        "Expect heavier foot traffic versus quieter medina edges"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        63,
+        145
+      ]
+    },
+    {
+      "id": "tip-accommodation-kasbah-mellah",
+      "title": "Kasbah/Mellah works for palace-first itineraries",
+      "category": "accommodation",
+      "summary": "Kasbah and Mellah are close to major historic sights and generally calmer at night than core souq zones.",
+      "actions": [
+        "Pick this zone for Bahia/Badi/Saadian-heavy days",
+        "Use evening transport planning if nightlife focus is in Djemaa"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        95,
+        145
+      ]
+    },
+    {
+      "id": "tip-accommodation-bab-doukkala-balance",
+      "title": "Bab Doukkala is a balanced base with residential feel",
+      "category": "accommodation",
+      "summary": "Bab Doukkala/Riad Laarous combines quieter residential rhythm with good restaurant and activity access.",
+      "actions": [
+        "Use this base for longer stays that mix medina and workshop/yoga/cycling activities",
+        "Plan daily transit for deep Kasbah or Gueliz priorities"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        109,
+        145
+      ]
+    },
+    {
+      "id": "tip-accommodation-agafay-lodges",
+      "title": "Agafay lodges are best as a short add-on, not medina replacement",
+      "category": "accommodation",
+      "summary": "Agafay offers luxury camp-style stays with sunset entertainment about 45 minutes from Marrakech.",
+      "actions": [
+        "Use Agafay for one-night contrast after city days",
+        "Confirm transport plan to and from medina before booking"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        140,
+        145
+      ]
+    },
+    {
+      "id": "tip-accommodation-price-ladder",
+      "title": "Quick nightly accommodation ladder",
+      "category": "accommodation",
+      "summary": "Typical ranges noted in the guide: hostel dorm from EUR16, boutique midrange riad around EUR100+, and top luxury riads around EUR300+.",
+      "actions": [
+        "Use this as pre-booking budget guardrail before comparing properties",
+        "Expect event dates and holidays to push top-end rates upward"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        145
+      ]
+    },
+    {
+      "id": "tip-health-insurance-upfront-payments",
+      "title": "Travel insurance is essential because treatment is usually paid upfront",
+      "category": "health_safety",
+      "summary": "Emergency care commonly requires immediate payment, so strong travel insurance is a baseline requirement.",
+      "actions": [
+        "Carry policy details and emergency contact numbers offline",
+        "Include theft, delay and luggage loss coverage where possible"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        149
+      ]
+    },
+    {
+      "id": "tip-health-water-practice",
+      "title": "Prefer bottled water if your system is sensitive",
+      "category": "health_safety",
+      "summary": "Tap water in major cities is generally considered safe by local standards, but many visitors do better with bottled water.",
+      "actions": [
+        "Use sealed bottled water for hydration if unsure",
+        "Avoid unlabeled tap-water glasses in cafes if you are sensitive"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        146,
+        149
+      ]
+    },
+    {
+      "id": "tip-health-bag-snatch-awareness",
+      "title": "Use cross-body bags in dense lanes",
+      "category": "health_safety",
+      "summary": "Bag snatching by passing riders can occur in busy medina routes.",
+      "actions": [
+        "Wear bags cross-body and zipped",
+        "Avoid exposing phones and wallets near street edges"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        149
+      ]
+    },
+    {
+      "id": "tip-health-heat-window",
+      "title": "Protect against midday heat",
+      "category": "health_safety",
+      "summary": "Summer midday heat can degrade safety and decision quality; hydrate and shift plans to cooler windows.",
+      "actions": [
+        "Schedule high-effort walking in morning or late afternoon",
+        "Use shaded or indoor stops during peak heat"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        149
+      ]
+    },
+    {
+      "id": "tip-responsible-avoid-animal-exploitation",
+      "title": "Avoid paid interactions that exploit animals",
+      "category": "responsible_travel",
+      "summary": "Guidance flags snake charming and chained-monkey photo setups as practices to avoid supporting.",
+      "actions": [
+        "Decline animal photo/handling offers",
+        "Walk away from handlers instead of negotiating"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        44,
+        150
+      ]
+    },
+    {
+      "id": "tip-responsible-support-local-enterprises",
+      "title": "Support local cooperatives and training-led enterprises",
+      "category": "responsible_travel",
+      "summary": "Choose locally run riads, women-led cooperatives and social enterprises to keep spending in community networks.",
+      "actions": [
+        "Prioritize cooperatives and mission-led experiences when shopping/eating",
+        "Use operators with direct local training or employment impact"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        150,
+        151
+      ]
+    },
+    {
+      "id": "tip-responsible-crowd-management",
+      "title": "Shift timing to reduce overtourism pressure",
+      "category": "responsible_travel",
+      "summary": "Early visits and smaller museums reduce crowd pressure on major heritage bottlenecks.",
+      "actions": [
+        "Book major sights early in the day",
+        "Rotate at least one smaller museum into each monument-heavy day"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        150
+      ]
+    },
+    {
+      "id": "tip-accessibility-medina-reality",
+      "title": "Assume limited accessibility in old-medina routes",
+      "category": "accessibility",
+      "summary": "Stair-heavy riads and medieval lanes can be difficult for mobility devices; pre-check every stop.",
+      "actions": [
+        "Request exact access details from accommodation before booking",
+        "Use modern-hotel base when step-free movement is required"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        152
+      ]
+    },
+    {
+      "id": "tip-accessibility-majorelle-ysl",
+      "title": "Majorelle and YSL are among the strongest accessible visits",
+      "category": "accessibility",
+      "summary": "Guide highlights Jardin Majorelle and Musée Yves Saint Laurent as generally step-free with adapted facilities.",
+      "actions": [
+        "Prioritize this pair for lower-friction cultural day planning",
+        "Use prebooked timed entries to reduce queue friction"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        122,
+        127,
+        152
+      ],
+      "related_place_ids": [
+        "place-jardin-majorelle",
+        "place-yves-saint-laurent-museum"
+      ]
+    },
+    {
+      "id": "tip-lgbtiq-discretion-context",
+      "title": "LGBTIQ+ travelers should plan with legal and social discretion",
+      "category": "lgbtiq",
+      "summary": "The guide notes conservative norms and legal risk around same-sex relationships, with discretion recommended in public settings.",
+      "actions": [
+        "Use trusted accommodations and specialist resources where relevant",
+        "Keep public displays of affection low-profile regardless of orientation"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        148
       ]
     }
   ]

@@ -1,0 +1,175 @@
+{
+  "generated_at": "2026-02-07T21:45:00+01:00",
+  "source_pdf": "lonely-planet-pocket-marrakesh-7-ebook.pdf",
+  "notes": [
+    "Each suggested image is the largest extracted asset on the referenced page.",
+    "Validate visual relevance manually before production upload.",
+    "RGB canonical path fields added to avoid CMYK color inversion artifacts."
+  ],
+  "place_image_candidates": [
+    {
+      "place_id": "place-musee-patrimoine-immateriel",
+      "source_page": 47,
+      "suggested_asset_id": "lp-pocket-mar7-img-062",
+      "suggested_file_name": "img-062.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-062.jpg",
+      "suggested_file_name_rgb": "img-062.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-062.png"
+    },
+    {
+      "place_id": "place-musee-musique-mouassine",
+      "source_page": 68,
+      "suggested_asset_id": "lp-pocket-mar7-img-069",
+      "suggested_file_name": "img-069.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-069.jpg",
+      "suggested_file_name_rgb": "img-069.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+    },
+    {
+      "place_id": "place-musee-confluences-dar-el-bacha",
+      "source_page": 69,
+      "suggested_asset_id": "lp-pocket-mar7-img-069",
+      "suggested_file_name": "img-069.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-069.jpg",
+      "suggested_source_page": 68,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-069.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+    },
+    {
+      "place_id": "place-almoravid-koubba",
+      "source_page": 86,
+      "suggested_asset_id": "lp-pocket-mar7-img-073",
+      "suggested_file_name": "img-073.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-073.jpg",
+      "suggested_file_name_rgb": "img-073.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-073.png"
+    },
+    {
+      "place_id": "place-el-azama-synagogue",
+      "source_page": 105,
+      "suggested_asset_id": "lp-pocket-mar7-img-079",
+      "suggested_file_name": "img-079.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-079.jpg",
+      "suggested_source_page": 102,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-079.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-079.png"
+    },
+    {
+      "place_id": "place-rahba-kedima",
+      "source_page": 72,
+      "suggested_asset_id": "lp-pocket-mar7-img-069",
+      "suggested_file_name": "img-069.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-069.jpg",
+      "suggested_source_page": 68,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-069.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+    },
+    {
+      "place_id": "place-souq-haddadine",
+      "source_page": 71,
+      "suggested_asset_id": "lp-pocket-mar7-img-069",
+      "suggested_file_name": "img-069.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-069.jpg",
+      "suggested_source_page": 68,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-069.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+    },
+    {
+      "place_id": "place-bab-debbagh-tanneries",
+      "source_page": 90,
+      "suggested_asset_id": "lp-pocket-mar7-img-073",
+      "suggested_file_name": "img-073.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-073.jpg",
+      "suggested_source_page": 86,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-073.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-073.png"
+    },
+    {
+      "place_id": "place-koutoubia-gardens",
+      "source_page": 51,
+      "suggested_asset_id": "lp-pocket-mar7-img-064",
+      "suggested_file_name": "img-064.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-064.jpg",
+      "suggested_file_name_rgb": "img-064.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-064.png"
+    },
+    {
+      "place_id": "place-sidi-ghanem-design-district",
+      "source_page": 131,
+      "suggested_asset_id": "lp-pocket-mar7-img-091",
+      "suggested_file_name": "img-091.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-091.jpg",
+      "suggested_source_page": 130,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-091.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-091.png"
+    },
+    {
+      "place_id": "place-musee-palmeraie",
+      "source_page": 131,
+      "suggested_asset_id": "lp-pocket-mar7-img-091",
+      "suggested_file_name": "img-091.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-091.jpg",
+      "suggested_source_page": 130,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-091.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-091.png"
+    },
+    {
+      "place_id": "place-jemaa-el-fna",
+      "source_page": 42,
+      "suggested_asset_id": "lp-pocket-mar7-img-059",
+      "suggested_file_name": "img-059.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-059.jpg",
+      "suggested_source_page": 44,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-059.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-059.png"
+    },
+    {
+      "place_id": "place-jardin-majorelle",
+      "source_page": 122,
+      "suggested_asset_id": "lp-pocket-mar7-img-085",
+      "suggested_file_name": "img-085.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-085.jpg",
+      "suggested_source_page": 124,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-085.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-085.png"
+    },
+    {
+      "place_id": "place-yves-saint-laurent-museum",
+      "source_page": 127,
+      "suggested_asset_id": "lp-pocket-mar7-img-088",
+      "suggested_file_name": "img-088.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-088.jpg",
+      "suggested_file_name_rgb": "img-088.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-088.png"
+    },
+    {
+      "place_id": "place-bahia-palace",
+      "source_page": 98,
+      "suggested_asset_id": "lp-pocket-mar7-img-077",
+      "suggested_file_name": "img-077.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-077.jpg",
+      "suggested_source_page": 100,
+      "suggested_match_type": "nearest_page_fallback",
+      "suggested_file_name_rgb": "img-077.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-077.png"
+    },
+    {
+      "place_id": "place-saadian-tombs",
+      "source_page": 100,
+      "suggested_asset_id": "lp-pocket-mar7-img-077",
+      "suggested_file_name": "img-077.jpg",
+      "suggested_relative_path": "docs/lonely_planet_extracted/images/img-077.jpg",
+      "suggested_file_name_rgb": "img-077.png",
+      "suggested_relative_path_rgb": "docs/lonely_planet_extracted/images_rgb_canonical/img-077.png"
+    }
+  ]
+}

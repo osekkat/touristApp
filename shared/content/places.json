@@ -1,11 +1,13 @@
 {
   "meta": {
-    "generated_at": "2026-02-07T17:20:00+01:00",
-    "source_document": "Marrakech_data_ressources.md",
+    "generated_at": "2026-02-07T21:45:00+01:00",
+    "source_document": "Marrakech_data_ressources.md; lonely-planet-pocket-marrakesh-7-ebook.pdf",
     "notes": [
       "Seed entries are extracted from high-confidence recurring signals in listed resources.",
       "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
-      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+      "Glossary entries are marked needs_native_review for linguistic QA before production use.",
+      "Includes curated extraction from Lonely Planet · Pocket Marrakesh 7 (PDF, 161 pages), processed on 2026-02-07.",
+      "Places include RGB canonical image paths from Lonely Planet extraction under docs/lonely_planet_extracted/images_rgb_canonical/."
     ]
   },
   "items": [
@@ -55,6 +57,9 @@
         6,
         11,
         16
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-059.png"
       ]
     },
     {
@@ -186,6 +191,9 @@
         6,
         11,
         13
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-077.png"
       ]
     },
     {
@@ -307,6 +315,9 @@
         2,
         3,
         6
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-077.png"
       ]
     },
     {
@@ -352,6 +363,9 @@
         11,
         13,
         31
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-085.png"
       ]
     },
     {
@@ -390,6 +404,9 @@
       "source_refs": [
         3,
         6
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-088.png"
       ]
     },
     {
@@ -1492,6 +1509,569 @@
       ],
       "source_refs": [
         3
+      ]
+    },
+    {
+      "id": "place-musee-patrimoine-immateriel",
+      "name": "Musée du Patrimoine Immatériel",
+      "aliases": [
+        "Museum of Intangible Heritage"
+      ],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Museum on Djemaa El Fna documenting performers, storytellers and living traditions of the square.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Strong context for understanding Djemaa El Fna beyond surface spectacle",
+        "Clear storytelling around disappearing oral-performance traditions"
+      ],
+      "neighborhood": "Djemaa El Fna",
+      "lat": 31.6259,
+      "lng": -7.9888,
+      "hours_text": "Typically 10:00-18:00; often closed Tuesday (verify seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 75,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "museum",
+        "culture",
+        "djemaa-el-fna"
+      ],
+      "local_tips": [
+        "Visit before a night on Djemaa El Fna to recognize performer traditions and roles."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do verify closure day in advance before committing route timing."
+      ],
+      "source_refs": [
+        47
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-062.png"
+      ]
+    },
+    {
+      "id": "place-musee-musique-mouassine",
+      "name": "Musée de la Musique",
+      "aliases": [
+        "Museum of Music"
+      ],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Restored riad with Amazigh instruments, temporary exhibits and intimate weekly concerts.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Combines architecture, music heritage and live performances",
+        "Useful cross-link with Maison de la Photographie ticketing and Mouassine route"
+      ],
+      "neighborhood": "Mouassine",
+      "lat": 31.6305,
+      "lng": -7.9898,
+      "hours_text": "Museum and concerts run on schedule; check current program before visiting.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 90,
+      "best_time_windows": [
+        "afternoon",
+        "evening"
+      ],
+      "tags": [
+        "museum",
+        "music",
+        "concerts",
+        "mouassine"
+      ],
+      "local_tips": [
+        "Book concerts ahead and pair with a rooftop stop in nearby souqs."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do check evening concert calendar before planning this stop as a night activity."
+      ],
+      "source_refs": [
+        68
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+      ]
+    },
+    {
+      "id": "place-musee-confluences-dar-el-bacha",
+      "name": "Musée des Confluences Dar El Bacha",
+      "aliases": [
+        "Dar El Bacha Museum of Confluences"
+      ],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Former pasha palace showcasing Moroccan arts, architecture and multi-faith cultural objects.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "One of the medina’s strongest restored palace interiors",
+        "High-value cultural stop near Mouassine and Rahba Kedima"
+      ],
+      "neighborhood": "Dar El Bacha",
+      "lat": 31.6307,
+      "lng": -7.9916,
+      "hours_text": "Opening hours vary by season; verify before visit.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 95,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "museum",
+        "palace",
+        "architecture"
+      ],
+      "local_tips": [
+        "If visiting Bacha Coffee, reserve a table at museum entry time to reduce waiting."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        69
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+      ]
+    },
+    {
+      "id": "place-almoravid-koubba",
+      "name": "Almoravid Koubba",
+      "aliases": [
+        "Qubba al-Baadiyin"
+      ],
+      "region_id": "medina_core",
+      "category": "historic_site",
+      "short_description": "12th-century Almoravid monument with key Hispano-Moorish architectural details.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Rare surviving Almoravid architecture in Marrakech",
+        "Compact stop that pairs naturally with Ben Youssef circuit"
+      ],
+      "neighborhood": "Ben Youssef area",
+      "lat": 31.6311,
+      "lng": -7.9894,
+      "hours_text": "Daytime opening; verify latest entry cutoff.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 20,
+      "visit_max_minutes": 40,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "historic-site",
+        "almoravid",
+        "architecture"
+      ],
+      "local_tips": [
+        "Visit with Ben Youssef Madrasa to compare architectural periods."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        86
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-073.png"
+      ]
+    },
+    {
+      "id": "place-el-azama-synagogue",
+      "name": "El Azama Synagogue",
+      "aliases": [
+        "Lazama Synagogue"
+      ],
+      "region_id": "medina_kasbah",
+      "category": "historic_site",
+      "short_description": "Historic synagogue in the Mellah, offering insight into Marrakech’s Jewish heritage.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Adds essential multi-faith context to Kasbah/Mellah route",
+        "Short, meaningful historical stop near major palaces"
+      ],
+      "neighborhood": "Mellah",
+      "lat": 31.618,
+      "lng": -7.9829,
+      "hours_text": "Limited visiting schedule; verify opening before arrival.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 20,
+      "visit_max_minutes": 40,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "historic-site",
+        "mellah",
+        "jewish-heritage"
+      ],
+      "local_tips": [
+        "Combine with Bahia Palace and Saadian Tombs in one walkable Kasbah loop."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do dress respectfully when entering religious heritage sites."
+      ],
+      "source_refs": [
+        105
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-079.png"
+      ]
+    },
+    {
+      "id": "place-rahba-kedima",
+      "name": "Rahba Kedima",
+      "aliases": [
+        "Place Rahba Kedima",
+        "Spice Square"
+      ],
+      "region_id": "medina_core",
+      "category": "market",
+      "short_description": "Busy square known for spice vendors, baskets and boutique-style souq shopping.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Strong snapshot of central souq commerce",
+        "Easy insertion into Mouassine and Dar El Bacha route"
+      ],
+      "neighborhood": "Mouassine / Central Souqs",
+      "lat": 31.6286,
+      "lng": -7.9866,
+      "hours_text": "Most active from late morning through late afternoon.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 25,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "market",
+        "souqs",
+        "spices",
+        "shopping"
+      ],
+      "local_tips": [
+        "Arrive early for easier browsing and lower lane congestion."
+      ],
+      "scam_warnings": [
+        "Confirm product quality and total price before finalizing purchases."
+      ],
+      "do_and_dont": [
+        "Do compare two or three shops before committing on higher-value items."
+      ],
+      "source_refs": [
+        72
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+      ]
+    },
+    {
+      "id": "place-souq-haddadine",
+      "name": "Souq Haddadine",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "market",
+      "short_description": "Metalworking souq where artisans continue traditional fabrication and finishing crafts.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Craft-production visibility gives a stronger sense of medina work life",
+        "Good route link between major Mouassine and Ben Youssef stops"
+      ],
+      "neighborhood": "Central Souqs",
+      "lat": 31.628,
+      "lng": -7.9878,
+      "hours_text": "Craft activity is strongest in daytime workshop hours.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 20,
+      "visit_max_minutes": 45,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "market",
+        "crafts",
+        "souqs",
+        "metalwork"
+      ],
+      "local_tips": [
+        "Morning visits are best for seeing artisans actively working."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do ask before photographing artisans at work."
+      ],
+      "source_refs": [
+        71
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-069.png"
+      ]
+    },
+    {
+      "id": "place-bab-debbagh-tanneries",
+      "name": "Bab Debbagh Tanneries",
+      "aliases": [
+        "Bab Debbagh Tanneries"
+      ],
+      "region_id": "medina_core",
+      "category": "market",
+      "short_description": "Traditional tanning quarter with working vats and leather-processing workshops.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Direct look at one of medina’s most historic craft industries",
+        "Distinct experience from central retail-focused souqs"
+      ],
+      "neighborhood": "Bab Debbagh",
+      "lat": 31.6352,
+      "lng": -7.9799,
+      "hours_text": "Daytime only for workshop visibility and safer navigation.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 30,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "tanneries",
+        "crafts",
+        "leather",
+        "medina"
+      ],
+      "local_tips": [
+        "Visit with a clear route and return waypoint because lanes are easy to misread."
+      ],
+      "scam_warnings": [
+        "Unsolicited guiding often carries unexpected fees; agree a price first or decline."
+      ],
+      "do_and_dont": [
+        "Do wear closed shoes due wet/uneven workshop surfaces."
+      ],
+      "source_refs": [
+        90
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-073.png"
+      ]
+    },
+    {
+      "id": "place-koutoubia-gardens",
+      "name": "Koutoubia Gardens",
+      "aliases": [
+        "Koutoubia Garden"
+      ],
+      "region_id": "medina_core",
+      "category": "garden",
+      "short_description": "Free green space by Koutoubia, useful as a quiet reset near Djemaa El Fna.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Family-friendly breathing space close to busiest medina zone",
+        "Good orientation point before entering/exiting Djemaa area"
+      ],
+      "neighborhood": "Koutoubia / Djemaa edge",
+      "lat": 31.6233,
+      "lng": -7.9932,
+      "hours_text": "Public park access generally daytime.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 15,
+      "visit_max_minutes": 40,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "garden",
+        "family-friendly",
+        "near-djemaa"
+      ],
+      "local_tips": [
+        "Use this stop to cool down before evening crowds on Djemaa El Fna."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do keep to marked paths and local park rules."
+      ],
+      "source_refs": [
+        51,
+        144
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-064.png"
+      ]
+    },
+    {
+      "id": "place-cyber-park",
+      "name": "Cyber Park",
+      "aliases": [
+        "Arsat Moulay Abdeslam Cyber Park"
+      ],
+      "region_id": "medina_core",
+      "category": "garden",
+      "short_description": "Central park northwest of Koutoubia that works well as a low-stress family break stop.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Recommended in family guidance for downtime between monuments",
+        "Free, simple reset area near core sightseeing loop"
+      ],
+      "neighborhood": "Koutoubia / Bab Doukkala edge",
+      "lat": 31.6282,
+      "lng": -7.9964,
+      "hours_text": "Park opening hours vary; daytime visits recommended.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 20,
+      "visit_max_minutes": 50,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "garden",
+        "family-friendly",
+        "reset-stop"
+      ],
+      "local_tips": [
+        "Good stop when children need a quiet break from souq density."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        144
+      ]
+    },
+    {
+      "id": "place-sidi-ghanem-design-district",
+      "name": "Sidi Ghanem Design District",
+      "aliases": [
+        "Sidi Ghanem"
+      ],
+      "region_id": "gueliz",
+      "category": "neighborhood",
+      "short_description": "Outskirts design district with showrooms, concept stores and fixed-price contemporary homewares.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Best concentrated modern-design shopping zone outside souqs",
+        "Credit-card-friendly and less negotiation-heavy than central medina shopping"
+      ],
+      "neighborhood": "Sidi Ghanem",
+      "lat": 31.6509,
+      "lng": -8.0206,
+      "hours_text": "Showroom hours vary by outlet; daytime is best.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 120,
+      "visit_max_minutes": 240,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "design",
+        "shopping",
+        "outskirts",
+        "showrooms"
+      ],
+      "local_tips": [
+        "Hire a grand taxi or driver and plan at least half a day."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do carry card and some cash because payment methods vary by outlet."
+      ],
+      "source_refs": [
+        131
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-091.png"
+      ]
+    },
+    {
+      "id": "place-musee-palmeraie",
+      "name": "Musée de la Palmeraie",
+      "aliases": [
+        "Museum of the Palmeraie"
+      ],
+      "region_id": "atlas_periphery",
+      "category": "museum",
+      "short_description": "Garden-set museum in the Palmeraie with strong photography and contemporary Moroccan art holdings.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "High-value outskirts cultural stop for art-focused travelers",
+        "Works well with a half-day Palmeraie circuit"
+      ],
+      "neighborhood": "Palmeraie",
+      "lat": 31.6881,
+      "lng": -8.0052,
+      "hours_text": "Daytime hours; verify before departure from city center.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "museum",
+        "palmeraie",
+        "art",
+        "outskirts"
+      ],
+      "local_tips": [
+        "Combine with another Palmeraie stop to justify transport time."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        131
+      ],
+      "images": [
+        "docs/lonely_planet_extracted/images_rgb_canonical/img-091.png"
       ]
     }
   ]
