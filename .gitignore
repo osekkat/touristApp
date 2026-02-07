@@ -36,3 +36,6 @@ logs/
 # Coverage
 coverage/
 *.lcov
+
+# bv (beads viewer) local config and caches
+.bv/
