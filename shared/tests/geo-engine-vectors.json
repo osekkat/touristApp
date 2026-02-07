@@ -1,0 +1,384 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generated_at": "2026-02-08T00:00:00Z",
+    "description": "Shared test vectors for GeoEngine. Both iOS and Android implementations MUST pass all tests.",
+    "notes": [
+      "Coordinates are real Marrakech landmarks from places.json",
+      "All distances in meters, bearings in degrees (0=N, 90=E, 180=S, 270=W)",
+      "Tolerance accounts for floating-point precision and Earth's non-spherical shape"
+    ]
+  },
+  "constants": {
+    "EARTH_RADIUS_METERS": 6371000,
+    "MEDINA_WALK_MULTIPLIER": 0.7,
+    "DEFAULT_WALK_SPEED_MPS": 1.25
+  },
+  "haversine": [
+    {
+      "name": "Jemaa el-Fna to Bahia Palace",
+      "description": "Common tourist route through the Medina",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.621633, "lng": -7.981938 }
+      },
+      "expected": {
+        "distance_meters": 834,
+        "tolerance_meters": 15
+      }
+    },
+    {
+      "name": "Jemaa el-Fna to Koutoubia Mosque",
+      "description": "Short walk to iconic minaret",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.623751, "lng": -7.993358 }
+      },
+      "expected": {
+        "distance_meters": 480,
+        "tolerance_meters": 10
+      }
+    },
+    {
+      "name": "Jemaa el-Fna to Ben Youssef Medrasa",
+      "description": "Walk north through the souks",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.631984, "lng": -7.986036 }
+      },
+      "expected": {
+        "distance_meters": 746,
+        "tolerance_meters": 15
+      }
+    },
+    {
+      "name": "Jemaa el-Fna to Jardin Majorelle",
+      "description": "Longer journey to Gueliz district",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.641475, "lng": -8.002908 }
+      },
+      "expected": {
+        "distance_meters": 2165,
+        "tolerance_meters": 30
+      }
+    },
+    {
+      "name": "Same point",
+      "description": "Edge case: identical coordinates",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.625831, "lng": -7.98892 }
+      },
+      "expected": {
+        "distance_meters": 0,
+        "tolerance_meters": 1
+      }
+    },
+    {
+      "name": "El Badi Palace to Saadian Tombs",
+      "description": "Short walk in Kasbah area",
+      "input": {
+        "from": { "lat": 31.618179, "lng": -7.986486 },
+        "to": { "lat": 31.617259, "lng": -7.988555 }
+      },
+      "expected": {
+        "distance_meters": 215,
+        "tolerance_meters": 10
+      }
+    },
+    {
+      "name": "Jardin Majorelle to YSL Museum",
+      "description": "Adjacent attractions",
+      "input": {
+        "from": { "lat": 31.641475, "lng": -8.002908 },
+        "to": { "lat": 31.642543, "lng": -8.003419 }
+      },
+      "expected": {
+        "distance_meters": 130,
+        "tolerance_meters": 10
+      }
+    }
+  ],
+  "bearing": [
+    {
+      "name": "Jemaa el-Fna to Bahia Palace",
+      "description": "Heading roughly southeast",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.621633, "lng": -7.981938 }
+      },
+      "expected": {
+        "bearing_degrees": 123,
+        "tolerance_degrees": 3
+      }
+    },
+    {
+      "name": "Jemaa el-Fna to Koutoubia Mosque",
+      "description": "Heading roughly west-southwest",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.623751, "lng": -7.993358 }
+      },
+      "expected": {
+        "bearing_degrees": 241,
+        "tolerance_degrees": 3
+      }
+    },
+    {
+      "name": "Jemaa el-Fna to Ben Youssef Medrasa",
+      "description": "Heading north-northeast through souks",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.631984, "lng": -7.986036 }
+      },
+      "expected": {
+        "bearing_degrees": 25,
+        "tolerance_degrees": 3
+      }
+    },
+    {
+      "name": "Jemaa el-Fna to Jardin Majorelle",
+      "description": "Heading northwest to Gueliz",
+      "input": {
+        "from": { "lat": 31.625831, "lng": -7.98892 },
+        "to": { "lat": 31.641475, "lng": -8.002908 }
+      },
+      "expected": {
+        "bearing_degrees": 318,
+        "tolerance_degrees": 3
+      }
+    },
+    {
+      "name": "Due North",
+      "description": "Pure northward bearing",
+      "input": {
+        "from": { "lat": 31.0, "lng": -8.0 },
+        "to": { "lat": 32.0, "lng": -8.0 }
+      },
+      "expected": {
+        "bearing_degrees": 0,
+        "tolerance_degrees": 1
+      }
+    },
+    {
+      "name": "Due East",
+      "description": "Pure eastward bearing",
+      "input": {
+        "from": { "lat": 31.0, "lng": -9.0 },
+        "to": { "lat": 31.0, "lng": -8.0 }
+      },
+      "expected": {
+        "bearing_degrees": 90,
+        "tolerance_degrees": 1
+      }
+    },
+    {
+      "name": "Due South",
+      "description": "Pure southward bearing",
+      "input": {
+        "from": { "lat": 32.0, "lng": -8.0 },
+        "to": { "lat": 31.0, "lng": -8.0 }
+      },
+      "expected": {
+        "bearing_degrees": 180,
+        "tolerance_degrees": 1
+      }
+    },
+    {
+      "name": "Due West",
+      "description": "Pure westward bearing",
+      "input": {
+        "from": { "lat": 31.0, "lng": -8.0 },
+        "to": { "lat": 31.0, "lng": -9.0 }
+      },
+      "expected": {
+        "bearing_degrees": 270,
+        "tolerance_degrees": 1
+      }
+    }
+  ],
+  "relativeAngle": [
+    {
+      "name": "Facing north, target east",
+      "description": "Arrow should point right (90 degrees)",
+      "input": {
+        "bearing": 90,
+        "heading": 0
+      },
+      "expected": {
+        "relative_angle": 90
+      }
+    },
+    {
+      "name": "Facing east, target north",
+      "description": "Arrow should point left (270 degrees)",
+      "input": {
+        "bearing": 0,
+        "heading": 90
+      },
+      "expected": {
+        "relative_angle": 270
+      }
+    },
+    {
+      "name": "Facing south, target north",
+      "description": "Arrow should point behind (180 degrees)",
+      "input": {
+        "bearing": 0,
+        "heading": 180
+      },
+      "expected": {
+        "relative_angle": 180
+      }
+    },
+    {
+      "name": "Facing target direction exactly",
+      "description": "Arrow should point straight ahead (0 degrees)",
+      "input": {
+        "bearing": 45,
+        "heading": 45
+      },
+      "expected": {
+        "relative_angle": 0
+      }
+    },
+    {
+      "name": "Wrap around at 360",
+      "description": "Arrow should point slightly right",
+      "input": {
+        "bearing": 10,
+        "heading": 350
+      },
+      "expected": {
+        "relative_angle": 20
+      }
+    },
+    {
+      "name": "Wrap around negative",
+      "description": "Arrow should point slightly left",
+      "input": {
+        "bearing": 350,
+        "heading": 10
+      },
+      "expected": {
+        "relative_angle": 340
+      }
+    },
+    {
+      "name": "Both at 180",
+      "description": "Identical directions",
+      "input": {
+        "bearing": 180,
+        "heading": 180
+      },
+      "expected": {
+        "relative_angle": 0
+      }
+    }
+  ],
+  "formatDistance": [
+    {
+      "name": "Very short distance",
+      "input": { "meters": 15 },
+      "expected": { "formatted": "15 m" }
+    },
+    {
+      "name": "Under 100 meters",
+      "input": { "meters": 85 },
+      "expected": { "formatted": "85 m" }
+    },
+    {
+      "name": "Exactly 100 meters",
+      "input": { "meters": 100 },
+      "expected": { "formatted": "100 m" }
+    },
+    {
+      "name": "Medium distance rounded to 10m",
+      "input": { "meters": 347 },
+      "expected": { "formatted": "350 m" }
+    },
+    {
+      "name": "Just under 1 km",
+      "input": { "meters": 950 },
+      "expected": { "formatted": "950 m" }
+    },
+    {
+      "name": "Exactly 1 km",
+      "input": { "meters": 1000 },
+      "expected": { "formatted": "1.0 km" }
+    },
+    {
+      "name": "Over 1 km",
+      "input": { "meters": 1500 },
+      "expected": { "formatted": "1.5 km" }
+    },
+    {
+      "name": "Several kilometers",
+      "input": { "meters": 2347 },
+      "expected": { "formatted": "2.3 km" }
+    }
+  ],
+  "estimateWalkTime": [
+    {
+      "name": "Short walk normal area",
+      "description": "250m at 4.5 km/h = ~3.3 min",
+      "input": {
+        "meters": 250,
+        "region": "gueliz"
+      },
+      "expected": {
+        "minutes": 3,
+        "tolerance_minutes": 1
+      }
+    },
+    {
+      "name": "Short walk in Medina",
+      "description": "250m with 0.7 multiplier = ~5 min",
+      "input": {
+        "meters": 250,
+        "region": "medina"
+      },
+      "expected": {
+        "minutes": 5,
+        "tolerance_minutes": 1
+      }
+    },
+    {
+      "name": "Medium walk normal area",
+      "description": "1 km at 4.5 km/h = ~13 min",
+      "input": {
+        "meters": 1000,
+        "region": "gueliz"
+      },
+      "expected": {
+        "minutes": 13,
+        "tolerance_minutes": 2
+      }
+    },
+    {
+      "name": "Medium walk in Medina",
+      "description": "1 km with Medina slowdown = ~19 min",
+      "input": {
+        "meters": 1000,
+        "region": "medina"
+      },
+      "expected": {
+        "minutes": 19,
+        "tolerance_minutes": 2
+      }
+    },
+    {
+      "name": "Long walk to Jardin Majorelle",
+      "description": "2.2 km mostly outside Medina = ~29 min",
+      "input": {
+        "meters": 2200,
+        "region": "gueliz"
+      },
+      "expected": {
+        "minutes": 29,
+        "tolerance_minutes": 3
+      }
+    }
+  ]
+}
