@@ -513,11 +513,16 @@ You are not competing on "more listings". You are competing on:
 Minimum pipeline (even if manual at first):
 
 - Single source of truth (repo or lightweight CMS export)
+- `shared/content/` is the canonical source for most product data (places, prices, phrases, itineraries, culture, tips)
 - Schema validation (TypeScript + runtime validation via Zod/JSON Schema) before shipping bundles
   - enforce invariants: unique ids, valid coordinates, price min<=max, required `updatedAt`, no missing referenced ids
 - Reference validation:
   - itinerary steps reference valid place/price ids
   - internal links are not broken
+- Integration requirement (must pass every content release):
+  - build `content.db` from `shared/content/`
+  - bundle that DB into both apps (`ios/.../Resources/SeedData/content.db` and `android/.../assets/seed/content.db`)
+  - verify repositories/screens on iOS + Android render the updated content correctly
 - Editorial checks:
   - every price card has updatedAt + provenance note
   - every place has `reviewedAt` (and `hours.verifiedAt` if hours are present)
@@ -1613,6 +1618,8 @@ Screenshots should highlight:
 1. **Shared content pipeline**
    - JSON schema + validation scripts
    - `build-bundle.ts` script (JSON → SQLite `content.db`)
+   - Treat `shared/content/` as the source of truth for most app data
+   - Define and automate integration into both apps' seed DB locations (iOS + Android)
    - Seed content for development (5 places, 5 price cards, 20 phrases)
 
 2. **iOS foundation**
@@ -1629,7 +1636,7 @@ Screenshots should highlight:
 
 ### Phase 1: Core features (build iOS first, then Android, or parallel if team allows)
 
-4. Content loading from bundled `content.db` + favorites/recents
+4. Integrate generated `content.db` (from `shared/content/`) into iOS + Android app bundles, then implement content loading + favorites/recents
 5. Explore list + place detail
 6. Prices list + price card detail (this is the money-maker)
 7. **Quote → Action** (reuses Price Cards; high value)
@@ -1694,7 +1701,7 @@ Screenshots should highlight:
 ### What's shared between iOS and Android
 
 **Shared (in `shared/` directory):**
-- Content JSON files (places, prices, phrases, itineraries, tips, culture)
+- Content JSON files (places, prices, phrases, itineraries, tips, culture) — this holds most product data
 - Content validation scripts (TypeScript/Node)
 - SQLite database build scripts (JSON → content.db)
 - JSON Schema definitions
@@ -1711,10 +1718,11 @@ Screenshots should highlight:
 ### Development workflow
 
 1. **Content updates:** Edit JSON in `shared/content/`, run validation, build `content.db`
-2. **iOS development:** Open Xcode, work in `ios/` directory
-3. **Android development:** Open Android Studio, work in `android/` directory
-4. **Testing:** Each platform has its own test suite; shared content has validation tests
-5. **Release:** Build and submit to App Store and Play Store independently
+2. **Integrate content into apps:** Copy generated `content.db` into iOS seed path and Android seed path, then smoke-test content loading on both platforms
+3. **iOS development:** Open Xcode, work in `ios/` directory
+4. **Android development:** Open Android Studio, work in `android/` directory
+5. **Testing:** Each platform has its own test suite; shared content has validation tests
+6. **Release:** Build and submit to App Store and Play Store independently
 
 ### Code parity checklist
 
@@ -1749,6 +1757,7 @@ Both iOS and Android test suites read these cases and verify their engine implem
 
 - Validate content schema + references on every PR
 - Build `content.db` and ensure it includes required tables + FTS tables
+- Verify both app bundles are using the latest `content.db` generated from `shared/content/` (no stale seed DBs)
 - Run the shared engine test vectors on iOS + Android
 - Generate changelog artifact used for in-app "What's new" + store notes
 
