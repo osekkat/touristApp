@@ -231,3 +231,88 @@ data class Event(
     val isSoldOut: Boolean
         get() = ticketStatus == "sold_out"
 }
+
+/**
+ * Detailed PriceCard with parsed modifiers and scripts.
+ * Used by the Quote -> Action feature and PricingEngine.
+ */
+data class PriceCardDetail(
+    val id: String,
+    val title: String,
+    val category: String? = null,
+    val unit: String? = null,
+    val volatility: String? = null,
+    val confidence: String? = null,
+    val expectedCostMinMad: Int,
+    val expectedCostMaxMad: Int,
+    val expectedCostNotes: String? = null,
+    val expectedCostUpdatedAt: String? = null,
+    val provenanceNote: String? = null,
+    val whatInfluencesPrice: List<String> = emptyList(),
+    val inclusionsChecklist: List<String> = emptyList(),
+    val negotiationScripts: List<NegotiationScript> = emptyList(),
+    val redFlags: List<String> = emptyList(),
+    val whatToDoInstead: List<String> = emptyList(),
+    val contextModifiers: List<ContextModifier> = emptyList(),
+    val fairnessLowMultiplier: Double? = null,
+    val fairnessHighMultiplier: Double? = null
+) {
+    /** Get formatted price range */
+    val priceRange: String
+        get() = "$expectedCostMinMad-$expectedCostMaxMad MAD"
+
+    /** Check if price is high volatility */
+    val isHighVolatility: Boolean
+        get() = volatility == "high"
+
+    /** Convert to simple PriceCard */
+    fun toPriceCard(): PriceCard = PriceCard(
+        id = id,
+        title = title,
+        category = category,
+        unit = unit,
+        volatility = volatility,
+        confidence = confidence,
+        expectedCostMinMad = expectedCostMinMad,
+        expectedCostMaxMad = expectedCostMaxMad,
+        expectedCostNotes = expectedCostNotes,
+        expectedCostUpdatedAt = expectedCostUpdatedAt,
+        whatInfluencesPrice = whatInfluencesPrice,
+        redFlags = redFlags,
+        fairnessLowMultiplier = fairnessLowMultiplier,
+        fairnessHighMultiplier = fairnessHighMultiplier
+    )
+}
+
+/**
+ * Context modifier that affects pricing.
+ * Used to calculate adjusted price ranges based on context (time, location, etc.)
+ */
+data class ContextModifier(
+    val id: String,
+    val label: String,
+    val factorMin: Double? = null,
+    val factorMax: Double? = null,
+    val addMin: Double? = null,
+    val addMax: Double? = null,
+    val notes: String? = null
+) {
+    /** Check if this is a multiplicative modifier */
+    val isMultiplicative: Boolean
+        get() = factorMin != null || factorMax != null
+
+    /** Check if this is an additive modifier */
+    val isAdditive: Boolean
+        get() = addMin != null || addMax != null
+}
+
+/**
+ * Negotiation script with multi-language support.
+ * Used in the Quote -> Action feature to help users negotiate.
+ */
+data class NegotiationScript(
+    val darijaLatin: String,
+    val english: String,
+    val darijaArabic: String? = null,
+    val french: String? = null
+)
