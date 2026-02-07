@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T17:20:00+01:00",
+    "source_document": "Marrakech_data_ressources.md",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+    ]
+  },
+  "items": [
+    {
+      "id": "phrase-salam-alaikum",
+      "category": "greetings",
+      "arabic": null,
+      "latin": "Salam alaikum",
+      "english": "Peace be upon you (hello)",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-la-shukran",
+      "category": "polite_refusal",
+      "arabic": null,
+      "latin": "La, shukran",
+      "english": "No, thank you",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-bsh-hal",
+      "category": "shopping",
+      "arabic": null,
+      "latin": "Bsh-hal?",
+      "english": "How much?",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-ghali-shwiya",
+      "category": "shopping",
+      "arabic": null,
+      "latin": "Ghali shwiya",
+      "english": "A bit expensive",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-nqass-shwiya",
+      "category": "shopping",
+      "arabic": null,
+      "latin": "Nqass shwiya?",
+      "english": "Can you lower it a little?",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-fin",
+      "category": "directions",
+      "arabic": null,
+      "latin": "Fin ...?",
+      "english": "Where is ...?",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-smh-liya",
+      "category": "courtesy",
+      "arabic": null,
+      "latin": "Smh liya",
+      "english": "Excuse me / sorry",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-ma-fhemtch",
+      "category": "communication",
+      "arabic": null,
+      "latin": "Ma fhemtch",
+      "english": "I did not understand",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-bghit-hada",
+      "category": "shopping",
+      "arabic": null,
+      "latin": "Bghit hada",
+      "english": "I want this one",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    },
+    {
+      "id": "phrase-atay-bla-skar",
+      "category": "food",
+      "arabic": null,
+      "latin": "Atay bla skkar",
+      "english": "Tea without sugar",
+      "audio": null,
+      "verification_status": "needs_native_review"
+    }
+  ]
+}

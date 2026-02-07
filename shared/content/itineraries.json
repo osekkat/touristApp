@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T17:20:00+01:00",
+    "source_document": "Marrakech_data_ressources.md",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+    ]
+  },
+  "items": [
+    {
+      "id": "itinerary-1-day-first-timer-core",
+      "title": "1-day first timer core Marrakech",
+      "duration": "1 day",
+      "style": "classic-highlights",
+      "steps": [
+        {
+          "type": "place",
+          "place_id": "place-jardin-majorelle",
+          "estimated_stop_minutes": 75,
+          "route_hint": "Start early before central medina crowds peak."
+        },
+        {
+          "type": "place",
+          "place_id": "place-koutoubia-mosque",
+          "estimated_stop_minutes": 30,
+          "route_hint": "Use Koutoubia as orientation anchor before entering core medina."
+        },
+        {
+          "type": "place",
+          "place_id": "place-bahia-palace",
+          "estimated_stop_minutes": 60,
+          "route_hint": "Walk toward Bahia via medina edge lanes."
+        },
+        {
+          "type": "meal",
+          "place_id": "eat-zeitoun-cafe-kasbah",
+          "estimated_stop_minutes": 60,
+          "route_hint": "Kasbah-side break before evening square."
+        },
+        {
+          "type": "place",
+          "place_id": "place-jemaa-el-fna",
+          "estimated_stop_minutes": 120,
+          "route_hint": "Return at sunset for night-market transition."
+        }
+      ],
+      "source_refs": [
+        2,
+        3,
+        6
+      ]
+    },
+    {
+      "id": "itinerary-1-day-medina-architecture",
+      "title": "1-day medina architecture trail",
+      "duration": "1 day",
+      "style": "culture",
+      "steps": [
+        {
+          "type": "place",
+          "place_id": "place-ben-youssef-madrasa",
+          "estimated_stop_minutes": 60,
+          "route_hint": "Arrive at opening for easier photos."
+        },
+        {
+          "type": "place",
+          "place_id": "place-maison-de-la-photographie",
+          "estimated_stop_minutes": 50,
+          "route_hint": "Short walk through nearby souk lanes."
+        },
+        {
+          "type": "place",
+          "place_id": "place-jardin-majorelle",
+          "estimated_stop_minutes": 0,
+          "route_hint": "Optional swap if museum focus is preferred."
+        },
+        {
+          "type": "place",
+          "place_id": "place-le-jardin-secret",
+          "estimated_stop_minutes": 45,
+          "route_hint": "Use as quieter reset point."
+        },
+        {
+          "type": "meal",
+          "place_id": "eat-nomad",
+          "estimated_stop_minutes": 70,
+          "route_hint": "Rooftop lunch near Rahba area."
+        },
+        {
+          "type": "place",
+          "place_id": "place-jemaa-el-fna",
+          "estimated_stop_minutes": 90,
+          "route_hint": "End at square for evening atmosphere."
+        }
+      ],
+      "source_refs": [
+        3,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "itinerary-1-day-food-and-night",
+      "title": "1-day food and night atmosphere",
+      "duration": "1 day",
+      "style": "food-focused",
+      "steps": [
+        {
+          "type": "place",
+          "place_id": "place-mellah-market",
+          "estimated_stop_minutes": 45,
+          "route_hint": "Morning produce market pass before heat rises."
+        },
+        {
+          "type": "meal",
+          "place_id": "eat-lmida",
+          "estimated_stop_minutes": 75,
+          "route_hint": "Book lunch slot in advance."
+        },
+        {
+          "type": "meal",
+          "place_id": "eat-le-jardin",
+          "estimated_stop_minutes": 75,
+          "route_hint": "Early dinner if planning long evening in square."
+        },
+        {
+          "type": "place",
+          "place_id": "place-jemaa-el-fna",
+          "estimated_stop_minutes": 120,
+          "route_hint": "Sample stalls with clear posted prices when possible."
+        }
+      ],
+      "source_refs": [
+        3,
+        16
+      ]
+    },
+    {
+      "id": "itinerary-3-day-core-plus-nature",
+      "title": "3-day core plus nature extension",
+      "duration": "3 days",
+      "style": "balanced",
+      "steps": [
+        {
+          "type": "place",
+          "place_id": "place-marrakech-medina",
+          "estimated_stop_minutes": 240,
+          "route_hint": "Day 1 medina orientation + key monuments."
+        },
+        {
+          "type": "place",
+          "place_id": "place-jardin-majorelle",
+          "estimated_stop_minutes": 75,
+          "route_hint": "Day 2 morning garden/museum block."
+        },
+        {
+          "type": "activity",
+          "activity_id": "activity-ourika-valley-day-trip",
+          "estimated_stop_minutes": 480,
+          "route_hint": "Day 3 full-day valley excursion."
+        }
+      ],
+      "source_refs": [
+        1,
+        2,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "itinerary-1-day-agafay-evening",
+      "title": "1-day city + Agafay sunset package",
+      "duration": "1 day",
+      "style": "experience",
+      "steps": [
+        {
+          "type": "place",
+          "place_id": "place-bahia-palace",
+          "estimated_stop_minutes": 60,
+          "route_hint": "Start with compact central heritage stop."
+        },
+        {
+          "type": "meal",
+          "place_id": "eat-cafe-kif-kif",
+          "estimated_stop_minutes": 45,
+          "route_hint": "Light meal before transfer."
+        },
+        {
+          "type": "activity",
+          "activity_id": "activity-agafay-quad-camel-dinner",
+          "estimated_stop_minutes": 360,
+          "route_hint": "Confirm exact pickup point and return time before departure."
+        }
+      ],
+      "source_refs": [
+        4,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "itinerary-day-trip-essaouira",
+      "title": "Full-day Essaouira from Marrakech",
+      "duration": "1 day",
+      "style": "coastal-day-trip",
+      "steps": [
+        {
+          "type": "activity",
+          "activity_id": "activity-essaouira-day-trip",
+          "estimated_stop_minutes": 600,
+          "route_hint": "Early departure recommended due transfer time."
+        }
+      ],
+      "source_refs": [
+        1,
+        2,
+        10,
+        12,
+        19
+      ]
+    }
+  ]
+}

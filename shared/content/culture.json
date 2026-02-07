@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T17:20:00+01:00",
+    "source_document": "Marrakech_data_ressources.md",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+    ]
+  },
+  "items": [
+    {
+      "id": "culture-tea-hospitality",
+      "title": "Tea hospitality matters",
+      "summary": "Mint tea is both beverage and social ritual; accepting politely is often appreciated in host settings.",
+      "do": [
+        "Acknowledge tea service with thanks",
+        "Ask for no sugar if needed"
+      ],
+      "dont": [
+        "Do not assume refills are free in commercial settings"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ]
+    },
+    {
+      "id": "culture-medina-pacing",
+      "title": "Medina rhythm is intense but navigable",
+      "summary": "The medina environment is sensory-dense; pacing and short reset breaks improve confidence.",
+      "do": [
+        "Plan short navigation legs",
+        "Use landmark anchors"
+      ],
+      "dont": [
+        "Do not force a rigid minute-by-minute route"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        2,
+        6,
+        16
+      ]
+    },
+    {
+      "id": "culture-hammam-etiquette",
+      "title": "Clarify hammam format before starting",
+      "summary": "Hammam experiences vary widely from local basics to spa packages with many add-ons.",
+      "do": [
+        "Ask what is included before undressing/changing",
+        "Confirm expected duration"
+      ],
+      "dont": [
+        "Do not assume massage is included"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        10,
+        11
+      ]
+    },
+    {
+      "id": "culture-bargaining-tone",
+      "title": "Bargain politely and specifically",
+      "summary": "In souk contexts, calm and specific counter-offers generally work better than aggressive haggling.",
+      "do": [
+        "Counter with a clear number",
+        "Compare multiple shops before final purchase"
+      ],
+      "dont": [
+        "Do not negotiate without intention to buy"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6,
+        7
+      ]
+    },
+    {
+      "id": "culture-ramadan-food-timing",
+      "title": "Respect Ramadan timing differences",
+      "summary": "Meal timing and venue rhythm can shift significantly during Ramadan periods.",
+      "do": [
+        "Check opening windows in advance",
+        "Keep flexible meal plans near sunset"
+      ],
+      "dont": [
+        "Do not assume normal daytime service everywhere"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ]
+    },
+    {
+      "id": "culture-rooftop-social-space",
+      "title": "Rooftops are social and scenic spaces",
+      "summary": "Rooftops are frequently recommended for evening reset and broad city orientation.",
+      "do": [
+        "Use rooftops as low-stress transition points"
+      ],
+      "dont": [
+        "Do not block high-traffic photo points during busy hours"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "culture-food-sharing-context",
+      "title": "Many traditional meals are communal",
+      "summary": "Traditional dining may include shared dishes and bread-based eating patterns.",
+      "do": [
+        "Ask how dishes are meant to be shared",
+        "Respect table pacing and host flow"
+      ],
+      "dont": [
+        "Do not assume Western-style course timing"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ]
+    }
+  ]
+}

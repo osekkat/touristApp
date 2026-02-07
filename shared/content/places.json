@@ -1,0 +1,1498 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T17:20:00+01:00",
+    "source_document": "Marrakech_data_ressources.md",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+    ]
+  },
+  "items": [
+    {
+      "id": "place-jemaa-el-fna",
+      "name": "Jemaa el-Fna",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "landmark",
+      "short_description": "Historic central square with changing atmosphere from daytime bustle to nighttime food and performances.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Repeated top attraction across official and editorial sources",
+        "Anchor point for first-time orientation"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.625831,
+      "lng": -7.98892,
+      "hours_text": "Open all day; most food stalls activate in early evening.",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "evening"
+      ],
+      "tags": [
+        "must-see",
+        "medina",
+        "street-life"
+      ],
+      "local_tips": [
+        "Visit once in daylight and once after sunset for two different experiences."
+      ],
+      "scam_warnings": [
+        "Confirm any performance/photo fee before accepting interactions."
+      ],
+      "do_and_dont": [
+        "Do keep valuables zipped in dense crowds.",
+        "Do not agree to unclear service offers."
+      ],
+      "source_refs": [
+        2,
+        3,
+        6,
+        11,
+        16
+      ]
+    },
+    {
+      "id": "place-marrakech-medina",
+      "name": "Marrakech Medina",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "neighborhood",
+      "short_description": "Walled old city with souks, riads, monuments, and dense pedestrian lanes.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Core identity of Marrakech",
+        "Essential context for routing and scam-avoidance tips"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.625831,
+      "lng": -7.98892,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 120,
+      "visit_max_minutes": 360,
+      "best_time_windows": [
+        "morning",
+        "evening"
+      ],
+      "tags": [
+        "unesco-area",
+        "souks",
+        "heritage"
+      ],
+      "local_tips": [
+        "Use major landmarks as waypoints instead of relying only on lane names."
+      ],
+      "scam_warnings": [
+        "Be cautious with unsolicited guiding offers."
+      ],
+      "do_and_dont": [
+        "Do pause at rooftops around sunset for orientation."
+      ],
+      "source_refs": [
+        2,
+        6,
+        11
+      ]
+    },
+    {
+      "id": "place-koutoubia-mosque",
+      "name": "Koutoubia Mosque",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "landmark",
+      "short_description": "Iconic minaret landmark and major visual reference near Jemaa el-Fna.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "One of the most repeated landmarks in ranked lists",
+        "Useful orientation beacon"
+      ],
+      "neighborhood": "Kasbah edge",
+      "lat": 31.623751,
+      "lng": -7.993358,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 20,
+      "visit_max_minutes": 45,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "landmark",
+        "historic"
+      ],
+      "local_tips": [
+        "Great exterior photo stop near sunset."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        3,
+        6,
+        11
+      ]
+    },
+    {
+      "id": "place-bahia-palace",
+      "name": "Bahia Palace",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Ornate 19th-century palace known for courtyards, tilework, and carved wood.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Consistent top attraction across official and tour sources",
+        "Strong architecture value"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.621633,
+      "lng": -7.981938,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 90,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "palace",
+        "architecture"
+      ],
+      "local_tips": [
+        "Go early to reduce queue time."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        3,
+        6,
+        11,
+        13
+      ]
+    },
+    {
+      "id": "place-el-badi-palace",
+      "name": "El Badi Palace",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Monumental palace ruins offering historical context and broad courtyard views.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Frequently cited in must-see sets",
+        "Pairs well with Saadian Tombs route"
+      ],
+      "neighborhood": "Kasbah",
+      "lat": 31.618179,
+      "lng": -7.986486,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 75,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "palace",
+        "history"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        3,
+        6,
+        13
+      ]
+    },
+    {
+      "id": "place-ben-youssef-madrasa",
+      "name": "Ben Youssef Madrasa",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Former Quranic college with intricate courtyard decoration and restored architecture.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Routinely recommended landmark in city guides",
+        "High cultural and visual impact"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.631984,
+      "lng": -7.986036,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 75,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "madrasa",
+        "architecture"
+      ],
+      "local_tips": [
+        "Best visited early morning for quieter photography."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        3,
+        5,
+        6,
+        19
+      ]
+    },
+    {
+      "id": "place-saadian-tombs",
+      "name": "Saadian Tombs",
+      "aliases": [],
+      "region_id": "medina_kasbah",
+      "category": "historic_site",
+      "short_description": "Royal necropolis site in the Kasbah area, often paired with El Badi.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Listed as a Marrakech essential by official sources",
+        "Compact but high-value heritage stop"
+      ],
+      "neighborhood": "Kasbah",
+      "lat": 31.617259,
+      "lng": -7.988555,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 30,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "history",
+        "kasbah"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        3,
+        6
+      ]
+    },
+    {
+      "id": "place-jardin-majorelle",
+      "name": "Jardin Majorelle",
+      "aliases": [],
+      "region_id": "gueliz",
+      "category": "garden",
+      "short_description": "Famous botanical garden and color icon linked to Yves Saint Laurent heritage.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Repeated top attraction across nearly all guide styles",
+        "Strong family and visual appeal"
+      ],
+      "neighborhood": "Gueliz",
+      "lat": 31.641475,
+      "lng": -8.002908,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 90,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "garden",
+        "design",
+        "photo-spot"
+      ],
+      "local_tips": [
+        "Pre-book timed entry when possible in high season."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        3,
+        6,
+        11,
+        13,
+        31
+      ]
+    },
+    {
+      "id": "place-yves-saint-laurent-museum",
+      "name": "Yves Saint Laurent Museum",
+      "aliases": [],
+      "region_id": "gueliz",
+      "category": "museum",
+      "short_description": "Fashion and design museum adjacent to Majorelle, useful as paired stop.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Commonly paired with Majorelle in curated lists",
+        "Good indoor cultural complement"
+      ],
+      "neighborhood": "Gueliz",
+      "lat": 31.642543,
+      "lng": -8.003419,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 75,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "museum",
+        "design"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "place-le-jardin-secret",
+      "name": "Le Jardin Secret",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "garden",
+      "short_description": "Restored historic garden complex with quieter atmosphere inside the medina.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Often recommended as a calmer heritage break",
+        "Fits half-day medina walking loops"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.630875,
+      "lng": -7.990053,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "garden",
+        "heritage"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        3,
+        5
+      ]
+    },
+    {
+      "id": "place-maison-de-la-photographie",
+      "name": "Maison de la Photographie",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Photography museum with strong historical visuals and rooftop views.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Recommended in city guides as a niche cultural stop",
+        "Useful for rainy/indoor planning"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.631986,
+      "lng": -7.984367,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "museum",
+        "photography"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "place-dar-si-said",
+      "name": "Dar Si Said Museum",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "museum",
+      "short_description": "Museum collection focused on Moroccan arts and crafts traditions.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Featured in Routard incontournables",
+        "Adds craft context for souk visits"
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.623402,
+      "lng": -7.983868,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "museum",
+        "craft"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        6
+      ]
+    },
+    {
+      "id": "place-menara-gardens",
+      "name": "Menara Gardens",
+      "aliases": [],
+      "region_id": "menara",
+      "category": "garden",
+      "short_description": "Large historic garden and basin area used as a relaxed open-air stop.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Official top list inclusion",
+        "Family-friendly slower pace option"
+      ],
+      "neighborhood": "Menara",
+      "lat": 31.61465,
+      "lng": -8.021902,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 45,
+      "visit_max_minutes": 90,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "garden",
+        "relaxed"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        19
+      ]
+    },
+    {
+      "id": "place-mellah-market",
+      "name": "Mellah Market",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "market",
+      "short_description": "Busy produce market area highlighted for local food rhythms and ingredients.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Strong food-culture relevance from Serious Eats",
+        "Useful for guided food routes"
+      ],
+      "neighborhood": "Mellah",
+      "lat": 31.621633,
+      "lng": -7.981938,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 30,
+      "visit_max_minutes": 60,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "market",
+        "food"
+      ],
+      "local_tips": [],
+      "scam_warnings": [
+        "Check weights and ask unit price before buying."
+      ],
+      "do_and_dont": [],
+      "source_refs": [
+        3,
+        16
+      ]
+    },
+    {
+      "id": "place-gueliz",
+      "name": "Gueliz District",
+      "aliases": [],
+      "region_id": "gueliz",
+      "category": "neighborhood",
+      "short_description": "Modern district with broad avenues, contemporary dining, and shopping.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Official modern-city counterpoint to medina",
+        "Useful base for first-time visitors"
+      ],
+      "neighborhood": "Gueliz",
+      "lat": 31.630429,
+      "lng": -8.017673,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 90,
+      "visit_max_minutes": 180,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "modern",
+        "shopping",
+        "restaurants"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2,
+        6
+      ]
+    },
+    {
+      "id": "place-hivernage",
+      "name": "Hivernage District",
+      "aliases": [],
+      "region_id": "hivernage",
+      "category": "neighborhood",
+      "short_description": "Hotel and nightlife-oriented district with modern venues and wider streets.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Officially positioned as modern infrastructure area",
+        "Good evening itinerary node"
+      ],
+      "neighborhood": "Hivernage",
+      "lat": 31.622559,
+      "lng": -8.008313,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 150,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "nightlife",
+        "hotels"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2
+      ]
+    },
+    {
+      "id": "place-agafay-desert",
+      "name": "Agafay Desert",
+      "aliases": [],
+      "region_id": "agafay",
+      "category": "nature",
+      "short_description": "Rocky desert zone near Marrakech used for camel, quad, and dinner experiences.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "One of the highest-demand activity categories across marketplaces",
+        "Easy half-day/evening extension"
+      ],
+      "neighborhood": "Agafay",
+      "lat": 31.487213,
+      "lng": -8.197073,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 180,
+      "visit_max_minutes": 360,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "day-trip",
+        "desert"
+      ],
+      "local_tips": [
+        "Set expectations: rocky desert, not Sahara-style sand dunes."
+      ],
+      "scam_warnings": [
+        "Verify inclusions: pickup, meal, quad duration, and show before payment."
+      ],
+      "do_and_dont": [],
+      "source_refs": [
+        1,
+        4,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "place-ourika-valley",
+      "name": "Ourika Valley",
+      "aliases": [],
+      "region_id": "atlas_periphery",
+      "category": "nature",
+      "short_description": "Popular Atlas foothills day trip with valley views, hiking, and lunch stops.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Consistent bestseller in activities platforms",
+        "Good nature contrast to urban medina days"
+      ],
+      "neighborhood": null,
+      "lat": 31.196413,
+      "lng": -7.780065,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 360,
+      "visit_max_minutes": 540,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "day-trip",
+        "hike",
+        "atlas"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        4,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "place-ouzoud-waterfalls",
+      "name": "Ouzoud Waterfalls",
+      "aliases": [],
+      "region_id": "atlas_periphery",
+      "category": "nature",
+      "short_description": "Large waterfall destination frequently sold as guided day trip from Marrakech.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "High event and activity recurrence",
+        "Strong scenery value for 1-day excursion"
+      ],
+      "neighborhood": null,
+      "lat": 32.015355,
+      "lng": -6.71923,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 420,
+      "visit_max_minutes": 660,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "day-trip",
+        "waterfall"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        4,
+        10,
+        11
+      ]
+    },
+    {
+      "id": "place-atlas-mountains",
+      "name": "Atlas Mountains (from Marrakech)",
+      "aliases": [],
+      "region_id": "atlas_periphery",
+      "category": "nature",
+      "short_description": "Mountain excursion umbrella destination, often sold as 3-valleys style day trip.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Very high review-volume category",
+        "Core candidate for My Day/My Trip extensions"
+      ],
+      "neighborhood": null,
+      "lat": 31.196413,
+      "lng": -7.780065,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 420,
+      "visit_max_minutes": 600,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "day-trip",
+        "mountains"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        1,
+        10,
+        11,
+        12,
+        19
+      ]
+    },
+    {
+      "id": "place-lalla-takerkoust",
+      "name": "Lalla Takerkoust",
+      "aliases": [],
+      "region_id": "atlas_periphery",
+      "category": "nature",
+      "short_description": "Reservoir and leisure area southwest of Marrakech, useful for relaxed day escape.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Listed in official essentials and regional planning context"
+      ],
+      "neighborhood": null,
+      "lat": 31.36109,
+      "lng": -8.133652,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 180,
+      "visit_max_minutes": 300,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "lake",
+        "day-trip"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        2
+      ]
+    },
+    {
+      "id": "place-essaouira",
+      "name": "Essaouira",
+      "aliases": [],
+      "region_id": "atlantic_coast",
+      "category": "neighborhood",
+      "short_description": "Atlantic coastal city commonly packaged as full-day or overnight extension.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "high",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Repeated in marketplace day-trip inventory and official destination pages"
+      ],
+      "neighborhood": null,
+      "lat": 31.511828,
+      "lng": -9.76209,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 480,
+      "visit_max_minutes": 900,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "coastal",
+        "day-trip"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        1,
+        2,
+        11,
+        12,
+        19
+      ]
+    },
+    {
+      "id": "place-safi",
+      "name": "Safi",
+      "aliases": [],
+      "region_id": "atlantic_coast",
+      "category": "neighborhood",
+      "short_description": "Atlantic city referenced in official nearby-route suggestions from Marrakech.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Official proximity listing with route context"
+      ],
+      "neighborhood": null,
+      "lat": 32.299424,
+      "lng": -9.239533,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 300,
+      "visit_max_minutes": 600,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "coastal",
+        "extension"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "place-oukaimeden",
+      "name": "Oukaimeden",
+      "aliases": [],
+      "region_id": "atlas_periphery",
+      "category": "nature",
+      "short_description": "High Atlas mountain destination used for sport and altitude day trips.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "low",
+      "why_recommended": [
+        "Referenced in guidebook day-trip coverage and official sport framing"
+      ],
+      "neighborhood": null,
+      "lat": 31.205279,
+      "lng": -7.861324,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 360,
+      "visit_max_minutes": 600,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "mountain",
+        "sport"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        7,
+        19
+      ]
+    },
+    {
+      "id": "place-ait-benhaddou",
+      "name": "Ait Ben Haddou",
+      "aliases": [],
+      "region_id": "south_route",
+      "category": "historic_site",
+      "short_description": "UNESCO kasbah route stop usually bundled in 2-3 day south/desert circuits.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Frequent inclusion in multi-day tour products"
+      ],
+      "neighborhood": null,
+      "lat": 31.045154,
+      "lng": -7.130971,
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 120,
+      "visit_max_minutes": 240,
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "unesco",
+        "multi-day"
+      ],
+      "local_tips": [],
+      "scam_warnings": [],
+      "do_and_dont": [],
+      "source_refs": [
+        7,
+        11
+      ]
+    },
+    {
+      "id": "eat-le-jardin",
+      "name": "Le Jardin",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Modern-traditional Moroccan restaurant frequently featured in editorial guides.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.671222,
+      "lng": -7.985007,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3,
+        16
+      ]
+    },
+    {
+      "id": "eat-nomad",
+      "name": "Nomad",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Popular medina rooftop restaurant with contemporary Moroccan menu.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.628678,
+      "lng": -7.987438,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "rooftop"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-terrasse-des-epices",
+      "name": "Terrasse des Epices",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Well-known medina terrace dining option in central souk area.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.631067,
+      "lng": -7.988876,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "rooftop"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-dardar",
+      "name": "DarDar",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Rooftop-oriented dining near historic core landmarks.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.622277,
+      "lng": -7.986421,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "rooftop"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-lmida",
+      "name": "L'Mida",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Chef-led contemporary Moroccan table referenced in food-focused coverage.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.629215,
+      "lng": -7.986435,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3,
+        16
+      ]
+    },
+    {
+      "id": "eat-naranj",
+      "name": "Naranj",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Curated recommendation in major Marrakech list-based coverage.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.624537,
+      "lng": -7.985213,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-cafe-kif-kif",
+      "name": "Cafe Kif Kif",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "cafe",
+      "short_description": "Casual cafe option near Koutoubia/Jemaa area.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.625153,
+      "lng": -7.992388,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "cafe",
+        "budget"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-la-trattoria",
+      "name": "La Trattoria",
+      "aliases": [],
+      "region_id": "gueliz",
+      "category": "restaurant",
+      "short_description": "Long-running Gueliz restaurant often cited in top picks.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Gueliz",
+      "lat": 31.63384,
+      "lng": -8.015174,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-le-trou-au-mur",
+      "name": "Le Trou au Mur",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Curated medina restaurant with strong repeat visibility.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.632097,
+      "lng": -7.985518,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-sahbi-sahbi",
+      "name": "Sahbi Sahbi",
+      "aliases": [],
+      "region_id": "gueliz",
+      "category": "restaurant",
+      "short_description": "Modern Moroccan venue included in top contemporary dining lists.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Gueliz",
+      "lat": 31.634075,
+      "lng": -8.014582,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    },
+    {
+      "id": "eat-limoni",
+      "name": "Limoni",
+      "aliases": [],
+      "region_id": "medina_core",
+      "category": "restaurant",
+      "short_description": "Top-rated candidate from review-platform lists.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Medina",
+      "lat": 31.635339,
+      "lng": -7.988965,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "eat",
+        "curated"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        8
+      ]
+    },
+    {
+      "id": "eat-zeitoun-cafe-kasbah",
+      "name": "Zeitoun Cafe Kasbah",
+      "aliases": [],
+      "region_id": "medina_kasbah",
+      "category": "cafe",
+      "short_description": "Practical Kasbah-side cafe frequently cited in quick recommendations.",
+      "reviewed_at": "2026-02-07",
+      "status": "open",
+      "confidence": "medium",
+      "tourist_trap_level": "mixed",
+      "why_recommended": [
+        "Included in curated Marrakech dining shortlists from editorial resources."
+      ],
+      "neighborhood": "Kasbah",
+      "lat": 31.617604,
+      "lng": -7.989877,
+      "hours_text": "Verify hours before visiting (restaurant schedules can change seasonally).",
+      "hours_verified_at": "2026-02-07",
+      "visit_min_minutes": 60,
+      "visit_max_minutes": 120,
+      "best_time_windows": [
+        "lunch",
+        "evening"
+      ],
+      "tags": [
+        "cafe",
+        "view"
+      ],
+      "local_tips": [
+        "Reserve ahead for prime dinner slots where possible."
+      ],
+      "scam_warnings": [],
+      "do_and_dont": [
+        "Do confirm whether service charge is included before paying."
+      ],
+      "source_refs": [
+        3
+      ]
+    }
+  ]
+}

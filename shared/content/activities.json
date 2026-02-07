@@ -1,0 +1,281 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T17:20:00+01:00",
+    "source_document": "Marrakech_data_ressources.md",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+    ]
+  },
+  "items": [
+    {
+      "id": "activity-agafay-quad-camel-dinner",
+      "title": "Agafay quad + camel + dinner show",
+      "category": "day_trip",
+      "region_id": "agafay",
+      "duration_min_minutes": 300,
+      "duration_max_minutes": 420,
+      "pickup_available": true,
+      "typical_price_min_mad": 290,
+      "typical_price_max_mad": 550,
+      "rating_signal": "high",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "evening"
+      ],
+      "tags": [
+        "agafay",
+        "camel",
+        "quad",
+        "dinner"
+      ],
+      "source_refs": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "notes": "Ranges derived from cross-platform listings observed on 2026-02-07."
+    },
+    {
+      "id": "activity-hot-air-balloon-marrakech",
+      "title": "Hot air balloon with breakfast",
+      "category": "adventure",
+      "region_id": "atlas_periphery",
+      "duration_min_minutes": 240,
+      "duration_max_minutes": 330,
+      "pickup_available": true,
+      "typical_price_min_mad": 1100,
+      "typical_price_max_mad": 2100,
+      "rating_signal": "high",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "morning"
+      ],
+      "tags": [
+        "balloon",
+        "sunrise"
+      ],
+      "source_refs": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "notes": "Large provider spread; inclusion details vary by operator."
+    },
+    {
+      "id": "activity-ourika-valley-day-trip",
+      "title": "Ourika Valley day trip",
+      "category": "day_trip",
+      "region_id": "atlas_periphery",
+      "duration_min_minutes": 390,
+      "duration_max_minutes": 510,
+      "pickup_available": true,
+      "typical_price_min_mad": 170,
+      "typical_price_max_mad": 420,
+      "rating_signal": "high",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "morning"
+      ],
+      "tags": [
+        "ourika",
+        "atlas",
+        "waterfall"
+      ],
+      "source_refs": [
+        4,
+        10,
+        11,
+        12
+      ],
+      "notes": "Lunch and guide inclusion materially affect price."
+    },
+    {
+      "id": "activity-atlas-three-valleys",
+      "title": "Atlas Mountains and Three Valleys",
+      "category": "day_trip",
+      "region_id": "atlas_periphery",
+      "duration_min_minutes": 420,
+      "duration_max_minutes": 540,
+      "pickup_available": true,
+      "typical_price_min_mad": 220,
+      "typical_price_max_mad": 480,
+      "rating_signal": "high",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "morning"
+      ],
+      "tags": [
+        "atlas",
+        "valleys",
+        "berber-villages"
+      ],
+      "source_refs": [
+        9,
+        11,
+        12
+      ],
+      "notes": "Camel add-ons and private transport raise price bands."
+    },
+    {
+      "id": "activity-merzouga-3day",
+      "title": "Merzouga 3-day desert tour",
+      "category": "multi_day",
+      "region_id": "south_route",
+      "duration_min_minutes": 4200,
+      "duration_max_minutes": 4800,
+      "pickup_available": true,
+      "typical_price_min_mad": 1200,
+      "typical_price_max_mad": 2600,
+      "rating_signal": "high",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "morning"
+      ],
+      "tags": [
+        "desert",
+        "merzouga",
+        "camel"
+      ],
+      "source_refs": [
+        4,
+        10,
+        11,
+        12
+      ],
+      "notes": "Camp comfort level and private-room options strongly change price."
+    },
+    {
+      "id": "activity-essaouira-day-trip",
+      "title": "Essaouira guided day trip",
+      "category": "day_trip",
+      "region_id": "atlantic_coast",
+      "duration_min_minutes": 540,
+      "duration_max_minutes": 720,
+      "pickup_available": true,
+      "typical_price_min_mad": 170,
+      "typical_price_max_mad": 450,
+      "rating_signal": "medium",
+      "review_count_signal": "medium",
+      "best_time_windows": [
+        "morning"
+      ],
+      "tags": [
+        "coast",
+        "essaouira"
+      ],
+      "source_refs": [
+        10,
+        12
+      ],
+      "notes": "Private tours can be substantially higher."
+    },
+    {
+      "id": "activity-city-half-day-tour",
+      "title": "Marrakech historical half-day city tour",
+      "category": "city_tour",
+      "region_id": "medina_core",
+      "duration_min_minutes": 180,
+      "duration_max_minutes": 270,
+      "pickup_available": true,
+      "typical_price_min_mad": 250,
+      "typical_price_max_mad": 520,
+      "rating_signal": "medium",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "city-tour",
+        "history"
+      ],
+      "source_refs": [
+        11
+      ],
+      "notes": "Guide language and private-group options drive variance."
+    },
+    {
+      "id": "activity-traditional-hammam",
+      "title": "Traditional hammam experience",
+      "category": "wellness",
+      "region_id": "medina_core",
+      "duration_min_minutes": 90,
+      "duration_max_minutes": 150,
+      "pickup_available": false,
+      "typical_price_min_mad": 180,
+      "typical_price_max_mad": 650,
+      "rating_signal": "medium",
+      "review_count_signal": "medium",
+      "best_time_windows": [
+        "afternoon",
+        "evening"
+      ],
+      "tags": [
+        "wellness",
+        "hammam"
+      ],
+      "source_refs": [
+        10,
+        11
+      ],
+      "notes": "Local hammam vs spa packaging creates a large spread."
+    },
+    {
+      "id": "activity-street-food-night-tour",
+      "title": "Night street-food tour",
+      "category": "food_tour",
+      "region_id": "medina_core",
+      "duration_min_minutes": 120,
+      "duration_max_minutes": 240,
+      "pickup_available": false,
+      "typical_price_min_mad": 300,
+      "typical_price_max_mad": 500,
+      "rating_signal": "high",
+      "review_count_signal": "medium",
+      "best_time_windows": [
+        "evening"
+      ],
+      "tags": [
+        "food",
+        "night"
+      ],
+      "source_refs": [
+        9,
+        12,
+        16
+      ],
+      "notes": "Strong quality signal when hosted by specialist local guides."
+    },
+    {
+      "id": "activity-quad-palmeraie",
+      "title": "Quad bike experience in Palmeraie/desert edge",
+      "category": "adventure",
+      "region_id": "marrakech_outer",
+      "duration_min_minutes": 120,
+      "duration_max_minutes": 300,
+      "pickup_available": true,
+      "typical_price_min_mad": 220,
+      "typical_price_max_mad": 450,
+      "rating_signal": "medium",
+      "review_count_signal": "high",
+      "best_time_windows": [
+        "morning",
+        "afternoon"
+      ],
+      "tags": [
+        "quad",
+        "palmeraie"
+      ],
+      "source_refs": [
+        4,
+        9,
+        12
+      ],
+      "notes": "Duration and transfer inclusion are the biggest price drivers."
+    }
+  ]
+}

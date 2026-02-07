@@ -1,0 +1,187 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T17:20:00+01:00",
+    "source_document": "Marrakech_data_ressources.md",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use."
+    ]
+  },
+  "items": [
+    {
+      "id": "tip-taxi-apps-reduce-haggling",
+      "title": "Use app booking for taxis when possible",
+      "category": "transport",
+      "summary": "Community guidance repeatedly recommends app-based taxi booking to reduce meter and fare disputes.",
+      "actions": [
+        "Check app quote before entering taxi",
+        "Confirm destination pin before departure"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ],
+      "related_price_card_ids": [
+        "price-taxi-airport-marrakech-center",
+        "price-taxi-medina-short-ride"
+      ]
+    },
+    {
+      "id": "tip-agafay-expectations",
+      "title": "Agafay is a rocky desert, not Sahara dunes",
+      "category": "day_trip",
+      "summary": "Set expectations correctly: Agafay excels for quick sunset packages, not full dune isolation.",
+      "actions": [
+        "Pick Agafay for half-day/evening plans",
+        "Choose Merzouga tours for dune-focused desert experience"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6,
+        10,
+        11,
+        12
+      ],
+      "related_place_ids": [
+        "place-agafay-desert",
+        "place-ait-benhaddou"
+      ]
+    },
+    {
+      "id": "tip-medina-wayfinding",
+      "title": "Navigate medina with landmark waypoints",
+      "category": "navigation",
+      "summary": "Dense medina lanes are easier with major landmark checkpoints than turn-by-turn assumptions.",
+      "actions": [
+        "Save Koutoubia and Jemaa as recovery waypoints",
+        "Use rooftop pause points for orientation reset"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        2,
+        6
+      ],
+      "related_place_ids": [
+        "place-koutoubia-mosque",
+        "place-jemaa-el-fna",
+        "place-marrakech-medina"
+      ]
+    },
+    {
+      "id": "tip-square-performance-fees",
+      "title": "Confirm photo/performance fees before engaging",
+      "category": "scam_awareness",
+      "summary": "In major squares, fee expectations can be ambiguous after photos or interactions.",
+      "actions": [
+        "Ask the exact amount before accepting photo interaction",
+        "Politely decline unclear offers"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ],
+      "related_place_ids": [
+        "place-jemaa-el-fna"
+      ]
+    },
+    {
+      "id": "tip-monument-hours-can-shift",
+      "title": "Re-check monument access and hours",
+      "category": "planning",
+      "summary": "Community and practical guidance indicate occasional schedule/access variability in heritage areas.",
+      "actions": [
+        "Verify opening hours same-day for key monuments",
+        "Keep one backup nearby stop in itinerary"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ]
+    },
+    {
+      "id": "tip-water-conscious-travel",
+      "title": "Travel with water-conscious habits",
+      "category": "responsible_travel",
+      "summary": "Local context emphasizes water stress and encourages practical conservation by visitors.",
+      "actions": [
+        "Limit towel/laundry churn in stays",
+        "Prefer shorter showers"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ]
+    },
+    {
+      "id": "tip-activity-inclusions-first",
+      "title": "Compare activities by inclusions, not headline price",
+      "category": "booking",
+      "summary": "Cross-platform listings show similar titles with very different actual inclusions.",
+      "actions": [
+        "Check transfer, meals, and duration before paying",
+        "Require final all-in price"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "tip-carry-small-cash",
+      "title": "Carry small cash denominations",
+      "category": "money",
+      "summary": "Small transactions in souks and street settings are easier with small bills and coins.",
+      "actions": [
+        "Break larger notes in cafes/supermarkets early",
+        "Keep separate small-change pocket"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6,
+        7
+      ]
+    },
+    {
+      "id": "tip-rooftop-sunset-reset",
+      "title": "Use rooftop break at sunset for reset",
+      "category": "experience",
+      "summary": "Community and editorial narratives highlight rooftop sunset pauses as high-value low-stress moments.",
+      "actions": [
+        "Plan a 30-45 min rooftop stop near Maghreb",
+        "Resume souk exploration after peak crowd shift"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ]
+    },
+    {
+      "id": "tip-street-food-prudence",
+      "title": "Choose busy street-food stalls with visible turnover",
+      "category": "food_safety",
+      "summary": "Night market food is a highlight; stall turnover and clear handling can reduce risk.",
+      "actions": [
+        "Prefer visibly busy stalls",
+        "Ask price before serving"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ]
+    }
+  ]
+}
