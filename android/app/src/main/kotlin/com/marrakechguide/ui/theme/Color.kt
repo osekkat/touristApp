@@ -56,3 +56,4 @@ val MarrakechSand = Terracotta50
 val MarrakechInk = Neutral900
 val MarrakechOlive = Color(0xFF7A8B4A)
 val MarrakechSky = Color(0xFF7BB6C9)
+val MarrakechOrange = Color(0xFFFF9800)  // Accent orange for CTAs
