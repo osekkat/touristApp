@@ -29,8 +29,10 @@ public enum GeoEngine {
         let deltaLatRad = (to.latitude - from.latitude).degreesToRadians
         let deltaLngRad = (to.longitude - from.longitude).degreesToRadians
 
-        let a = sin(deltaLatRad / 2) * sin(deltaLatRad / 2) +
-                cos(lat1Rad) * cos(lat2Rad) * sin(deltaLngRad / 2) * sin(deltaLngRad / 2)
+        let rawA = sin(deltaLatRad / 2) * sin(deltaLatRad / 2) +
+                   cos(lat1Rad) * cos(lat2Rad) * sin(deltaLngRad / 2) * sin(deltaLngRad / 2)
+        // Clamp to valid domain to avoid NaN from tiny floating-point drift.
+        let a = min(1.0, max(0.0, rawA))
         let c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
         return earthRadiusMeters * c
@@ -90,19 +92,17 @@ public enum GeoEngine {
     /// - Parameter meters: Distance in meters
     /// - Returns: Formatted string
     public static func formatDistance(_ meters: Double) -> String {
-        if meters < 100 {
-            return "\(Int(meters.rounded())) m"
-        } else if meters < 1000 {
-            let rounded = (meters / 10).rounded() * 10
+        let safeMeters = max(0, meters)
+
+        if safeMeters < 100 {
+            return "\(Int(safeMeters.rounded())) m"
+        } else if safeMeters < 1000 {
+            let rounded = (safeMeters / 10).rounded() * 10
             return "\(Int(rounded)) m"
         } else {
-            let km = meters / 1000
+            let km = safeMeters / 1000
             let formatted = (km * 10).rounded() / 10
-            if formatted.truncatingRemainder(dividingBy: 1) == 0 {
-                return String(format: "%.1f km", formatted)
-            } else {
-                return String(format: "%.1f km", formatted)
-            }
+            return String(format: Locale(identifier: "en_US_POSIX"), "%.1f km", formatted)
         }
     }
 
@@ -119,6 +119,8 @@ public enum GeoEngine {
     ///   - region: Region name (affects speed multiplier)
     /// - Returns: Estimated walking time in minutes
     public static func estimateWalkTime(meters: Double, region: String) -> Int {
+        guard meters > 0 else { return 0 }
+
         let lowercaseRegion = region.lowercased()
         let speedMultiplier: Double
 

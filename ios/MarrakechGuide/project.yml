@@ -1,0 +1,64 @@
+name: MarrakechGuide
+options:
+  bundleIdPrefix: com.marrakechguide
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: 5.9
+    IPHONEOS_DEPLOYMENT_TARGET: 16.0
+    TARGETED_DEVICE_FAMILY: 1,2
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+    SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY: YES
+    SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES: YES
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift
+    from: 6.29.0
+targets:
+  MarrakechGuide:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: MarrakechGuide
+        excludes:
+          - Resources/**
+          - "**/*.md"
+    resources:
+      - path: MarrakechGuide/Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.marrakechguide.app
+        INFOPLIST_FILE: MarrakechGuide/Resources/Info.plist
+        DEVELOPMENT_TEAM: ""
+    dependencies:
+      - package: GRDB
+  MarrakechGuideTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: MarrakechGuideTests
+    dependencies:
+      - target: MarrakechGuide
+  MarrakechGuideUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: MarrakechGuideUITests
+    dependencies:
+      - target: MarrakechGuide
+schemes:
+  MarrakechGuide:
+    build:
+      targets:
+        MarrakechGuide: all
+        MarrakechGuideTests: [test]
+        MarrakechGuideUITests: [test]
+    test:
+      gatherCoverageData: true
+      targets:
+        - MarrakechGuideTests
+        - MarrakechGuideUITests

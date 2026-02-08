@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T22:58:00Z",
+    "source_document": "Marrakech_data_ressources.md; lonely-planet-pocket-marrakesh-7-ebook.pdf",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use.",
+      "Includes curated extraction from Lonely Planet · Pocket Marrakesh 7 (PDF, 161 pages), processed on 2026-02-07."
+    ]
+  },
+  "items": [
+    {
+      "id": "culture-tea-hospitality",
+      "title": "Tea hospitality matters",
+      "summary": "Mint tea is both beverage and social ritual; accepting politely is often appreciated in host settings.",
+      "do": [
+        "Acknowledge tea service with thanks",
+        "Ask for no sugar if needed"
+      ],
+      "dont": [
+        "Do not assume refills are free in commercial settings"
+      ],
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ]
+    }
+  ]
+}

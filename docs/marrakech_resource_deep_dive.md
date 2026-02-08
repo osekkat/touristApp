@@ -364,3 +364,101 @@ These are the highest-value changes based on harvested data shape.
 - [30] https://www.amazon.com/Insight-Guides-Morocco/dp/1786716372
 - [31] https://dk.com/en-us/products/9780241360101-dk-morocco
 
+---
+
+## 11) Content Validation Snapshot (`bd-jex`, 2026-02-07)
+
+This section records the validation audit run over `shared/content/*.json` and the immediate prep outputs for development.
+
+### 11.1 Audit scope and checks
+
+Validated across all current content domains:
+- `activities` (18 items)
+- `culture` (12 items)
+- `events` (2 items)
+- `glossary` (28 items)
+- `itineraries` (9 items)
+- `places` (49 items)
+- `price_cards` (13 items)
+- `tips` (32 items)
+
+Checks performed:
+- Duplicate IDs per file
+- Coordinate validity and plausibility bands
+- Price range consistency (`min <= max`)
+- Duration consistency (`visit_min_minutes <= visit_max_minutes`)
+- Required date-field presence
+- Cross-reference integrity:
+  - `itineraries.steps[].place_id` -> `places.id`
+  - `itineraries.steps[].activity_id` -> `activities.id`
+  - `tips.related_place_ids[]` -> `places.id`
+  - `tips.related_price_card_ids[]` -> `price_cards.id`
+
+### 11.2 What passed
+
+- No duplicate IDs detected in any content file.
+- No invalid latitude/longitude values (all within global valid ranges).
+- No invalid price ranges in `places` or `price_cards`.
+- No invalid visit-duration ranges in `places`.
+- No broken itinerary or tip references.
+- Required date fields present in:
+  - `places.reviewed_at`
+  - `places.hours_verified_at`
+  - `price_cards.expected_cost_updated_at`
+  - `tips.updated_at`
+  - `culture.updated_at`
+  - `events.captured_at`
+- Category coverage present for critical v1 pricing buckets:
+  - `taxi`, `hammam`, `souks`, `food`
+
+### 11.3 Gaps identified
+
+1. Glossary Arabic script missing:
+   - `28/28` glossary items have `arabic: null`
+   - Impact: phrasebook cannot fully satisfy Arabic/Latin/English display promise.
+   - Action: editorial/native-language pass required.
+
+2. Place image coverage is partial:
+   - `33/49` places have no image references.
+   - Current image references that do exist resolve to files on disk.
+   - Action: continue image mapping/import for high-priority places.
+
+3. Some price cards have no `context_modifiers`:
+   - `3/13`: `price-hammam-local-basic`, `price-hammam-tourist-spa`, `price-food-street-harira`
+   - Action: add simple, explainable modifiers where variability is meaningful.
+
+4. Three place coordinates are outside the strict Marrakech-city bounding box but expected for day trips:
+   - `place-ouzoud-waterfalls`
+   - `place-essaouira`
+   - `place-safi`
+   - Action: no correction needed; treat as intentional out-of-city destinations.
+
+### 11.4 Development test subset created
+
+Created `shared/content/test/` for fast test cycles:
+- `shared/content/test/places.json` (5 records from places dataset)
+- `shared/content/test/price_cards.json` (3 price cards)
+- `shared/content/test/glossary.json` (10 phrases)
+
+Subset IDs:
+- Places:
+  - `place-jemaa-el-fna`
+  - `place-koutoubia-mosque`
+  - `place-bahia-palace`
+  - `place-jardin-majorelle`
+  - `eat-zeitoun-cafe-kasbah`
+- Price cards:
+  - `price-taxi-airport-marrakech-center`
+  - `price-hammam-local-basic`
+  - `price-souk-argan-oil`
+- Glossary:
+  - `phrase-salam-alaikum`
+  - `phrase-la-shukran`
+  - `phrase-bsh-hal`
+  - `phrase-nqass-shwiya`
+  - `phrase-fin`
+  - `phrase-ma-fhemtch`
+  - `phrase-atay-bla-skar`
+  - `phrase-atqnee`
+  - `phrase-ayyet-ala-lbulees`
+  - `phrase-numbers-1-10`

@@ -346,10 +346,31 @@ struct CultureArticle: Codable, Identifiable, Sendable {
 
     enum CodingKeys: String, CodingKey {
         case id, title, summary, category
-        case doList = "do"
-        case dontList = "dont"
+        case doList = "do_list"
+        case dontList = "dont_list"
         case updatedAt = "updated_at"
         case sourceRefs = "source_refs"
+    }
+
+    private enum LegacyCodingKeys: String, CodingKey {
+        case doList = "do"
+        case dontList = "dont"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let legacyContainer = try decoder.container(keyedBy: LegacyCodingKeys.self)
+
+        id = try container.decode(String.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        summary = try container.decodeIfPresent(String.self, forKey: .summary)
+        category = try container.decodeIfPresent(String.self, forKey: .category)
+        doList = try container.decodeIfPresent([String].self, forKey: .doList)
+            ?? legacyContainer.decodeIfPresent([String].self, forKey: .doList)
+        dontList = try container.decodeIfPresent([String].self, forKey: .dontList)
+            ?? legacyContainer.decodeIfPresent([String].self, forKey: .dontList)
+        updatedAt = try container.decodeIfPresent(String.self, forKey: .updatedAt)
+        sourceRefs = try container.decodeIfPresent([Int].self, forKey: .sourceRefs)
     }
 }
 
@@ -361,8 +382,8 @@ extension CultureArticle: FetchableRecord, PersistableRecord {
         title = row["title"]
         summary = row["summary"]
         category = row["category"]
-        doList = Self.decodeJSONArray(row["do"])
-        dontList = Self.decodeJSONArray(row["dont"])
+        doList = Self.decodeJSONArray(row["do_list"])
+        dontList = Self.decodeJSONArray(row["dont_list"])
         updatedAt = row["updated_at"]
         sourceRefs = Self.decodeJSONArray(row["source_refs"])
     }

@@ -5,15 +5,12 @@ import GRDB
 ///
 /// This database stores user preferences, favorites, recent views, saved plans,
 /// and other mutable state. It persists across app restarts.
-final class UserDatabase: Sendable {
+final class UserDatabase: @unchecked Sendable {
     /// The database queue for serialized access
     let dbWriter: DatabaseWriter
 
     /// Path to the user database file
     let path: String
-
-    /// Current schema version
-    private static let schemaVersion = 1
 
     /// Initialize with a database file path
     /// - Parameter path: Path to user.db file
@@ -103,11 +100,33 @@ final class UserDatabase: Sendable {
             try db.create(table: "route_progress") { t in
                 t.autoIncrementedPrimaryKey("id")
                 t.column("plan_id", .integer)
+                    .notNull()
                     .references("saved_plans", onDelete: .cascade)
                 t.column("step_index", .integer).notNull()
                 t.column("completed_at", .text)
                 t.column("skipped", .boolean).notNull().defaults(to: false)
             }
+        }
+
+        migrator.registerMigration("v2_route_progress_unique_index") { db in
+            // Clean legacy malformed rows before enforcing uniqueness.
+            try db.execute(sql: """
+                DELETE FROM route_progress
+                WHERE plan_id IS NULL
+                   OR plan_id NOT IN (SELECT id FROM saved_plans)
+            """)
+            try db.execute(sql: """
+                DELETE FROM route_progress
+                WHERE rowid NOT IN (
+                    SELECT MAX(rowid)
+                    FROM route_progress
+                    GROUP BY plan_id, step_index
+                )
+            """)
+            try db.execute(sql: """
+                CREATE UNIQUE INDEX IF NOT EXISTS idx_route_progress_plan_step
+                ON route_progress(plan_id, step_index)
+            """)
         }
 
         // Run pending migrations
@@ -245,8 +264,11 @@ extension UserDatabase {
 
     /// Get recent views, optionally filtered by type
     func getRecents(contentType: String? = nil, limit: Int = 20) async throws -> [Recent] {
+        guard limit > 0 else { return [] }
+        let safeLimit = min(limit, 100)
+
         try await dbWriter.read { db in
-            var request = Recent.order(Column("viewed_at").desc).limit(limit)
+            var request = Recent.order(Column("viewed_at").desc).limit(safeLimit)
             if let contentType {
                 request = request.filter(Column("content_type") == contentType)
             }
@@ -326,29 +348,49 @@ extension UserDatabase {
 extension UserDatabase {
     /// Mark a step as completed
     func completeStep(planId: Int64, stepIndex: Int) async throws {
+        guard planId > 0 else {
+            throw UserDatabaseError.invalidInput("planId must be greater than zero")
+        }
+        guard stepIndex >= 0 else {
+            throw UserDatabaseError.invalidInput("stepIndex must be non-negative")
+        }
+
         let now = ISO8601DateFormatter().string(from: Date())
         try await dbWriter.write { db in
             try db.execute(sql: """
                 INSERT INTO route_progress (plan_id, step_index, completed_at, skipped)
                 VALUES (?, ?, ?, 0)
-                ON CONFLICT DO NOTHING
+                ON CONFLICT(plan_id, step_index) DO UPDATE
+                SET completed_at = excluded.completed_at,
+                    skipped = excluded.skipped
             """, arguments: [planId, stepIndex, now])
         }
     }
 
     /// Mark a step as skipped
     func skipStep(planId: Int64, stepIndex: Int) async throws {
+        guard planId > 0 else {
+            throw UserDatabaseError.invalidInput("planId must be greater than zero")
+        }
+        guard stepIndex >= 0 else {
+            throw UserDatabaseError.invalidInput("stepIndex must be non-negative")
+        }
+
         try await dbWriter.write { db in
             try db.execute(sql: """
                 INSERT INTO route_progress (plan_id, step_index, completed_at, skipped)
                 VALUES (?, ?, NULL, 1)
-                ON CONFLICT DO NOTHING
+                ON CONFLICT(plan_id, step_index) DO UPDATE
+                SET completed_at = excluded.completed_at,
+                    skipped = excluded.skipped
             """, arguments: [planId, stepIndex])
         }
     }
 
     /// Get progress for a plan
     func getRouteProgress(planId: Int64) async throws -> [RouteProgress] {
+        guard planId > 0 else { return [] }
+
         try await dbWriter.read { db in
             try RouteProgress
                 .filter(Column("plan_id") == planId)
@@ -359,6 +401,8 @@ extension UserDatabase {
 
     /// Reset progress for a plan
     func resetRouteProgress(planId: Int64) async throws {
+        guard planId > 0 else { return }
+
         try await dbWriter.write { db in
             try db.execute(sql: "DELETE FROM route_progress WHERE plan_id = ?", arguments: [planId])
         }
@@ -371,6 +415,7 @@ enum UserDatabaseError: LocalizedError {
     case encodingFailed
     case decodingFailed
     case planNotFound
+    case invalidInput(String)
 
     var errorDescription: String? {
         switch self {
@@ -380,6 +425,8 @@ enum UserDatabaseError: LocalizedError {
             return "Failed to decode stored value"
         case .planNotFound:
             return "Saved plan not found"
+        case .invalidInput(let message):
+            return "Invalid user database input: \(message)"
         }
     }
 }
@@ -387,7 +434,7 @@ enum UserDatabaseError: LocalizedError {
 // MARK: - Supporting Records
 
 /// Favorite item record
-struct Favorite: Codable, FetchableRecord, PersistableRecord {
+struct Favorite: Codable, FetchableRecord, PersistableRecord, Sendable {
     var id: Int64?
     var contentType: String
     var contentId: String
@@ -404,7 +451,7 @@ struct Favorite: Codable, FetchableRecord, PersistableRecord {
 }
 
 /// Recent view record
-struct Recent: Codable, FetchableRecord, PersistableRecord {
+struct Recent: Codable, FetchableRecord, PersistableRecord, Sendable {
     var id: Int64?
     var contentType: String
     var contentId: String
@@ -421,7 +468,7 @@ struct Recent: Codable, FetchableRecord, PersistableRecord {
 }
 
 /// Saved plan record
-struct SavedPlan: Codable, FetchableRecord, PersistableRecord {
+struct SavedPlan: Codable, FetchableRecord, PersistableRecord, Sendable {
     var id: Int64?
     var title: String
     var planDate: String?
@@ -442,9 +489,9 @@ struct SavedPlan: Codable, FetchableRecord, PersistableRecord {
 }
 
 /// Route progress record
-struct RouteProgress: Codable, FetchableRecord, PersistableRecord {
+struct RouteProgress: Codable, FetchableRecord, PersistableRecord, Sendable {
     var id: Int64?
-    var planId: Int64?
+    var planId: Int64
     var stepIndex: Int
     var completedAt: String?
     var skipped: Bool

@@ -124,8 +124,8 @@ data class CultureEntity(
     val title: String,
     val summary: String? = null,
     val category: String? = null,
-    @ColumnInfo(name = "do") val doList: String? = null,  // JSON array
-    @ColumnInfo(name = "dont") val dontList: String? = null,  // JSON array
+    @ColumnInfo(name = "do_list") val doList: String? = null,  // JSON array
+    @ColumnInfo(name = "dont_list") val dontList: String? = null,  // JSON array
     @ColumnInfo(name = "updated_at") val updatedAt: String? = null,
     @ColumnInfo(name = "source_refs") val sourceRefs: String? = null
 )

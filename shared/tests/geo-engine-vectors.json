@@ -23,7 +23,7 @@
         "to": { "lat": 31.621633, "lng": -7.981938 }
       },
       "expected": {
-        "distance_meters": 834,
+        "distance_meters": 809,
         "tolerance_meters": 15
       }
     },
@@ -133,7 +133,7 @@
         "to": { "lat": 31.631984, "lng": -7.986036 }
       },
       "expected": {
-        "bearing_degrees": 25,
+        "bearing_degrees": 22,
         "tolerance_degrees": 3
       }
     },
@@ -145,7 +145,7 @@
         "to": { "lat": 31.641475, "lng": -8.002908 }
       },
       "expected": {
-        "bearing_degrees": 318,
+        "bearing_degrees": 323,
         "tolerance_degrees": 3
       }
     },
@@ -370,13 +370,13 @@
     },
     {
       "name": "Long walk to Jardin Majorelle",
-      "description": "2.2 km mostly outside Medina = ~29 min",
+      "description": "2.2 km mostly outside Medina = ~33 min with navigation buffer",
       "input": {
         "meters": 2200,
         "region": "gueliz"
       },
       "expected": {
-        "minutes": 29,
+        "minutes": 33,
         "tolerance_minutes": 3
       }
     }

@@ -43,10 +43,11 @@ final class PriceCardRepositoryImpl: PriceCardRepository, @unchecked Sendable {
     }
 
     func searchPriceCards(query: String, limit: Int = 20) async throws -> [PriceCard] {
-        guard !query.isEmpty else { return [] }
+        guard let pattern = FTS5Pattern(matchingAllPrefixesIn: query) else { return [] }
+        guard limit > 0 else { return [] }
+        let safeLimit = min(limit, 100)
 
         return try await contentDb.dbPool.read { db in
-            let pattern = FTS5Pattern(matchingAllPrefixesIn: query)
             let sql = """
                 SELECT price_cards.* FROM price_cards
                 JOIN price_cards_fts ON price_cards.rowid = price_cards_fts.rowid
@@ -54,7 +55,7 @@ final class PriceCardRepositoryImpl: PriceCardRepository, @unchecked Sendable {
                 ORDER BY bm25(price_cards_fts)
                 LIMIT ?
             """
-            return try PriceCard.fetchAll(db, sql: sql, arguments: [pattern?.rawPattern ?? query, limit])
+            return try PriceCard.fetchAll(db, sql: sql, arguments: [pattern.rawPattern, safeLimit])
         }
     }
 

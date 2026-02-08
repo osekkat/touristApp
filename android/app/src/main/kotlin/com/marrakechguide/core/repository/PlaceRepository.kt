@@ -175,7 +175,8 @@ private fun PhraseEntity.toDomainModel(): Phrase {
         arabic = arabic,
         latin = latin,
         english = english,
-        audio = audio
+        audio = audio,
+        verificationStatus = verificationStatus
     )
 }
 

@@ -1,4 +1,5 @@
 import Foundation
+import GRDB
 
 /// Protocol defining the interface for place data access.
 /// Implemented by PlaceRepositoryImpl which uses GRDB under the hood.
@@ -55,10 +56,11 @@ final class PlaceRepositoryImpl: PlaceRepository, @unchecked Sendable {
     }
 
     func searchPlaces(query: String, limit: Int = 20) async throws -> [Place] {
-        guard !query.isEmpty else { return [] }
+        guard let pattern = FTS5Pattern(matchingAllPrefixesIn: query) else { return [] }
+        guard limit > 0 else { return [] }
+        let safeLimit = min(limit, 100)
 
         return try await contentDb.dbPool.read { db in
-            let pattern = FTS5Pattern(matchingAllPrefixesIn: query)
             let sql = """
                 SELECT places.* FROM places
                 JOIN places_fts ON places.rowid = places_fts.rowid
@@ -66,7 +68,7 @@ final class PlaceRepositoryImpl: PlaceRepository, @unchecked Sendable {
                 ORDER BY bm25(places_fts)
                 LIMIT ?
             """
-            return try Place.fetchAll(db, sql: sql, arguments: [pattern?.rawPattern ?? query, limit])
+            return try Place.fetchAll(db, sql: sql, arguments: [pattern.rawPattern, safeLimit])
         }
     }
 
@@ -92,7 +94,3 @@ final class PlaceRepositoryImpl: PlaceRepository, @unchecked Sendable {
         }
     }
 }
-
-// MARK: - GRDB Import
-
-import GRDB

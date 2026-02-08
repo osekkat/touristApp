@@ -159,7 +159,22 @@
       "what_to_do_instead": [
         "Choose providers with clear inclusions in writing"
       ],
-      "context_modifiers": [],
+      "context_modifiers": [
+        {
+          "id": "weekend_peak",
+          "label": "Weekend peak",
+          "factor_min": 1.1,
+          "factor_max": 1.25,
+          "notes": "Popular local slots and higher demand can raise quotes."
+        },
+        {
+          "id": "hotel_pickup",
+          "label": "Hotel pickup included",
+          "factor_min": 1.1,
+          "factor_max": 1.3,
+          "notes": "Included transport typically increases the final package price."
+        }
+      ],
       "fairness_low_multiplier": 0.75,
       "fairness_high_multiplier": 1.35,
       "source_refs": [
@@ -202,7 +217,29 @@
       "what_to_do_instead": [
         "Request itemized package or compare two providers"
       ],
-      "context_modifiers": [],
+      "context_modifiers": [
+        {
+          "id": "luxury_brand",
+          "label": "Luxury spa brand",
+          "factor_min": 1.2,
+          "factor_max": 1.6,
+          "notes": "Premium-brand properties and facilities command higher rates."
+        },
+        {
+          "id": "private_suite",
+          "label": "Private suite",
+          "factor_min": 1.25,
+          "factor_max": 1.8,
+          "notes": "Private treatment spaces usually carry a strong premium."
+        },
+        {
+          "id": "transport_included",
+          "label": "Transport included",
+          "factor_min": 1.05,
+          "factor_max": 1.2,
+          "notes": "Bundled pickup/return tends to move prices upward."
+        }
+      ],
       "fairness_low_multiplier": 0.75,
       "fairness_high_multiplier": 1.35,
       "source_refs": [
@@ -572,7 +609,22 @@
       "what_to_do_instead": [
         "Check visible board or ask before serving"
       ],
-      "context_modifiers": [],
+      "context_modifiers": [
+        {
+          "id": "tourist_core",
+          "label": "Tourist core lane",
+          "factor_min": 1.15,
+          "factor_max": 1.5,
+          "notes": "Stalls in dense tourist corridors often quote higher."
+        },
+        {
+          "id": "ramadan_peak",
+          "label": "Ramadan / iftar rush",
+          "factor_min": 1.1,
+          "factor_max": 1.4,
+          "notes": "Peak demand windows near iftar can shift street-food pricing."
+        }
+      ],
       "fairness_low_multiplier": 0.7,
       "fairness_high_multiplier": 1.5,
       "source_refs": [

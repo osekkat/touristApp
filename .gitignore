@@ -38,6 +38,7 @@ logs/
 .env
 .env.local
 .env.*.local
+.android-sdk/
 
 # Coverage
 coverage/

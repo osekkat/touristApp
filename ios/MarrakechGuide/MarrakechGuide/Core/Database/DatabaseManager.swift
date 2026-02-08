@@ -1,5 +1,6 @@
 import Foundation
 import GRDB
+import os
 
 /// DatabaseManager is the central access point for all database operations.
 ///
@@ -20,10 +21,17 @@ import GRDB
 /// ```
 @MainActor
 final class DatabaseManager {
+    private static let logger = Logger(subsystem: "com.marrakechguide.app", category: "database")
     // MARK: - Shared Instance
+
+    private struct InFlightInitialization {
+        let id: UUID
+        let task: Task<DatabaseManager, Error>
+    }
 
     /// The shared database manager instance
     private static var _shared: DatabaseManager?
+    private static var _sharedTask: InFlightInitialization?
 
     /// Access the shared database manager
     /// - Throws: Error if databases fail to initialize
@@ -32,9 +40,38 @@ final class DatabaseManager {
             if let existing = _shared {
                 return existing
             }
-            let manager = try await DatabaseManager()
+            if let inFlight = _sharedTask {
+                return try await resolveShared(from: inFlight)
+            }
+
+            let task = Task<DatabaseManager, Error> { @MainActor in
+                try await DatabaseManager()
+            }
+            let inFlight = InFlightInitialization(id: UUID(), task: task)
+            _sharedTask = inFlight
+
+            return try await resolveShared(from: inFlight)
+        }
+    }
+
+    private static func resolveShared(from inFlight: InFlightInitialization) async throws -> DatabaseManager {
+        do {
+            let manager = try await inFlight.task.value
             _shared = manager
+            if _sharedTask?.id == inFlight.id {
+                _sharedTask = nil
+            }
             return manager
+        } catch {
+            // Do not clear in-flight task when the current caller is cancelled
+            // but initialization is still running for other callers.
+            if Task.isCancelled, error is CancellationError, !inFlight.task.isCancelled {
+                throw error
+            }
+            if _sharedTask?.id == inFlight.id {
+                _sharedTask = nil
+            }
+            throw error
         }
     }
 
@@ -51,23 +88,30 @@ final class DatabaseManager {
     /// Initialize the database manager
     /// - Throws: Error if databases cannot be opened or migrated
     init() async throws {
-        // Initialize content database
-        content = try ContentDatabase()
-
-        // Initialize user database
-        user = try UserDatabase()
+        let databases = try await Task.detached(priority: .userInitiated) { () throws -> (ContentDatabase, UserDatabase) in
+            let content = try ContentDatabase()
+            let user = try UserDatabase()
+            return (content, user)
+        }.value
+        content = databases.0
+        user = databases.1
 
         // Log successful initialization
         #if DEBUG
-        print("[DatabaseManager] Content database: \(content.path)")
-        print("[DatabaseManager] User database: \(user.path)")
+        Self.logger.debug("Content database path: \(self.content.path, privacy: .public)")
+        Self.logger.debug("User database path: \(self.user.path, privacy: .public)")
         #endif
     }
 
     /// Initialize with custom paths (for testing)
     init(contentPath: String, userPath: String) async throws {
-        content = try ContentDatabase(path: contentPath)
-        user = try UserDatabase(path: userPath)
+        let databases = try await Task.detached(priority: .userInitiated) { () throws -> (ContentDatabase, UserDatabase) in
+            let content = try ContentDatabase(path: contentPath)
+            let user = try UserDatabase(path: userPath)
+            return (content, user)
+        }.value
+        content = databases.0
+        user = databases.1
     }
 
     // MARK: - Content Swap
@@ -92,7 +136,7 @@ final class DatabaseManager {
     /// Perform database maintenance (vacuum, integrity check)
     func performMaintenance() async throws {
         // Check integrity of user database
-        try await user.dbWriter.write { db in
+        try await user.dbWriter.read { db in
             let result = try String.fetchOne(db, sql: "PRAGMA integrity_check")
             guard result == "ok" else {
                 throw DatabaseManagerError.integrityCheckFailed(result ?? "unknown error")
@@ -100,29 +144,34 @@ final class DatabaseManager {
         }
 
         // Vacuum user database to reclaim space
-        try await user.dbWriter.vacuum()
+        try await user.dbWriter.writeWithoutTransaction { db in
+            try db.execute(sql: "VACUUM")
+        }
     }
 
     /// Get database statistics for debugging
     func getStats() async throws -> DatabaseStats {
-        let contentStats = try await getFileStats(path: content.path)
-        let userStats = try await getFileStats(path: user.path)
-
-        return DatabaseStats(
-            contentDatabaseSize: contentStats.size,
-            userDatabaseSize: userStats.size,
-            contentPath: content.path,
-            userPath: user.path
-        )
+        let contentPath = content.path
+        let userPath = user.path
+        return try await Task.detached(priority: .utility) { () throws -> DatabaseStats in
+            let contentStats = try fileStats(path: contentPath)
+            let userStats = try fileStats(path: userPath)
+            return DatabaseStats(
+                contentDatabaseSize: contentStats.size,
+                userDatabaseSize: userStats.size,
+                contentPath: contentPath,
+                userPath: userPath
+            )
+        }.value
     }
+}
 
-    private func getFileStats(path: String) async throws -> (size: Int64, modified: Date?) {
-        let fileManager = FileManager.default
-        let attrs = try fileManager.attributesOfItem(atPath: path)
-        let size = attrs[.size] as? Int64 ?? 0
-        let modified = attrs[.modificationDate] as? Date
-        return (size, modified)
-    }
+private func fileStats(path: String) throws -> (size: Int64, modified: Date?) {
+    let fileManager = FileManager.default
+    let attrs = try fileManager.attributesOfItem(atPath: path)
+    let size = attrs[.size] as? Int64 ?? 0
+    let modified = attrs[.modificationDate] as? Date
+    return (size, modified)
 }
 
 // MARK: - Errors
@@ -144,7 +193,7 @@ enum DatabaseManagerError: LocalizedError {
 // MARK: - Stats
 
 /// Database statistics for debugging and monitoring
-struct DatabaseStats {
+struct DatabaseStats: Sendable {
     let contentDatabaseSize: Int64
     let userDatabaseSize: Int64
     let contentPath: String

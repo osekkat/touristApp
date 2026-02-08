@@ -102,11 +102,16 @@ data class Phrase(
     val arabic: String? = null,
     val latin: String,
     val english: String,
-    val audio: String? = null
+    val audio: String? = null,
+    val verificationStatus: String? = null
 ) {
     /** Check if phrase has audio */
     val hasAudio: Boolean
         get() = !audio.isNullOrBlank()
+
+    /** Check if phrase is verified */
+    val isVerified: Boolean
+        get() = verificationStatus == "verified"
 }
 
 /**

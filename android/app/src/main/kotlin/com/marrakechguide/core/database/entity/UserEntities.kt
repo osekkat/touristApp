@@ -73,7 +73,10 @@ data class SavedPlanEntity(
             onDelete = ForeignKey.CASCADE
         )
     ],
-    indices = [Index(value = ["plan_id"])]
+    indices = [
+        Index(value = ["plan_id"]),
+        Index(value = ["plan_id", "step_index"], unique = true)
+    ]
 )
 data class RouteProgressEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

@@ -1,0 +1,17 @@
+NOM_APP: Guide Marrakech Hors Ligne
+DESCRIPTION_COURTE: Prix, phrases et navigation pour Marrakech. Fonctionne hors ligne.
+
+DESCRIPTION_COMPLETE:
+Le guide Marrakech hors ligne en qui vous pouvez avoir confiance.
+
+Sachez combien les choses devraient couter, evitez les pieges touristiques frequents et deplacez-vous avec assurance. Guide Marrakech Hors Ligne combine conseils pratiques locaux et outils d'action immediate, meme sans connexion.
+
+Ce que vous pouvez faire:
+- Verifier instantanement un prix avec Quote -> Action
+- Voir les fourchettes de prix en MAD et obtenir des scripts de negociation
+- Utiliser la boussole Home Base pour revenir a votre riad/hotel
+- Parcourir des lieux et conseils vraiment utiles
+- Utiliser un lexique Darija avec translitteration
+- Suivre des itineraires avec cartes d'etapes
+
+Application Android native pour une fiabilite hors ligne elevee.

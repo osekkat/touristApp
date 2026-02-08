@@ -64,6 +64,25 @@ class LinkChecker {
   private errors: LinkError[] = [];
   private fileErrors: string[] = [];
 
+  private isNonEmptyTrimmedString(value: unknown): value is string {
+    return typeof value === 'string' && value.length > 0 && value === value.trim();
+  }
+
+  private isRecord(value: unknown): value is Record<string, unknown> {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+  }
+
+  private renderValue(value: unknown): string {
+    if (value === undefined) return '<undefined>';
+    if (value === null) return '<null>';
+    if (typeof value === 'string') return value;
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return String(value);
+    }
+  }
+
   private addError(error: LinkError): void {
     this.errors.push(error);
   }
@@ -82,7 +101,65 @@ class LinkChecker {
 
     try {
       const raw = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(raw) as ContentFile<T>;
+      const parsed = JSON.parse(raw);
+
+      if (!this.isRecord(parsed)) {
+        this.addFileError(`Invalid root object in ${filename}`);
+        return null;
+      }
+
+      const meta = (parsed as { meta?: unknown }).meta;
+      if (!this.isRecord(meta)) {
+        this.addFileError(`${filename}: missing or invalid "meta" object`);
+        return null;
+      }
+      if (!this.isNonEmptyTrimmedString(meta.generated_at)) {
+        this.addFileError(`${filename}: meta.generated_at must be a non-empty trimmed string`);
+        return null;
+      }
+      if (!this.isNonEmptyTrimmedString(meta.source_document)) {
+        this.addFileError(`${filename}: meta.source_document must be a non-empty trimmed string`);
+        return null;
+      }
+      if (!Array.isArray(meta.notes)) {
+        this.addFileError(`${filename}: meta.notes must be an array of strings`);
+        return null;
+      }
+      for (let index = 0; index < meta.notes.length; index++) {
+        if (!this.isNonEmptyTrimmedString(meta.notes[index])) {
+          this.addFileError(
+            `${filename}: meta.notes[${index}] must be a non-empty trimmed string`
+          );
+          return null;
+        }
+      }
+
+      if (!Array.isArray(parsed.items)) {
+        this.addFileError(`Missing or invalid "items" array in ${filename}`);
+        return null;
+      }
+
+      const seenIds = new Set<string>();
+      for (let index = 0; index < parsed.items.length; index++) {
+        const item = parsed.items[index];
+        if (!this.isRecord(item)) {
+          this.addFileError(`${filename}: item[${index}] must be an object`);
+          return null;
+        }
+        if (!this.isNonEmptyTrimmedString(item.id)) {
+          this.addFileError(
+            `${filename}: item[${index}] missing valid trimmed string "id"`
+          );
+          return null;
+        }
+        if (seenIds.has(item.id)) {
+          this.addFileError(`${filename}: duplicate item id "${item.id}" at item[${index}]`);
+          return null;
+        }
+        seenIds.add(item.id);
+      }
+
+      return parsed as unknown as ContentFile<T>;
     } catch (err) {
       this.addFileError(
         `Failed to parse ${filename}: ${err instanceof Error ? err.message : String(err)}`
@@ -94,7 +171,7 @@ class LinkChecker {
   private collectIds<T extends BaseItem>(items: T[]): Set<string> {
     const ids = new Set<string>();
     for (const item of items) {
-      if (typeof item.id === 'string' && item.id.length > 0) {
+      if (this.isNonEmptyTrimmedString(item.id)) {
         ids.add(item.id);
       }
     }
@@ -107,13 +184,58 @@ class LinkChecker {
     activityIds: Set<string>
   ): void {
     for (const itinerary of itineraries) {
-      const steps = Array.isArray(itinerary.steps) ? itinerary.steps : [];
+      if (!Array.isArray(itinerary.steps)) {
+        this.addError({
+          file: FILES.itineraries,
+          itemId: itinerary.id,
+          field: 'steps',
+          value: this.renderValue(itinerary.steps),
+          message: 'Missing or invalid steps array',
+        });
+        continue;
+      }
+
+      const steps = itinerary.steps;
 
       for (let index = 0; index < steps.length; index++) {
         const step = steps[index];
+
+        if (!this.isRecord(step)) {
+          this.addError({
+            file: FILES.itineraries,
+            itemId: itinerary.id,
+            field: `steps[${index}]`,
+            value: this.renderValue(step),
+            message: 'Step must be an object',
+          });
+          continue;
+        }
+
         const type = step.type;
 
-        if ((type === 'place' || type === 'meal') && step.place_id) {
+        if (type !== 'place' && type !== 'meal' && type !== 'activity') {
+          this.addError({
+            file: FILES.itineraries,
+            itemId: itinerary.id,
+            field: `steps[${index}].type`,
+            value: this.renderValue(type),
+            message: 'Unknown step type',
+          });
+          continue;
+        }
+
+        if (type === 'place' || type === 'meal') {
+          if (!this.isNonEmptyTrimmedString(step.place_id)) {
+            this.addError({
+              file: FILES.itineraries,
+              itemId: itinerary.id,
+              field: `steps[${index}].place_id`,
+              value: this.renderValue(step.place_id),
+              message: 'Missing place reference',
+            });
+            continue;
+          }
+
           if (!placeIds.has(step.place_id)) {
             this.addError({
               file: FILES.itineraries,
@@ -125,7 +247,18 @@ class LinkChecker {
           }
         }
 
-        if (type === 'activity' && step.activity_id) {
+        if (type === 'activity') {
+          if (!this.isNonEmptyTrimmedString(step.activity_id)) {
+            this.addError({
+              file: FILES.itineraries,
+              itemId: itinerary.id,
+              field: `steps[${index}].activity_id`,
+              value: this.renderValue(step.activity_id),
+              message: 'Missing activity reference',
+            });
+            continue;
+          }
+
           if (!activityIds.has(step.activity_id)) {
             this.addError({
               file: FILES.itineraries,
@@ -146,15 +279,66 @@ class LinkChecker {
     priceCardIds: Set<string>
   ): void {
     for (const tip of tips) {
+      if (
+        tip.related_place_ids !== undefined &&
+        !Array.isArray(tip.related_place_ids)
+      ) {
+        this.addError({
+          file: FILES.tips,
+          itemId: tip.id,
+          field: 'related_place_ids',
+          value: this.renderValue(tip.related_place_ids),
+          message: 'Invalid related_place_ids: expected an array',
+        });
+      }
+
+      if (
+        tip.related_price_card_ids !== undefined &&
+        !Array.isArray(tip.related_price_card_ids)
+      ) {
+        this.addError({
+          file: FILES.tips,
+          itemId: tip.id,
+          field: 'related_price_card_ids',
+          value: this.renderValue(tip.related_price_card_ids),
+          message: 'Invalid related_price_card_ids: expected an array',
+        });
+      }
+
       const relatedPlaces = Array.isArray(tip.related_place_ids)
         ? tip.related_place_ids
         : [];
       const relatedPriceCards = Array.isArray(tip.related_price_card_ids)
         ? tip.related_price_card_ids
         : [];
+      const seenRelatedPlaces = new Set<string>();
+      const seenRelatedPriceCards = new Set<string>();
 
       for (let index = 0; index < relatedPlaces.length; index++) {
         const placeId = relatedPlaces[index];
+        if (!this.isNonEmptyTrimmedString(placeId)) {
+          this.addError({
+            file: FILES.tips,
+            itemId: tip.id,
+            field: `related_place_ids[${index}]`,
+            value: this.renderValue(placeId),
+            message: 'Invalid place reference value',
+          });
+          continue;
+        }
+
+        if (seenRelatedPlaces.has(placeId)) {
+          this.addError({
+            file: FILES.tips,
+            itemId: tip.id,
+            field: `related_place_ids[${index}]`,
+            value: placeId,
+            message: 'Duplicate place reference',
+          });
+          continue;
+        }
+        seenRelatedPlaces.add(placeId);
+
         if (!placeIds.has(placeId)) {
           this.addError({
             file: FILES.tips,
@@ -168,6 +352,29 @@ class LinkChecker {
 
       for (let index = 0; index < relatedPriceCards.length; index++) {
         const priceCardId = relatedPriceCards[index];
+        if (!this.isNonEmptyTrimmedString(priceCardId)) {
+          this.addError({
+            file: FILES.tips,
+            itemId: tip.id,
+            field: `related_price_card_ids[${index}]`,
+            value: this.renderValue(priceCardId),
+            message: 'Invalid price_card reference value',
+          });
+          continue;
+        }
+
+        if (seenRelatedPriceCards.has(priceCardId)) {
+          this.addError({
+            file: FILES.tips,
+            itemId: tip.id,
+            field: `related_price_card_ids[${index}]`,
+            value: priceCardId,
+            message: 'Duplicate price_card reference',
+          });
+          continue;
+        }
+        seenRelatedPriceCards.add(priceCardId);
+
         if (!priceCardIds.has(priceCardId)) {
           this.addError({
             file: FILES.tips,

@@ -37,8 +37,9 @@ object GeoEngine {
         val deltaLatRad = Math.toRadians(to.lat - from.lat)
         val deltaLngRad = Math.toRadians(to.lng - from.lng)
 
-        val a = sin(deltaLatRad / 2).pow(2) +
+        val rawA = sin(deltaLatRad / 2).pow(2) +
                 cos(lat1Rad) * cos(lat2Rad) * sin(deltaLngRad / 2).pow(2)
+        val a = rawA.coerceIn(0.0, 1.0)
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
         return EARTH_RADIUS_METERS * c
@@ -96,11 +97,13 @@ object GeoEngine {
      * @return Formatted string
      */
     fun formatDistance(meters: Double): String {
+        val safeMeters = meters.coerceAtLeast(0.0)
+
         return when {
-            meters < 100 -> "${meters.roundToInt()} m"
-            meters < 1000 -> "${(meters / 10).roundToInt() * 10} m"
+            safeMeters < 100 -> "${safeMeters.roundToInt()} m"
+            safeMeters < 1000 -> "${(safeMeters / 10).roundToInt() * 10} m"
             else -> {
-                val km = meters / 1000
+                val km = safeMeters / 1000
                 val formatted = (km * 10).roundToInt() / 10.0
                 if (formatted == formatted.toLong().toDouble()) {
                     "${formatted.toLong()}.0 km"
@@ -123,6 +126,8 @@ object GeoEngine {
      * @return Estimated walking time in minutes
      */
     fun estimateWalkTime(meters: Double, region: String): Int {
+        if (meters <= 0) return 0
+
         val speedMultiplier = when (region.lowercase()) {
             "medina", "medina_core", "kasbah", "souks" -> MEDINA_WALK_MULTIPLIER
             else -> 1.0

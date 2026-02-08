@@ -13,7 +13,7 @@
     {
       "id": "phrase-salam-alaikum",
       "category": "greetings",
-      "arabic": null,
+      "arabic": "السلام عليكم",
       "latin": "Salam alaikum",
       "english": "Peace be upon you (hello)",
       "audio": null,
@@ -22,7 +22,7 @@
     {
       "id": "phrase-la-shukran",
       "category": "polite_refusal",
-      "arabic": null,
+      "arabic": "لا، شكرا",
       "latin": "La, shukran",
       "english": "No, thank you",
       "audio": null,
@@ -31,7 +31,7 @@
     {
       "id": "phrase-bsh-hal",
       "category": "shopping",
-      "arabic": null,
+      "arabic": "بشحال؟",
       "latin": "Bsh-hal?",
       "english": "How much?",
       "audio": null,
@@ -40,7 +40,7 @@
     {
       "id": "phrase-ghali-shwiya",
       "category": "shopping",
-      "arabic": null,
+      "arabic": "غالي شوية",
       "latin": "Ghali shwiya",
       "english": "A bit expensive",
       "audio": null,
@@ -49,7 +49,7 @@
     {
       "id": "phrase-nqass-shwiya",
       "category": "shopping",
-      "arabic": null,
+      "arabic": "نقص شوية؟",
       "latin": "Nqass shwiya?",
       "english": "Can you lower it a little?",
       "audio": null,
@@ -58,7 +58,7 @@
     {
       "id": "phrase-fin",
       "category": "directions",
-      "arabic": null,
+      "arabic": "فين ...؟",
       "latin": "Fin ...?",
       "english": "Where is ...?",
       "audio": null,
@@ -67,7 +67,7 @@
     {
       "id": "phrase-smh-liya",
       "category": "courtesy",
-      "arabic": null,
+      "arabic": "سمح ليا",
       "latin": "Smh liya",
       "english": "Excuse me / sorry",
       "audio": null,
@@ -76,7 +76,7 @@
     {
       "id": "phrase-ma-fhemtch",
       "category": "communication",
-      "arabic": null,
+      "arabic": "ما فهمتش",
       "latin": "Ma fhemtch",
       "english": "I did not understand",
       "audio": null,
@@ -85,7 +85,7 @@
     {
       "id": "phrase-bghit-hada",
       "category": "shopping",
-      "arabic": null,
+      "arabic": "بغيت هادا",
       "latin": "Bghit hada",
       "english": "I want this one",
       "audio": null,
@@ -94,7 +94,7 @@
     {
       "id": "phrase-atay-bla-skar",
       "category": "food",
-      "arabic": null,
+      "arabic": "أتاي بلا سكر",
       "latin": "Atay bla skkar",
       "english": "Tea without sugar",
       "audio": null,
@@ -103,7 +103,7 @@
     {
       "id": "phrase-shno-smeetek",
       "category": "communication",
-      "arabic": null,
+      "arabic": "شنو سميتك؟",
       "latin": "Shno smeetek?",
       "english": "What is your name?",
       "audio": null,
@@ -112,7 +112,7 @@
     {
       "id": "phrase-wash-kthdar-bilengleezeeya",
       "category": "communication",
-      "arabic": null,
+      "arabic": "واش كتهضر بالإنجليزية؟",
       "latin": "Wash kt'hdar bilengleezeeya?",
       "english": "Do you speak English?",
       "audio": null,
@@ -121,7 +121,7 @@
     {
       "id": "phrase-mafhemtsh",
       "category": "communication",
-      "arabic": null,
+      "arabic": "مافهمتش",
       "latin": "Mafhemtsh",
       "english": "I did not understand.",
       "audio": null,
@@ -130,7 +130,7 @@
     {
       "id": "phrase-feen-kayn",
       "category": "directions",
-      "arabic": null,
+      "arabic": "فين كاين ...؟",
       "latin": "Feen kayn ...?",
       "english": "Where is ...?",
       "audio": null,
@@ -139,7 +139,7 @@
     {
       "id": "phrase-shno-lunwan",
       "category": "directions",
-      "arabic": null,
+      "arabic": "شنو العنوان؟",
       "latin": "Shno l'unwan?",
       "english": "What is the address?",
       "audio": null,
@@ -148,7 +148,7 @@
     {
       "id": "phrase-kteb-lunwan-afak",
       "category": "directions",
-      "arabic": null,
+      "arabic": "كتب العنوان عافاك.",
       "latin": "Kteb l'unwan 'afak.",
       "english": "Please write down the address.",
       "audio": null,
@@ -157,7 +157,7 @@
     {
       "id": "phrase-werrini-fi-lkhrita",
       "category": "directions",
-      "arabic": null,
+      "arabic": "عافاك، ورّيني فـالخريطة.",
       "latin": "'Afak, werrini fi lkhrita.",
       "english": "Please show me on the map.",
       "audio": null,
@@ -166,7 +166,7 @@
     {
       "id": "phrase-shno-ktqtaarh",
       "category": "food",
-      "arabic": null,
+      "arabic": "شنو كتقترح؟",
       "latin": "Shno ktqtaarh?",
       "english": "What do you recommend?",
       "audio": null,
@@ -175,7 +175,7 @@
     {
       "id": "phrase-bsaha",
       "category": "food",
-      "arabic": null,
+      "arabic": "بصحة!",
       "latin": "Bsaha!",
       "english": "Cheers / to your health!",
       "audio": null,
@@ -184,7 +184,7 @@
     {
       "id": "phrase-andee-hasaseeya",
       "category": "food",
-      "arabic": null,
+      "arabic": "عندي حساسية من...",
       "latin": "Andee hasaseeya mn...",
       "english": "I am allergic to...",
       "audio": null,
@@ -193,7 +193,7 @@
     {
       "id": "phrase-wash-makaynsh-lglutine",
       "category": "food",
-      "arabic": null,
+      "arabic": "واش ماكينش الغلوتين؟",
       "latin": "Wash makaynsh lglutine?",
       "english": "Is this gluten-free?",
       "audio": null,
@@ -202,7 +202,7 @@
     {
       "id": "phrase-wash-kayn-makla-nabatiya",
       "category": "food",
-      "arabic": null,
+      "arabic": "واش كاين شي ماكلة نباتية؟",
       "latin": "Wash kayn she makla nabatiya?",
       "english": "Is there any vegetarian/vegan food?",
       "audio": null,
@@ -211,7 +211,7 @@
     {
       "id": "phrase-atqnee",
       "category": "emergency",
-      "arabic": null,
+      "arabic": "عتقني!",
       "latin": "'Atqnee!",
       "english": "Help!",
       "audio": null,
@@ -220,7 +220,7 @@
     {
       "id": "phrase-seer-seeroo",
       "category": "polite_refusal",
-      "arabic": null,
+      "arabic": "سير / سيرو!",
       "latin": "Seer / Seeroo!",
       "english": "Go away (singular/plural)!",
       "audio": null,
@@ -229,7 +229,7 @@
     {
       "id": "phrase-ana-mreed",
       "category": "emergency",
-      "arabic": null,
+      "arabic": "أنا مريض / مريضة",
       "latin": "Ana mreed / mreeda",
       "english": "I am ill (male/female speaker).",
       "audio": null,
@@ -238,7 +238,7 @@
     {
       "id": "phrase-ayyet-ala-tbeeb",
       "category": "emergency",
-      "arabic": null,
+      "arabic": "عيّط على شي طبيب!",
       "latin": "'Ayyet 'ala she tbeeb!",
       "english": "Call a doctor!",
       "audio": null,
@@ -247,7 +247,7 @@
     {
       "id": "phrase-ayyet-ala-lbulees",
       "category": "emergency",
-      "arabic": null,
+      "arabic": "عيّط على البوليس!",
       "latin": "Ayyet 'ala lbulees!",
       "english": "Call the police!",
       "audio": null,
@@ -256,7 +256,7 @@
     {
       "id": "phrase-numbers-1-10",
       "category": "numbers",
-      "arabic": null,
+      "arabic": "واحد، جوج، تلاتة، ربعة، خمسة، ستة، سبعة، تمانية، تسعود، عشرة",
       "latin": "wahed, jooj, tlata, reb'a, khamsa, setta, seb'a, tmenya, tes'ood, 'ashra",
       "english": "Numbers 1 to 10.",
       "audio": null,

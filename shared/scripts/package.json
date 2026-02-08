@@ -4,9 +4,9 @@
   "description": "Shared content pipeline scripts for Marrakech Guide",
   "type": "module",
   "scripts": {
-    "validate": "tsx validate-content.ts",
-    "build-bundle": "tsx build-bundle.ts",
-    "check-links": "tsx check-links.ts"
+    "validate": "if command -v bun >/dev/null 2>&1; then bun run validate-content.ts; else tsx validate-content.ts; fi",
+    "build-bundle": "if command -v bun >/dev/null 2>&1; then bun run build-bundle.ts; else echo 'Error: bun is required for build-bundle.ts (uses bun:sqlite)' >&2; exit 1; fi",
+    "check-links": "if command -v bun >/dev/null 2>&1; then bun run check-links.ts; else tsx check-links.ts; fi"
   },
   "devDependencies": {
     "@types/node": "^20.19.32",

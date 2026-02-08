@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T22:58:00Z",
+    "source_document": "Marrakech_data_ressources.md; lonely-planet-pocket-marrakesh-7-ebook.pdf",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use.",
+      "Includes curated extraction from Lonely Planet · Pocket Marrakesh 7 (PDF, 161 pages), processed on 2026-02-07."
+    ]
+  },
+  "items": [
+    {
+      "id": "itinerary-1-day-first-timer-core",
+      "title": "1-day first timer core Marrakech",
+      "duration": "1 day",
+      "style": "classic-highlights",
+      "steps": [
+        {
+          "type": "place",
+          "place_id": "place-jardin-majorelle",
+          "estimated_stop_minutes": 75,
+          "route_hint": "Start early before central medina crowds peak."
+        },
+        {
+          "type": "place",
+          "place_id": "place-koutoubia-mosque",
+          "estimated_stop_minutes": 30,
+          "route_hint": "Use Koutoubia as orientation anchor before entering core medina."
+        },
+        {
+          "type": "place",
+          "place_id": "place-bahia-palace",
+          "estimated_stop_minutes": 60,
+          "route_hint": "Walk toward Bahia via medina edge lanes."
+        },
+        {
+          "type": "meal",
+          "place_id": "eat-zeitoun-cafe-kasbah",
+          "estimated_stop_minutes": 60,
+          "route_hint": "Kasbah-side break before evening square."
+        },
+        {
+          "type": "place",
+          "place_id": "place-jemaa-el-fna",
+          "estimated_stop_minutes": 120,
+          "route_hint": "Return at sunset for night-market transition."
+        }
+      ],
+      "source_refs": [
+        2,
+        3,
+        6
+      ]
+    }
+  ]
+}

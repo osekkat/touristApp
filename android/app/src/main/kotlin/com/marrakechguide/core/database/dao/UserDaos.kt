@@ -160,7 +160,7 @@ interface RouteProgressDao {
     """)
     suspend fun getProgressForStep(planId: Long, stepIndex: Int): RouteProgressEntity?
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(progress: RouteProgressEntity): Long
 
     @Update

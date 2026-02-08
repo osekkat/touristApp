@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "generated_at": "2026-02-07T22:58:00Z",
+    "source_document": "Marrakech_data_ressources.md; lonely-planet-pocket-marrakesh-7-ebook.pdf",
+    "notes": [
+      "Seed entries are extracted from high-confidence recurring signals in listed resources.",
+      "Price ranges are operational seed ranges and should be refreshed with periodic market scans.",
+      "Glossary entries are marked needs_native_review for linguistic QA before production use.",
+      "Includes curated extraction from Lonely Planet · Pocket Marrakesh 7 (PDF, 161 pages), processed on 2026-02-07."
+    ]
+  },
+  "items": [
+    {
+      "id": "tip-square-performance-fees",
+      "title": "Confirm photo/performance fees before engaging",
+      "category": "scam_awareness",
+      "summary": "In major squares, fee expectations can be ambiguous after photos or interactions.",
+      "actions": [
+        "Ask the exact amount before accepting photo interaction",
+        "Politely decline unclear offers"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        16
+      ],
+      "related_place_ids": [
+        "place-jemaa-el-fna"
+      ]
+    },
+    {
+      "id": "tip-monument-hours-can-shift",
+      "title": "Re-check monument access and hours",
+      "category": "planning",
+      "summary": "Community and practical guidance indicate occasional schedule/access variability in heritage areas.",
+      "actions": [
+        "Verify opening hours same-day for key monuments",
+        "Keep one backup nearby stop in itinerary"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ]
+    },
+    {
+      "id": "tip-water-conscious-travel",
+      "title": "Travel with water-conscious habits",
+      "category": "responsible_travel",
+      "summary": "Local context emphasizes water stress and encourages practical conservation by visitors.",
+      "actions": [
+        "Limit towel/laundry churn in stays",
+        "Prefer shorter showers"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ]
+    },
+    {
+      "id": "tip-carry-small-cash",
+      "title": "Carry small cash denominations",
+      "category": "money",
+      "summary": "Small transactions in souks and street settings are easier with small bills and coins.",
+      "actions": [
+        "Break larger notes in cafes/supermarkets early",
+        "Keep separate small-change pocket"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6,
+        7
+      ]
+    },
+    {
+      "id": "tip-rooftop-sunset-reset",
+      "title": "Use rooftop break at sunset for reset",
+      "category": "experience",
+      "summary": "Community and editorial narratives highlight rooftop sunset pauses as high-value low-stress moments.",
+      "actions": [
+        "Plan a 30-45 min rooftop stop near Maghreb",
+        "Resume souk exploration after peak crowd shift"
+      ],
+      "severity": "normal",
+      "updated_at": "2026-02-07",
+      "source_refs": [
+        6
+      ]
+    }
+  ]
+}

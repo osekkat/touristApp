@@ -15,23 +15,31 @@ import org.json.JSONArray
 class GeoEngineTest {
 
     private val testVectors: JSONObject by lazy {
-        // Load test vectors from shared directory
-        // Note: In actual test run, you may need to adjust the path based on test execution context
+        // Load vectors from shared/tests using robust cwd + env fallbacks.
         val vectorsPath = findTestVectorsFile()
         JSONObject(File(vectorsPath).readText())
     }
 
     private fun findTestVectorsFile(): String {
+        val userDir = System.getProperty("user.dir").orEmpty()
+
         // Try multiple paths to find the test vectors
-        val possiblePaths = listOf(
+        val possiblePaths = mutableListOf(
             "../../../shared/tests/geo-engine-vectors.json",
             "../../shared/tests/geo-engine-vectors.json",
             "../shared/tests/geo-engine-vectors.json",
-            "shared/tests/geo-engine-vectors.json",
-            System.getProperty("user.dir") + "/shared/tests/geo-engine-vectors.json",
-            System.getProperty("user.dir") + "/../shared/tests/geo-engine-vectors.json",
-            System.getProperty("user.dir") + "/../../shared/tests/geo-engine-vectors.json"
+            "shared/tests/geo-engine-vectors.json"
         )
+        if (userDir.isNotEmpty()) {
+            possiblePaths.addAll(
+                listOf(
+                    "$userDir/shared/tests/geo-engine-vectors.json",
+                    "$userDir/../shared/tests/geo-engine-vectors.json",
+                    "$userDir/../../shared/tests/geo-engine-vectors.json",
+                    "$userDir/../../../shared/tests/geo-engine-vectors.json"
+                )
+            )
+        }
 
         for (path in possiblePaths) {
             val file = File(path)
@@ -289,6 +297,17 @@ class GeoEngineTest {
     fun `determineRegion - Jardin Majorelle is in gueliz`() {
         val coord = GeoEngine.Coordinate(31.641475, -8.002908)
         assertEquals("gueliz", GeoEngine.determineRegion(coord))
+    }
+
+    @Test
+    fun `formatDistance - negative value clamps to zero meters`() {
+        assertEquals("0 m", GeoEngine.formatDistance(-42.0))
+    }
+
+    @Test
+    fun `estimateWalkTime - non-positive distance returns zero`() {
+        assertEquals(0, GeoEngine.estimateWalkTime(0.0, "medina"))
+        assertEquals(0, GeoEngine.estimateWalkTime(-120.0, "gueliz"))
     }
 
     // ==================== Helper Functions ====================

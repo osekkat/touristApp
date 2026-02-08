@@ -3,6 +3,7 @@ package com.marrakechguide.core.repository
 import com.marrakechguide.core.database.UserDatabase
 import com.marrakechguide.core.database.entity.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -399,14 +400,18 @@ class SavedPlansRepositoryImpl @Inject constructor(
     }
 
     override fun getProgress(planId: Long): Flow<List<RouteProgressEntity>> {
+        if (planId <= 0) return flowOf(emptyList())
         return userDb.routeProgressDao().getProgressForPlan(planId)
     }
 
     override suspend fun getProgressOnce(planId: Long): List<RouteProgressEntity> {
+        if (planId <= 0) return emptyList()
         return userDb.routeProgressDao().getProgressForPlanOnce(planId)
     }
 
     override suspend fun completeStep(planId: Long, stepIndex: Int) {
+        if (planId <= 0 || stepIndex < 0) return
+
         val entity = RouteProgressEntity(
             planId = planId,
             stepIndex = stepIndex,
@@ -417,6 +422,8 @@ class SavedPlansRepositoryImpl @Inject constructor(
     }
 
     override suspend fun skipStep(planId: Long, stepIndex: Int) {
+        if (planId <= 0 || stepIndex < 0) return
+
         val entity = RouteProgressEntity(
             planId = planId,
             stepIndex = stepIndex,
@@ -427,6 +434,7 @@ class SavedPlansRepositoryImpl @Inject constructor(
     }
 
     override suspend fun resetProgress(planId: Long) {
+        if (planId <= 0) return
         userDb.routeProgressDao().deleteForPlan(planId)
     }
 }

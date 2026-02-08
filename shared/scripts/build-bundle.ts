@@ -21,13 +21,8 @@ const CONTENT_DIR = path.join(__dirname, '..', 'content');
 const OUTPUT_DIR = path.join(__dirname, '..', 'output');
 const OUTPUT_PATH = path.join(OUTPUT_DIR, 'content.db');
 
-interface ContentFile<T> {
-  meta: {
-    generated_at: string;
-    source_document: string;
-    notes: string[];
-  };
-  items: T[];
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
 // Ensure output directory exists
@@ -41,11 +36,86 @@ function ensureOutputDir(): void {
 function loadContent<T>(filename: string): T[] {
   const filePath = path.join(CONTENT_DIR, filename);
   if (!fs.existsSync(filePath)) {
-    console.log(`  ⚠ ${filename} not found, skipping`);
-    return [];
+    throw new Error(`${filename} not found at ${filePath}`);
   }
-  const content = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as ContentFile<T>;
-  return content.items;
+
+  let raw: string;
+  try {
+    raw = fs.readFileSync(filePath, 'utf-8');
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to read ${filename}: ${message}`);
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to parse ${filename}: ${message}`);
+  }
+
+  if (!isRecord(parsed)) {
+    throw new Error(`${filename} root JSON value must be an object`);
+  }
+
+  const meta = (parsed as { meta?: unknown }).meta;
+  if (!isRecord(meta)) {
+    throw new Error(`${filename} has invalid or missing "meta" object`);
+  }
+  if (
+    typeof meta.generated_at !== 'string' ||
+    meta.generated_at.length === 0 ||
+    meta.generated_at !== meta.generated_at.trim()
+  ) {
+    throw new Error(`${filename} meta.generated_at must be a non-empty trimmed string`);
+  }
+  if (
+    typeof meta.source_document !== 'string' ||
+    meta.source_document.length === 0 ||
+    meta.source_document !== meta.source_document.trim()
+  ) {
+    throw new Error(`${filename} meta.source_document must be a non-empty trimmed string`);
+  }
+  const notes = meta.notes;
+  if (!Array.isArray(notes)) {
+    throw new Error(`${filename} meta.notes must be an array of strings`);
+  }
+  for (let index = 0; index < notes.length; index++) {
+    const note = notes[index];
+    if (typeof note !== 'string' || note.length === 0 || note !== note.trim()) {
+      throw new Error(
+        `${filename} meta.notes[${index}] must be a non-empty trimmed string`
+      );
+    }
+  }
+
+  const items = (parsed as { items?: unknown }).items;
+  if (!Array.isArray(items)) {
+    throw new Error(`${filename} has invalid or missing "items" array`);
+  }
+
+  for (let index = 0; index < items.length; index++) {
+    const item = items[index];
+    if (!isRecord(item)) {
+      throw new Error(`${filename} item[${index}] must be an object`);
+    }
+    const id = item.id;
+    if (typeof id !== 'string' || id.length === 0 || id !== id.trim()) {
+      throw new Error(`${filename} item[${index}] must have a non-empty trimmed string "id"`);
+    }
+  }
+
+  const seenIds = new Set<string>();
+  for (let index = 0; index < items.length; index++) {
+    const id = (items[index] as { id: string }).id;
+    if (seenIds.has(id)) {
+      throw new Error(`${filename} contains duplicate id "${id}" (item[${index}])`);
+    }
+    seenIds.add(id);
+  }
+
+  return items as T[];
 }
 
 // Convert array to JSON string for storage
@@ -57,21 +127,44 @@ function toJson(value: unknown): string | null {
 
 class BundleBuilder {
   private db: Database;
+  private readonly tempOutputPath: string;
+  private finalized = false;
 
   constructor() {
     // Ensure output directory exists
     ensureOutputDir();
 
-    // Remove existing database if it exists
-    if (fs.existsSync(OUTPUT_PATH)) {
-      fs.unlinkSync(OUTPUT_PATH);
+    // Build into a temp file first; publish atomically on success.
+    this.tempOutputPath = path.join(
+      OUTPUT_DIR,
+      `content.db.tmp-${process.pid}-${Date.now()}`
+    );
+
+    let stagedDb: Database | null = null;
+    try {
+      stagedDb = new Database(this.tempOutputPath);
+      // Disable WAL mode for read-only distribution
+      stagedDb.run('PRAGMA journal_mode = DELETE');
+      stagedDb.run('PRAGMA synchronous = NORMAL');
+      this.db = stagedDb;
+    } catch (error) {
+      if (stagedDb) {
+        try {
+          stagedDb.close();
+        } catch {
+          // Best effort close during constructor rollback.
+        }
+      }
+      try {
+        if (fs.existsSync(this.tempOutputPath)) {
+          fs.unlinkSync(this.tempOutputPath);
+        }
+      } catch {
+        // Best effort cleanup of staged file on initialization failure.
+      }
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Failed to initialize staged database: ${message}`);
     }
-
-    this.db = new Database(OUTPUT_PATH);
-
-    // Disable WAL mode for read-only distribution
-    this.db.run('PRAGMA journal_mode = DELETE');
-    this.db.run('PRAGMA synchronous = NORMAL');
   }
 
   private createTables(): void {
@@ -406,13 +499,160 @@ class BundleBuilder {
     `);
 
     for (const pc of priceCards) {
+      if (
+        typeof pc.expected_cost_min_mad !== 'number' ||
+        typeof pc.expected_cost_max_mad !== 'number'
+      ) {
+        throw new Error(
+          `price_cards.json item "${pc.id}" must define numeric expected_cost_min_mad and expected_cost_max_mad`
+        );
+      }
+      if (pc.expected_cost_min_mad > pc.expected_cost_max_mad) {
+        throw new Error(
+          `price_cards.json item "${pc.id}" has invalid expected cost range (min > max)`
+        );
+      }
+      if (!Array.isArray(pc.context_modifiers)) {
+        throw new Error(
+          `price_cards.json item "${pc.id}" has invalid context_modifiers (expected array)`
+        );
+      }
+      const seenModifierIds = new Set<string>();
+      for (let index = 0; index < pc.context_modifiers.length; index++) {
+        const modifier = pc.context_modifiers[index];
+        if (!isRecord(modifier)) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}] (expected object)`
+          );
+        }
+
+        const modifierId = modifier.id;
+        const label = modifier.label;
+        if (
+          typeof modifierId !== 'string' ||
+          modifierId.length === 0 ||
+          modifierId !== modifierId.trim()
+        ) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].id`
+          );
+        }
+        if (typeof label !== 'string' || label.length === 0 || label !== label.trim()) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].label`
+          );
+        }
+        if (seenModifierIds.has(modifierId)) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has duplicate context_modifiers id "${modifierId}"`
+          );
+        }
+        seenModifierIds.add(modifierId);
+
+        const factorMin = modifier.factor_min;
+        const factorMax = modifier.factor_max;
+        const addMin = modifier.add_min;
+        const addMax = modifier.add_max;
+
+        if (factorMin !== undefined && typeof factorMin !== 'number') {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].factor_min`
+          );
+        }
+        if (typeof factorMin === 'number' && factorMin <= 0) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].factor_min (must be > 0)`
+          );
+        }
+        if (factorMax !== undefined && typeof factorMax !== 'number') {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].factor_max`
+          );
+        }
+        if (typeof factorMax === 'number' && factorMax <= 0) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].factor_max (must be > 0)`
+          );
+        }
+        if (addMin !== undefined && typeof addMin !== 'number') {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].add_min`
+          );
+        }
+        if (addMax !== undefined && typeof addMax !== 'number') {
+          throw new Error(
+            `price_cards.json item "${pc.id}" has invalid context_modifiers[${index}].add_max`
+          );
+        }
+
+        const hasFactorMin = typeof factorMin === 'number';
+        const hasFactorMax = typeof factorMax === 'number';
+        const hasAddMin = typeof addMin === 'number';
+        const hasAddMax = typeof addMax === 'number';
+
+        if (hasFactorMin !== hasFactorMax) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" context_modifiers[${index}] must define factor_min and factor_max together`
+          );
+        }
+        if (hasAddMin !== hasAddMax) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" context_modifiers[${index}] must define add_min and add_max together`
+          );
+        }
+
+        const hasFactorPair = hasFactorMin && hasFactorMax;
+        const hasAddPair = hasAddMin && hasAddMax;
+        if (!hasFactorPair && !hasAddPair) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" context_modifiers[${index}] must define either factor_min/factor_max or add_min/add_max`
+          );
+        }
+
+        if (hasFactorPair) {
+          if (factorMin > factorMax) {
+            throw new Error(
+              `price_cards.json item "${pc.id}" context_modifiers[${index}] has invalid factor range (min > max)`
+            );
+          }
+        }
+
+        if (hasAddPair && addMin > addMax) {
+          throw new Error(
+            `price_cards.json item "${pc.id}" context_modifiers[${index}] has invalid additive range (min > max)`
+          );
+        }
+      }
+      if (
+        typeof pc.fairness_low_multiplier !== 'number' ||
+        pc.fairness_low_multiplier <= 0 ||
+        pc.fairness_low_multiplier >= 1
+      ) {
+        throw new Error(
+          `price_cards.json item "${pc.id}" has invalid fairness_low_multiplier (expected number in (0, 1))`
+        );
+      }
+      if (
+        typeof pc.fairness_high_multiplier !== 'number' ||
+        pc.fairness_high_multiplier < 1
+      ) {
+        throw new Error(
+          `price_cards.json item "${pc.id}" has invalid fairness_high_multiplier (expected number >= 1)`
+        );
+      }
+      if (pc.fairness_low_multiplier >= pc.fairness_high_multiplier) {
+        throw new Error(
+          `price_cards.json item "${pc.id}" has invalid fairness multipliers (low must be < high)`
+        );
+      }
+
       stmt.run(
         pc.id, pc.title, pc.category, pc.unit, pc.volatility, pc.confidence,
         pc.expected_cost_min_mad, pc.expected_cost_max_mad, pc.expected_cost_notes,
         pc.expected_cost_updated_at, pc.provenance_note, toJson(pc.what_influences_price),
         toJson(pc.inclusions_checklist), toJson(pc.negotiation_scripts), toJson(pc.red_flags),
         toJson(pc.what_to_do_instead), toJson(pc.context_modifiers),
-        pc.fairness_low_multiplier ?? 0.75, pc.fairness_high_multiplier ?? 1.25,
+        pc.fairness_low_multiplier, pc.fairness_high_multiplier,
         toJson(pc.source_refs)
       );
     }
@@ -567,9 +807,16 @@ class BundleBuilder {
     `);
 
     for (const a of activities) {
+      if (a.pickup_available !== undefined && typeof a.pickup_available !== 'boolean') {
+        throw new Error(
+          `activities.json item "${a.id}" has invalid pickup_available (expected boolean)`
+        );
+      }
+      const pickupAvailable =
+        a.pickup_available === undefined ? null : (a.pickup_available ? 1 : 0);
       stmt.run(
         a.id, a.title, a.category, a.region_id, a.duration_min_minutes, a.duration_max_minutes,
-        a.pickup_available ? 1 : 0, a.typical_price_min_mad, a.typical_price_max_mad,
+        pickupAvailable, a.typical_price_min_mad, a.typical_price_max_mad,
         a.rating_signal, a.review_count_signal, toJson(a.best_time_windows),
         toJson(a.tags), a.notes, toJson(a.source_refs)
       );
@@ -630,16 +877,75 @@ class BundleBuilder {
       INSERT INTO content_links (from_type, from_id, to_type, to_id, link_kind)
       VALUES (?, ?, ?, ?, ?)
     `);
+    const placeExistsStmt = this.db.prepare(
+      'SELECT 1 AS found FROM places WHERE id = ? LIMIT 1'
+    );
+    const priceCardExistsStmt = this.db.prepare(
+      'SELECT 1 AS found FROM price_cards WHERE id = ? LIMIT 1'
+    );
 
     for (const tip of tips) {
-      if (tip.related_place_ids) {
+      if (tip.related_place_ids !== undefined && !Array.isArray(tip.related_place_ids)) {
+        throw new Error(
+          `tips.json item "${tip.id}" has invalid related_place_ids (expected array)`
+        );
+      }
+      if (tip.related_price_card_ids !== undefined && !Array.isArray(tip.related_price_card_ids)) {
+        throw new Error(
+          `tips.json item "${tip.id}" has invalid related_price_card_ids (expected array)`
+        );
+      }
+
+      if (Array.isArray(tip.related_place_ids)) {
+        const seenPlaceIds = new Set<string>();
         for (const placeId of tip.related_place_ids) {
+          if (
+            typeof placeId !== 'string' ||
+            placeId.length === 0 ||
+            placeId !== placeId.trim()
+          ) {
+            throw new Error(`tips.json item "${tip.id}" has invalid related_place_ids value`);
+          }
+          if (seenPlaceIds.has(placeId)) {
+            throw new Error(
+              `tips.json item "${tip.id}" contains duplicate related_place_id "${placeId}"`
+            );
+          }
+          seenPlaceIds.add(placeId);
+          const placeExists = placeExistsStmt.get(placeId) as { found?: number } | null;
+          if (!placeExists) {
+            throw new Error(
+              `tips.json item "${tip.id}" references unknown place "${placeId}"`
+            );
+          }
           stmt.run('tip', tip.id, 'place', placeId, 'related_place');
           linkCount++;
         }
       }
-      if (tip.related_price_card_ids) {
+      if (Array.isArray(tip.related_price_card_ids)) {
+        const seenPriceCardIds = new Set<string>();
         for (const priceCardId of tip.related_price_card_ids) {
+          if (
+            typeof priceCardId !== 'string' ||
+            priceCardId.length === 0 ||
+            priceCardId !== priceCardId.trim()
+          ) {
+            throw new Error(`tips.json item "${tip.id}" has invalid related_price_card_ids value`);
+          }
+          if (seenPriceCardIds.has(priceCardId)) {
+            throw new Error(
+              `tips.json item "${tip.id}" contains duplicate related_price_card_id "${priceCardId}"`
+            );
+          }
+          seenPriceCardIds.add(priceCardId);
+          const priceCardExists = priceCardExistsStmt.get(priceCardId) as
+            | { found?: number }
+            | null;
+          if (!priceCardExists) {
+            throw new Error(
+              `tips.json item "${tip.id}" references unknown price_card "${priceCardId}"`
+            );
+          }
           stmt.run('tip', tip.id, 'price_card', priceCardId, 'related_price');
           linkCount++;
         }
@@ -691,62 +997,93 @@ class BundleBuilder {
     console.log('🏗️  Marrakech Guide Bundle Builder\n');
     console.log(`Content directory: ${CONTENT_DIR}`);
     console.log(`Output: ${OUTPUT_PATH}`);
+    console.log(`Staging: ${this.tempOutputPath}`);
 
-    ensureOutputDir();
-    this.createTables();
-    this.createFTSTables();
+    try {
+      ensureOutputDir();
+      this.createTables();
+      this.createFTSTables();
 
-    console.log('\n📦 Populating content tables...');
+      console.log('\n📦 Populating content tables...');
 
-    const placesCount = this.populatePlaces();
-    console.log(`  ✓ places: ${placesCount} items`);
+      const placesCount = this.populatePlaces();
+      console.log(`  ✓ places: ${placesCount} items`);
 
-    const priceCardsCount = this.populatePriceCards();
-    console.log(`  ✓ price_cards: ${priceCardsCount} items`);
+      const priceCardsCount = this.populatePriceCards();
+      console.log(`  ✓ price_cards: ${priceCardsCount} items`);
 
-    const phrasesCount = this.populatePhrases();
-    console.log(`  ✓ phrases: ${phrasesCount} items`);
+      const phrasesCount = this.populatePhrases();
+      console.log(`  ✓ phrases: ${phrasesCount} items`);
 
-    const itinerariesCount = this.populateItineraries();
-    console.log(`  ✓ itineraries: ${itinerariesCount} items`);
+      const itinerariesCount = this.populateItineraries();
+      console.log(`  ✓ itineraries: ${itinerariesCount} items`);
 
-    const tipsCount = this.populateTips();
-    console.log(`  ✓ tips: ${tipsCount} items`);
+      const tipsCount = this.populateTips();
+      console.log(`  ✓ tips: ${tipsCount} items`);
 
-    const cultureCount = this.populateCulture();
-    console.log(`  ✓ culture: ${cultureCount} items`);
+      const cultureCount = this.populateCulture();
+      console.log(`  ✓ culture: ${cultureCount} items`);
 
-    const activitiesCount = this.populateActivities();
-    console.log(`  ✓ activities: ${activitiesCount} items`);
+      const activitiesCount = this.populateActivities();
+      console.log(`  ✓ activities: ${activitiesCount} items`);
 
-    const eventsCount = this.populateEvents();
-    console.log(`  ✓ events: ${eventsCount} items`);
+      const eventsCount = this.populateEvents();
+      console.log(`  ✓ events: ${eventsCount} items`);
 
-    const linksCount = this.populateContentLinks();
-    console.log(`  ✓ content_links: ${linksCount} links`);
+      const linksCount = this.populateContentLinks();
+      console.log(`  ✓ content_links: ${linksCount} links`);
 
-    this.rebuildFTSIndexes();
-    this.verifyDatabase();
-    this.optimizeDatabase();
+      this.rebuildFTSIndexes();
+      this.verifyDatabase();
+      this.optimizeDatabase();
 
-    const totalItems = placesCount + priceCardsCount + phrasesCount + itinerariesCount +
-                       tipsCount + cultureCount + activitiesCount + eventsCount;
+      const totalItems = placesCount + priceCardsCount + phrasesCount + itinerariesCount +
+                         tipsCount + cultureCount + activitiesCount + eventsCount;
 
-    // Get file size
-    const stats = fs.statSync(OUTPUT_PATH);
-    const sizeKb = Math.round(stats.size / 1024);
+      // Get file size from staged DB before publish.
+      const stats = fs.statSync(this.tempOutputPath);
+      const sizeKb = Math.round(stats.size / 1024);
 
-    console.log(`\n✅ Bundle created successfully!`);
-    console.log(`   Total items: ${totalItems}`);
-    console.log(`   Database size: ${sizeKb} KB`);
-    console.log(`   Output: ${OUTPUT_PATH}\n`);
+      this.db.close();
+      fs.renameSync(this.tempOutputPath, OUTPUT_PATH);
+      this.finalized = true;
 
-    this.db.close();
-    return 0;
+      console.log(`\n✅ Bundle created successfully!`);
+      console.log(`   Total items: ${totalItems}`);
+      console.log(`   Database size: ${sizeKb} KB`);
+      console.log(`   Output: ${OUTPUT_PATH}\n`);
+
+      return 0;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`\n❌ Bundle build failed: ${message}\n`);
+      return 1;
+    } finally {
+      if (!this.finalized) {
+        try {
+          this.db.close();
+        } catch {
+          // Best effort close on failure paths.
+        }
+        try {
+          if (fs.existsSync(this.tempOutputPath)) {
+            fs.unlinkSync(this.tempOutputPath);
+          }
+        } catch {
+          // Best effort cleanup for staged artifacts on failure.
+        }
+      }
+    }
   }
 }
 
 // Main execution
-const builder = new BundleBuilder();
-const exitCode = builder.build();
+let exitCode = 1;
+try {
+  const builder = new BundleBuilder();
+  exitCode = builder.build();
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(`\n❌ Bundle initialization failed: ${message}\n`);
+}
 process.exit(exitCode);

@@ -32,10 +32,11 @@ final class PhraseRepositoryImpl: PhraseRepository, @unchecked Sendable {
     }
 
     func searchPhrases(query: String, limit: Int = 20) async throws -> [Phrase] {
-        guard !query.isEmpty else { return [] }
+        guard let pattern = FTS5Pattern(matchingAllPrefixesIn: query) else { return [] }
+        guard limit > 0 else { return [] }
+        let safeLimit = min(limit, 100)
 
         return try await contentDb.dbPool.read { db in
-            let pattern = FTS5Pattern(matchingAllPrefixesIn: query)
             let sql = """
                 SELECT phrases.* FROM phrases
                 JOIN phrases_fts ON phrases.rowid = phrases_fts.rowid
@@ -43,7 +44,7 @@ final class PhraseRepositoryImpl: PhraseRepository, @unchecked Sendable {
                 ORDER BY bm25(phrases_fts)
                 LIMIT ?
             """
-            return try Phrase.fetchAll(db, sql: sql, arguments: [pattern?.rawPattern ?? query, limit])
+            return try Phrase.fetchAll(db, sql: sql, arguments: [pattern.rawPattern, safeLimit])
         }
     }
 }
@@ -143,10 +144,11 @@ final class TipRepositoryImpl: TipRepository, @unchecked Sendable {
     }
 
     func searchTips(query: String, limit: Int = 20) async throws -> [Tip] {
-        guard !query.isEmpty else { return [] }
+        guard let pattern = FTS5Pattern(matchingAllPrefixesIn: query) else { return [] }
+        guard limit > 0 else { return [] }
+        let safeLimit = min(limit, 100)
 
         return try await contentDb.dbPool.read { db in
-            let pattern = FTS5Pattern(matchingAllPrefixesIn: query)
             let sql = """
                 SELECT tips.* FROM tips
                 JOIN tips_fts ON tips.rowid = tips_fts.rowid
@@ -154,7 +156,7 @@ final class TipRepositoryImpl: TipRepository, @unchecked Sendable {
                 ORDER BY bm25(tips_fts)
                 LIMIT ?
             """
-            return try Tip.fetchAll(db, sql: sql, arguments: [pattern?.rawPattern ?? query, limit])
+            return try Tip.fetchAll(db, sql: sql, arguments: [pattern.rawPattern, safeLimit])
         }
     }
 }

@@ -1,0 +1,17 @@
+APP_NAME: Marrakech Guide Offline
+SHORT_DESCRIPTION: Prices, phrases, and navigation for Marrakech. Works fully offline.
+
+FULL_DESCRIPTION:
+The offline Marrakech guide you can trust.
+
+Know what things should cost, avoid common tourist traps, and move through the city with confidence. Marrakech Guide Offline combines practical local guidance with clear in-the-moment tools so you can act calmly, even when you're offline.
+
+What you can do:
+- Check quoted prices instantly with Quote -> Action
+- See expected MAD ranges and get polite counter-offer scripts
+- Use Home Base compass to get back to your riad/hotel
+- Browse curated places and practical tips (not overwhelming lists)
+- Use a Darija phrasebook with transliteration for daily situations
+- Follow itinerary route cards with next-stop guidance
+
+Built natively for Android for reliable offline performance.
