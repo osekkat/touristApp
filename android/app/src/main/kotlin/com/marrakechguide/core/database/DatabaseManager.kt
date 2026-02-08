@@ -33,7 +33,7 @@ class DatabaseManager @Inject constructor(
      */
     val content: ContentDatabase by lazy {
         ContentDatabase.getInstance(context).also {
-            Log.d(TAG, "Content database initialized")
+            Log.i(TAG, "Content database initialized")
         }
     }
 
@@ -43,7 +43,7 @@ class DatabaseManager @Inject constructor(
      */
     val user: UserDatabase by lazy {
         UserDatabase.getInstance(context).also {
-            Log.d(TAG, "User database initialized")
+            Log.i(TAG, "User database initialized")
         }
     }
 
@@ -69,7 +69,7 @@ class DatabaseManager @Inject constructor(
     fun closeAll() {
         content.close()
         user.close()
-        Log.d(TAG, "All databases closed")
+        Log.i(TAG, "All databases closed")
     }
 
     companion object {
