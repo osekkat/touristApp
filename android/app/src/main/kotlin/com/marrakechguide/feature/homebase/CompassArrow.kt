@@ -1,6 +1,8 @@
 package com.marrakechguide.feature.homebase
 
+import android.provider.Settings
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -16,8 +18,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
@@ -51,9 +58,20 @@ fun CompassArrow(
     size: Dp = 200.dp,
     showConfidenceRing: Boolean = true
 ) {
+    // Check system Reduce Motion / animation scale settings
+    val context = LocalContext.current
+    val reduceMotion = remember {
+        val animatorDurationScale = Settings.Global.getFloat(
+            context.contentResolver,
+            Settings.Global.ANIMATOR_DURATION_SCALE,
+            1f
+        )
+        animatorDurationScale == 0f
+    }
+
     val animatedRotation by animateFloatAsState(
         targetValue = rotationDegrees.toFloat(),
-        animationSpec = tween(durationMillis = 150),
+        animationSpec = if (reduceMotion) snap() else tween(durationMillis = 150),
         label = "arrow_rotation"
     )
 
@@ -63,8 +81,21 @@ fun CompassArrow(
         HeadingConfidence.UNAVAILABLE -> Color(0xFF9E9E9E) // Gray
     }
 
+    // Generate accessibility description
+    val accessibilityDescription = remember(confidence, rotationDegrees) {
+        when (confidence) {
+            HeadingConfidence.UNAVAILABLE -> "Compass unavailable"
+            HeadingConfidence.WEAK -> "Compass pointing ${directionFromRotation(rotationDegrees)}, heading may be inaccurate"
+            HeadingConfidence.GOOD -> "Compass pointing ${directionFromRotation(rotationDegrees)}"
+        }
+    }
+
     Box(
-        modifier = modifier.size(size + 20.dp),
+        modifier = modifier
+            .size(size + 20.dp)
+            .clearAndSetSemantics {
+                contentDescription = accessibilityDescription
+            },
         contentAlignment = Alignment.Center
     ) {
         // Confidence ring
@@ -221,6 +252,26 @@ private fun DrawScope.drawArrow(width: Float, height: Float) {
         brush = gradient,
         style = Fill
     )
+}
+
+/**
+ * Convert rotation degrees to cardinal direction text for accessibility.
+ */
+private fun directionFromRotation(rotationDegrees: Double): String {
+    val normalized = rotationDegrees.mod(360.0)
+    val adjusted = if (normalized < 0) normalized + 360 else normalized
+
+    return when {
+        adjusted >= 337.5 || adjusted < 22.5 -> "north"
+        adjusted >= 22.5 && adjusted < 67.5 -> "northeast"
+        adjusted >= 67.5 && adjusted < 112.5 -> "east"
+        adjusted >= 112.5 && adjusted < 157.5 -> "southeast"
+        adjusted >= 157.5 && adjusted < 202.5 -> "south"
+        adjusted >= 202.5 && adjusted < 247.5 -> "southwest"
+        adjusted >= 247.5 && adjusted < 292.5 -> "west"
+        adjusted >= 292.5 && adjusted < 337.5 -> "northwest"
+        else -> "unknown direction"
+    }
 }
 
 // MARK: - Previews

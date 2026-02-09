@@ -22,6 +22,9 @@ struct CompassArrowView: View {
 
     @State private var isPulsing = false
 
+    /// Respect system Reduce Motion preference
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         ZStack {
             // Confidence ring
@@ -50,7 +53,7 @@ struct CompassArrowView: View {
                 .fill(arrowGradient)
                 .frame(width: size * 0.35, height: size * 0.6)
                 .rotationEffect(.degrees(rotationDegrees))
-                .animation(.easeInOut(duration: 0.15), value: rotationDegrees)
+                .animation(reduceMotion ? .none : .easeInOut(duration: 0.15), value: rotationDegrees)
 
             // Center dot
             Circle()
@@ -63,8 +66,13 @@ struct CompassArrowView: View {
             }
         }
         .onChange(of: confidence) { _, newValue in
-            withAnimation(.easeInOut(duration: 0.3).repeatForever(autoreverses: true)) {
-                isPulsing = newValue == .weak
+            if reduceMotion {
+                // Skip pulsing animation when Reduce Motion is enabled
+                isPulsing = false
+            } else {
+                withAnimation(.easeInOut(duration: 0.3).repeatForever(autoreverses: true)) {
+                    isPulsing = newValue == .weak
+                }
             }
         }
         .accessibilityElement(children: .ignore)
