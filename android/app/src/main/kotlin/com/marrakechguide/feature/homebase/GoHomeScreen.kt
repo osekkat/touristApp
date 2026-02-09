@@ -25,10 +25,10 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -274,7 +274,7 @@ private fun CompassContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Divider(modifier = Modifier.padding(horizontal = 16.dp))
+        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -436,7 +436,7 @@ private fun PermissionRequiredContent(
         if (homeBase != null) {
             Spacer(modifier = Modifier.height(16.dp))
 
-            Divider()
+            HorizontalDivider()
 
             Spacer(modifier = Modifier.height(16.dp))
 

@@ -87,29 +87,35 @@ fun PhrasebookScreen(
         ) {
             // Search bar
             SearchBar(
-                query = searchQuery,
-                onQueryChange = {
-                    searchQuery = it
-                    viewModel.search(it)
+                inputField = {
+                    SearchBarDefaults.InputField(
+                        query = searchQuery,
+                        onQueryChange = {
+                            searchQuery = it
+                            viewModel.search(it)
+                        },
+                        onSearch = { viewModel.search(it) },
+                        expanded = false,
+                        onExpandedChange = {},
+                        placeholder = { Text("Search phrases...") },
+                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                        trailingIcon = {
+                            if (searchQuery.isNotEmpty()) {
+                                IconButton(onClick = {
+                                    searchQuery = ""
+                                    viewModel.search("")
+                                }) {
+                                    Icon(Icons.Default.Clear, contentDescription = "Clear")
+                                }
+                            }
+                        }
+                    )
                 },
-                onSearch = { viewModel.search(it) },
-                active = false,
-                onActiveChange = {},
+                expanded = false,
+                onExpandedChange = {},
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Spacing.md, vertical = Spacing.sm),
-                placeholder = { Text("Search phrases...") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-                trailingIcon = {
-                    if (searchQuery.isNotEmpty()) {
-                        IconButton(onClick = {
-                            searchQuery = ""
-                            viewModel.search("")
-                        }) {
-                            Icon(Icons.Default.Clear, contentDescription = "Clear")
-                        }
-                    }
-                }
+                    .padding(horizontal = Spacing.md, vertical = Spacing.sm)
             ) {}
 
             // Category filter chips (when not searching)
