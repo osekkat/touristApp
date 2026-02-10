@@ -657,6 +657,7 @@
           "enum": [
             "accessibility",
             "accommodation",
+            "arrival",
             "booking",
             "day_trip",
             "experience",

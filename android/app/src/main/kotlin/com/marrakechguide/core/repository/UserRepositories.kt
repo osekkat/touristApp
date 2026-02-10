@@ -44,7 +44,8 @@ enum class SettingKey(val value: String) {
     LANGUAGE("language"),
     LAST_CONTENT_VERSION("last_content_version"),
     ONBOARDING_COMPLETE("onboarding_complete"),
-    ARRIVAL_MODE_ACTIVE("arrival_mode_active")
+    ARRIVAL_MODE_ACTIVE("arrival_mode_active"),
+    ARRIVAL_MODE_COMPLETED_AT("arrival_mode_completed_at")
 }
 
 // MARK: - User Settings Models
@@ -99,6 +100,9 @@ interface FavoritesRepository {
 
     /** Toggle favorite status and return new state */
     suspend fun toggleFavorite(contentType: ContentType, contentId: String): Boolean
+
+    /** Clear all favorites */
+    suspend fun clearFavorites()
 }
 
 @Singleton
@@ -148,6 +152,10 @@ class FavoritesRepositoryImpl @Inject constructor(
             addFavorite(contentType, contentId)
             return true
         }
+    }
+
+    override suspend fun clearFavorites() {
+        userDb.favoritesDao().deleteAll()
     }
 }
 
@@ -250,6 +258,21 @@ interface UserSettingsRepository {
 
     /** Mark onboarding as complete */
     suspend fun setOnboardingComplete(complete: Boolean)
+
+    /** Check whether arrival mode should still be shown. Defaults to true. */
+    suspend fun isArrivalModeActive(): Boolean
+
+    /** Set arrival mode active state. */
+    suspend fun setArrivalModeActive(active: Boolean)
+
+    /** Get timestamp for when arrival mode was completed. */
+    suspend fun getArrivalModeCompletedAt(): String?
+
+    /** Mark arrival mode complete and persist completion timestamp. */
+    suspend fun markArrivalModeCompleted(iso8601Timestamp: String)
+
+    /** Reset arrival mode so it can be shown again. */
+    suspend fun resetArrivalMode()
 }
 
 @Singleton
@@ -311,6 +334,28 @@ class UserSettingsRepositoryImpl @Inject constructor(
 
     override suspend fun setOnboardingComplete(complete: Boolean) {
         setSetting(SettingKey.ONBOARDING_COMPLETE, complete) { it.toString() }
+    }
+
+    override suspend fun isArrivalModeActive(): Boolean {
+        return getSetting(SettingKey.ARRIVAL_MODE_ACTIVE) { it.toBooleanStrictOrNull() } ?: true
+    }
+
+    override suspend fun setArrivalModeActive(active: Boolean) {
+        setSetting(SettingKey.ARRIVAL_MODE_ACTIVE, active) { it.toString() }
+    }
+
+    override suspend fun getArrivalModeCompletedAt(): String? {
+        return getSetting(SettingKey.ARRIVAL_MODE_COMPLETED_AT) { it }
+    }
+
+    override suspend fun markArrivalModeCompleted(iso8601Timestamp: String) {
+        setArrivalModeActive(false)
+        setSetting(SettingKey.ARRIVAL_MODE_COMPLETED_AT, iso8601Timestamp) { it }
+    }
+
+    override suspend fun resetArrivalMode() {
+        setArrivalModeActive(true)
+        deleteSetting(SettingKey.ARRIVAL_MODE_COMPLETED_AT)
     }
 }
 

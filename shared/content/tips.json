@@ -30,6 +30,110 @@
       ]
     },
     {
+      "id": "tip-arrival-airport-taxi-stand",
+      "title": "From the airport, use the official taxi line and agree fare clearly",
+      "category": "arrival",
+      "summary": "Arrival is a high-pressure moment; reduce confusion by using the official taxi queue and confirming total fare before departure.",
+      "actions": [
+        "Walk to the official taxi stand outside arrivals and avoid unsolicited offers inside the terminal",
+        "Confirm total fare and destination before loading bags",
+        "If terms are unclear, move to the next licensed taxi"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-08",
+      "source_refs": [
+        2,
+        6,
+        11
+      ],
+      "related_price_card_ids": [
+        "price-taxi-airport-marrakech-center"
+      ]
+    },
+    {
+      "id": "tip-arrival-sim-esim-setup",
+      "title": "Sort your data plan early (eSIM before flight or airport SIM)",
+      "category": "arrival",
+      "summary": "Getting data working in the first hour lowers stress for maps, accommodation contact, and translation.",
+      "actions": [
+        "Install eSIM before travel when possible to avoid queue friction",
+        "If buying on arrival, compare package size and validity before paying",
+        "Test data before leaving the airport area"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-08",
+      "source_refs": [
+        6,
+        11
+      ]
+    },
+    {
+      "id": "tip-arrival-atm-cash-buffer",
+      "title": "Withdraw a small cash buffer and keep change ready",
+      "category": "arrival",
+      "summary": "Early cash access prevents negotiation and payment friction during transfer, tips, and first purchases.",
+      "actions": [
+        "Withdraw a starter amount at a reliable ATM before leaving airport zone",
+        "Break large bills early for taxis, tips, and small purchases",
+        "Keep emergency transport cash separate from day spending"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-08",
+      "source_refs": [
+        6,
+        7,
+        11
+      ],
+      "related_price_card_ids": [
+        "price-taxi-airport-marrakech-center"
+      ]
+    },
+    {
+      "id": "tip-arrival-set-home-base-early",
+      "title": "Set Home Base as soon as you reach your riad or hotel",
+      "category": "arrival",
+      "summary": "Saving your stay location early improves confidence for first medina walks and reduces end-of-day wayfinding stress.",
+      "actions": [
+        "Confirm your exact accommodation pin before leaving reception",
+        "Set Home Base in-app before starting evening exploration",
+        "Use Koutoubia and Jemaa El Fna as backup orientation anchors"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-08",
+      "source_refs": [
+        2,
+        6
+      ],
+      "related_place_ids": [
+        "place-koutoubia-mosque",
+        "place-jemaa-el-fna",
+        "place-marrakech-medina"
+      ]
+    },
+    {
+      "id": "tip-arrival-medina-first-orientation",
+      "title": "First medina hours: use landmarks, decline unsolicited guidance politely",
+      "category": "arrival",
+      "summary": "Early orientation is easier when you anchor on major landmarks and avoid unclear guiding offers.",
+      "actions": [
+        "Use landmark waypoints instead of expecting perfect lane naming",
+        "Respond with a polite \"La shukran\" to unsolicited route offers",
+        "Pause on a rooftop or open square if you need to reset direction"
+      ],
+      "severity": "important",
+      "updated_at": "2026-02-08",
+      "source_refs": [
+        2,
+        6,
+        16
+      ],
+      "related_place_ids": [
+        "place-jemaa-el-fna",
+        "place-koutoubia-mosque",
+        "place-marrakech-medina"
+      ]
+    },
+    {
       "id": "tip-agafay-expectations",
       "title": "Agafay is a rocky desert, not Sahara dunes",
       "category": "day_trip",

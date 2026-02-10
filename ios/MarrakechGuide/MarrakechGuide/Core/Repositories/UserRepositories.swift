@@ -25,6 +25,7 @@ enum SettingKey: String, CaseIterable {
     case lastContentVersion = "last_content_version"
     case onboardingComplete = "onboarding_complete"
     case arrivalModeActive = "arrival_mode_active"
+    case arrivalModeCompletedAt = "arrival_mode_completed_at"
 }
 
 // MARK: - User Settings Models
@@ -65,6 +66,9 @@ protocol FavoritesRepository: Sendable {
 
     /// Toggle favorite status and return new state
     func toggleFavorite(contentType: ContentType, contentId: String) async throws -> Bool
+
+    /// Clear all favorites
+    func clearFavorites() async throws
 }
 
 /// Default implementation of FavoritesRepository.
@@ -104,6 +108,10 @@ final class FavoritesRepositoryImpl: FavoritesRepository, @unchecked Sendable {
             try await addFavorite(contentType: contentType, contentId: contentId)
             return true
         }
+    }
+
+    func clearFavorites() async throws {
+        try await userDb.clearFavorites()
     }
 }
 
@@ -179,6 +187,22 @@ protocol UserSettingsRepository: Sendable {
 
     /// Mark onboarding as complete
     func setOnboardingComplete(_ complete: Bool) async throws
+
+    /// Check whether arrival mode should still be shown.
+    /// Defaults to `true` for first-time users.
+    func isArrivalModeActive() async throws -> Bool
+
+    /// Set arrival mode active state.
+    func setArrivalModeActive(_ active: Bool) async throws
+
+    /// Get timestamp for when arrival mode was completed, if available.
+    func getArrivalModeCompletedAt() async throws -> String?
+
+    /// Mark arrival mode complete and persist completion timestamp.
+    func markArrivalModeCompleted(at iso8601Timestamp: String) async throws
+
+    /// Reset arrival mode so it can be shown again.
+    func resetArrivalMode() async throws
 }
 
 /// Default implementation of UserSettingsRepository.
@@ -224,6 +248,29 @@ final class UserSettingsRepositoryImpl: UserSettingsRepository, @unchecked Senda
 
     func setOnboardingComplete(_ complete: Bool) async throws {
         try await setSetting(key: .onboardingComplete, value: complete)
+    }
+
+    func isArrivalModeActive() async throws -> Bool {
+        let value: Bool? = try await getSetting(key: .arrivalModeActive)
+        return value ?? true
+    }
+
+    func setArrivalModeActive(_ active: Bool) async throws {
+        try await setSetting(key: .arrivalModeActive, value: active)
+    }
+
+    func getArrivalModeCompletedAt() async throws -> String? {
+        try await getSetting(key: .arrivalModeCompletedAt)
+    }
+
+    func markArrivalModeCompleted(at iso8601Timestamp: String) async throws {
+        try await setArrivalModeActive(false)
+        try await setSetting(key: .arrivalModeCompletedAt, value: iso8601Timestamp)
+    }
+
+    func resetArrivalMode() async throws {
+        try await setArrivalModeActive(true)
+        try await deleteSetting(key: .arrivalModeCompletedAt)
     }
 }
 
