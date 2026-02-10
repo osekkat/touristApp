@@ -1,5 +1,6 @@
 package com.marrakechguide.ui.navigation
 
+import android.net.Uri
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Home
@@ -14,8 +15,28 @@ sealed class Screen(val route: String) {
     data object Eat : Screen("eat")
     data object Prices : Screen("prices")
     data object More : Screen("more")
-    data object PlaceDetail : Screen("place/{placeId}")
-    data object PriceCardDetail : Screen("priceCard/{cardId}")
+
+    data object PlaceDetail : Screen("place/{placeId}") {
+        fun createRoute(placeId: String): String {
+            return "place/${Uri.encode(placeId)}"
+        }
+    }
+
+    data object PriceCardDetail : Screen("priceCard/{cardId}") {
+        fun createRoute(cardId: String): String {
+            return "priceCard/${Uri.encode(cardId)}"
+        }
+    }
+
+    data object QuoteAction : Screen("quoteAction?cardId={cardId}") {
+        fun createRoute(cardId: String? = null): String {
+            return if (cardId.isNullOrBlank()) {
+                "quoteAction"
+            } else {
+                "quoteAction?cardId=${Uri.encode(cardId)}"
+            }
+        }
+    }
 }
 
 data class BottomDestination(

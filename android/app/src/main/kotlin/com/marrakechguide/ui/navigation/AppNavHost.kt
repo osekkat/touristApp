@@ -17,6 +17,7 @@ import com.marrakechguide.feature.home.HomeScreen
 import com.marrakechguide.feature.more.MoreScreen
 import com.marrakechguide.feature.prices.PriceCardDetailScreen
 import com.marrakechguide.feature.prices.PricesScreen
+import com.marrakechguide.feature.quote.QuoteActionScreen
 
 @Composable
 fun MainScreen() {
@@ -37,10 +38,25 @@ fun MainScreen() {
             startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding),
         ) {
-            composable(Screen.Home.route) { HomeScreen() }
+            composable(Screen.Home.route) {
+                HomeScreen(
+                    onNavigateToQuote = {
+                        navController.navigate(Screen.QuoteAction.createRoute())
+                    },
+                )
+            }
             composable(Screen.Explore.route) { ExploreScreen() }
             composable(Screen.Eat.route) { EatScreen() }
-            composable(Screen.Prices.route) { PricesScreen() }
+            composable(Screen.Prices.route) {
+                PricesScreen(
+                    onCheckQuote = {
+                        navController.navigate(Screen.QuoteAction.createRoute())
+                    },
+                    onOpenCardDetail = { cardId ->
+                        navController.navigate(Screen.PriceCardDetail.createRoute(cardId))
+                    },
+                )
+            }
             composable(Screen.More.route) { MoreScreen() }
 
             composable(
@@ -56,8 +72,28 @@ fun MainScreen() {
                 route = Screen.PriceCardDetail.route,
                 arguments = listOf(navArgument("cardId") { type = NavType.StringType }),
             ) { backStackEntry ->
+                val cardId = backStackEntry.arguments?.getString("cardId")
                 PriceCardDetailScreen(
-                    cardId = backStackEntry.arguments?.getString("cardId"),
+                    cardId = cardId,
+                    onCheckQuote = { selectedCardId ->
+                        navController.navigate(Screen.QuoteAction.createRoute(selectedCardId))
+                    },
+                )
+            }
+
+            composable(
+                route = Screen.QuoteAction.route,
+                arguments = listOf(
+                    navArgument("cardId") {
+                        type = NavType.StringType
+                        nullable = true
+                        defaultValue = null
+                    }
+                ),
+            ) { backStackEntry ->
+                QuoteActionScreen(
+                    initialPriceCardId = backStackEntry.arguments?.getString("cardId"),
+                    onNavigateBack = { navController.popBackStack() }
                 )
             }
         }
