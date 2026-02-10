@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.test.core.app.ApplicationProvider
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -97,7 +98,8 @@ class ContentDatabaseTest {
         // Force reseed staging to fail deterministically.
         // copyDatabaseFromAssets always writes to "<db parent>/content.db.tmp";
         // making that path a directory guarantees FileOutputStream fails.
-        File(parentDir, "content.db.tmp").mkdir()
+        val tempPathCreatedAsDirectory = File(parentDir, "content.db.tmp").mkdir()
+        assertTrue("Failed to create deterministic failure sentinel path", tempPathCreatedAsDirectory)
 
         invokeSyncFromAssetsIfNeeded(dbFile)
 
@@ -107,9 +109,10 @@ class ContentDatabaseTest {
         )
         val seededVersionAfterFailure = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
             .getLong(SEEDED_VERSION_KEY, Long.MIN_VALUE)
-        assertTrue(
+        assertEquals(
             "Expected seeded version marker to remain unchanged when reseed fails",
-            seededVersionAfterFailure == staleSeededVersion
+            staleSeededVersion,
+            seededVersionAfterFailure
         )
     }
 

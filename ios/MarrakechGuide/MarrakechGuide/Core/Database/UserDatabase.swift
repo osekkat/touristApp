@@ -233,6 +233,13 @@ extension UserDatabase {
             }
         }
     }
+
+    /// Clear all favorites
+    func clearFavorites() async throws {
+        try await dbWriter.write { db in
+            try db.execute(sql: "DELETE FROM favorites")
+        }
+    }
 }
 
 // MARK: - Recents

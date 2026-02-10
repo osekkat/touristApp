@@ -6,7 +6,9 @@
   "scripts": {
     "validate": "if command -v bun >/dev/null 2>&1; then bun run validate-content.ts; else tsx validate-content.ts; fi",
     "build-bundle": "if command -v bun >/dev/null 2>&1; then bun run build-bundle.ts; else echo 'Error: bun is required for build-bundle.ts (uses bun:sqlite)' >&2; exit 1; fi",
-    "check-links": "if command -v bun >/dev/null 2>&1; then bun run check-links.ts; else tsx check-links.ts; fi"
+    "check-links": "if command -v bun >/dev/null 2>&1; then bun run check-links.ts; else tsx check-links.ts; fi",
+    "check-l10n": "if command -v bun >/dev/null 2>&1; then bun run check-localization-parity.ts; else tsx check-localization-parity.ts; fi",
+    "test:l10n": "if command -v bun >/dev/null 2>&1; then bun run check-localization-parity.test.ts; else tsx check-localization-parity.test.ts; fi"
   },
   "devDependencies": {
     "@types/node": "^20.19.32",

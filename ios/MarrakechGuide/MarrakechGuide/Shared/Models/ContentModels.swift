@@ -4,7 +4,7 @@ import GRDB
 // MARK: - Place
 
 /// A curated place in Marrakech
-struct Place: Codable, Identifiable, Sendable {
+struct Place: Codable, Identifiable, Hashable, Sendable {
     let id: String
     let name: String
     let aliases: [String]?
@@ -109,7 +109,7 @@ extension Place: FetchableRecord, PersistableRecord {
 // MARK: - PriceCard
 
 /// A price reference card for common goods/services
-struct PriceCard: Codable, Identifiable, Sendable {
+struct PriceCard: Codable, Identifiable, Hashable, Sendable {
     let id: String
     let title: String
     let category: String?

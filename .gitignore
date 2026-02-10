@@ -49,3 +49,6 @@ coverage/
 
 # Generated content bundles (rebuilt by pipeline)
 shared/output/
+
+# Test backup files
+*.bak
