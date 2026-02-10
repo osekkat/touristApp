@@ -57,6 +57,12 @@ struct OnboardingView: View {
                 dismiss()
             }
         }
+        .onChange(of: viewModel.currentStep) { _, newStep in
+            // Trigger readiness check when entering that step (handles swipe navigation)
+            if newStep == .readinessCheck && viewModel.readinessItems.isEmpty && !viewModel.isCheckingReadiness {
+                Task { await viewModel.performReadinessCheck() }
+            }
+        }
     }
 
     @ViewBuilder

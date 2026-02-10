@@ -3,6 +3,7 @@ package com.marrakechguide.feature.settings
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -112,7 +113,7 @@ class DiagnosticsViewModel @Inject constructor(
     fun generateDebugReport(): String {
         val appVersion = try {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            "${pInfo.versionName} (${pInfo.longVersionCode})"
+            "${pInfo.versionName} (${PackageInfoCompat.getLongVersionCode(pInfo)})"
         } catch (e: Exception) {
             "1.0.0"
         }
@@ -170,7 +171,7 @@ fun DiagnosticsScreen(
     val appVersion = remember {
         try {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            "${pInfo.versionName} (${pInfo.longVersionCode})"
+            "${pInfo.versionName} (${PackageInfoCompat.getLongVersionCode(pInfo)})"
         } catch (e: Exception) {
             "1.0.0"
         }

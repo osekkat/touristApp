@@ -77,7 +77,14 @@ struct SettingsView: View {
             // MARK: - Data
             Section("Data") {
                 Button("Clear Recent History") {
-                    // TODO: Clear recents
+                    Task {
+                        do {
+                            let recentsRepo = try await Container.shared.recentsRepository
+                            try await recentsRepo.clearRecents()
+                        } catch {
+                            print("Failed to clear recents: \(error)")
+                        }
+                    }
                 }
                 .foregroundStyle(Theme.Adaptive.textPrimary)
 
@@ -135,7 +142,14 @@ struct SettingsView: View {
         .alert("Clear Saved Items?", isPresented: $showingClearAlert) {
             Button("Cancel", role: .cancel) {}
             Button("Clear All", role: .destructive) {
-                // TODO: Clear all saved items
+                Task {
+                    do {
+                        let favoritesRepo = try await Container.shared.favoritesRepository
+                        try await favoritesRepo.clearFavorites()
+                    } catch {
+                        print("Failed to clear favorites: \(error)")
+                    }
+                }
             }
         } message: {
             Text("This will remove all your saved places and price cards. This cannot be undone.")
@@ -322,6 +336,9 @@ struct RerunOnboardingView: View {
                 .padding(.horizontal)
 
             Button("Start Setup") {
+                // Reset the onboarding completion flag before presenting
+                // so the ViewModel initializes with isComplete = false
+                UserDefaults.standard.set(false, forKey: "onboardingComplete")
                 showOnboarding = true
             }
             .buttonStyle(.borderedProminent)

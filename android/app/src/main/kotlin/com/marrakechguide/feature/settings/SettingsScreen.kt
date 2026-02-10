@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.marrakechguide.core.repository.FavoritesRepository
+import com.marrakechguide.core.repository.RecentsRepository
 import com.marrakechguide.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -37,7 +40,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val recentsRepository: RecentsRepository,
+    private val favoritesRepository: FavoritesRepository
 ) : ViewModel() {
 
     private val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -81,11 +86,15 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun clearRecentHistory() {
-        // TODO: Clear recent history
+        viewModelScope.launch {
+            recentsRepository.clearRecents()
+        }
     }
 
     fun clearSavedItems() {
-        // TODO: Clear saved items
+        viewModelScope.launch {
+            favoritesRepository.clearFavorites()
+        }
     }
 }
 
@@ -275,7 +284,15 @@ fun SettingsScreen(
                 SettingsNavigationItem(
                     icon = Icons.Default.Refresh,
                     label = "Run Setup Again",
-                    onClick = onNavigateToOnboarding
+                    onClick = {
+                        // Reset the onboarding completion flag before navigating
+                        // so the ViewModel initializes with isComplete = false
+                        context.getSharedPreferences("onboarding", Context.MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("onboarding_complete", false)
+                            .apply()
+                        onNavigateToOnboarding()
+                    }
                 )
             }
 
@@ -384,7 +401,7 @@ private fun SettingsDropdownItem(
         onExpandedChange = { expanded = it }
     ) {
         ListItem(
-            modifier = Modifier.menuAnchor(),
+            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
             headlineContent = { Text(label) },
             trailingContent = {
                 Text(value, color = MaterialTheme.colorScheme.onSurfaceVariant)

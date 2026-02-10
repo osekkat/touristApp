@@ -24,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ErrorOutline
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -51,6 +52,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -102,6 +104,7 @@ fun ContentCard(
                         text = title,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.semantics { heading() },
                     )
                     Spacer(modifier = Modifier.height(Spacing.sm))
                 }
@@ -120,6 +123,7 @@ fun ContentCard(
                         text = title,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.semantics { heading() },
                     )
                     Spacer(modifier = Modifier.height(Spacing.sm))
                 }
@@ -150,11 +154,13 @@ fun PriceTag(
     maxMad: Int?,
     modifier: Modifier = Modifier,
 ) {
+    val priceText = formatPriceRange(minMad = minMad, maxMad = maxMad)
+    val accessiblePriceText = formatAccessiblePriceRange(minMad = minMad, maxMad = maxMad)
     Text(
-        text = formatPriceRange(minMad = minMad, maxMad = maxMad),
+        text = priceText,
         style = MaterialTheme.typography.labelLarge,
         color = MaterialTheme.colorScheme.primary,
-        modifier = modifier,
+        modifier = modifier.semantics { contentDescription = accessiblePriceText },
     )
 }
 
@@ -176,7 +182,9 @@ fun SectionHeader(
             text = title,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .semantics { heading() },
         )
         if (!actionText.isNullOrBlank()) {
             TextButton(
@@ -205,6 +213,42 @@ fun ErrorState(
 }
 
 @Composable
+fun EmptyState(
+    icon: ImageVector,
+    title: String,
+    message: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = Spacing.lg),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = Spacing.md),
+        )
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(modifier = Modifier.height(Spacing.sm))
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
 fun SkeletonLoader(
     modifier: Modifier = Modifier,
     height: Dp = 16.dp,
@@ -226,6 +270,16 @@ private fun formatPriceRange(minMad: Int?, maxMad: Int?): String {
         minMad != null && maxMad != null -> "$minMad-$maxMad MAD"
         minMad != null -> "$minMad+ MAD"
         maxMad != null -> "Up to $maxMad MAD"
+        else -> "Price unavailable"
+    }
+}
+
+private fun formatAccessiblePriceRange(minMad: Int?, maxMad: Int?): String {
+    return when {
+        minMad != null && maxMad != null && minMad == maxMad -> "Price approximately $minMad Moroccan dirhams"
+        minMad != null && maxMad != null -> "Price $minMad to $maxMad Moroccan dirhams"
+        minMad != null -> "Price $minMad or more Moroccan dirhams"
+        maxMad != null -> "Price up to $maxMad Moroccan dirhams"
         else -> "Price unavailable"
     }
 }
