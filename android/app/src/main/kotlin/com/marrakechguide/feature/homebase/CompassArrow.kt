@@ -132,10 +132,10 @@ fun CompassArrow(
             // Cardinal markers
             CardinalMarkers(size = size)
 
-            // Arrow
+            // Arrow (width: 0.35, height: 0.6 to match iOS)
             Canvas(
                 modifier = Modifier
-                    .size(size * 0.6f)
+                    .size(width = size * 0.35f, height = size * 0.6f)
                     .rotate(animatedRotation)
             ) {
                 drawArrow(this.size.width, this.size.height)
@@ -159,8 +159,6 @@ fun CompassArrow(
 
 @Composable
 private fun CardinalMarkers(size: Dp) {
-    val offset = size / 2 - 16.dp
-
     Box(modifier = Modifier.size(size)) {
         // North
         Text(
@@ -256,20 +254,22 @@ private fun DrawScope.drawArrow(width: Float, height: Float) {
 
 /**
  * Convert rotation degrees to cardinal direction text for accessibility.
+ * Note: Kotlin's mod() always returns a non-negative value for positive divisor.
+ *
+ * @VisibleForTesting - exposed as internal for unit testing
  */
-private fun directionFromRotation(rotationDegrees: Double): String {
-    val normalized = rotationDegrees.mod(360.0)
-    val adjusted = if (normalized < 0) normalized + 360 else normalized
+internal fun directionFromRotation(rotationDegrees: Double): String {
+    val degrees = rotationDegrees.mod(360.0) // Always in [0, 360)
 
     return when {
-        adjusted >= 337.5 || adjusted < 22.5 -> "north"
-        adjusted >= 22.5 && adjusted < 67.5 -> "northeast"
-        adjusted >= 67.5 && adjusted < 112.5 -> "east"
-        adjusted >= 112.5 && adjusted < 157.5 -> "southeast"
-        adjusted >= 157.5 && adjusted < 202.5 -> "south"
-        adjusted >= 202.5 && adjusted < 247.5 -> "southwest"
-        adjusted >= 247.5 && adjusted < 292.5 -> "west"
-        adjusted >= 292.5 && adjusted < 337.5 -> "northwest"
+        degrees >= 337.5 || degrees < 22.5 -> "north"
+        degrees >= 22.5 && degrees < 67.5 -> "northeast"
+        degrees >= 67.5 && degrees < 112.5 -> "east"
+        degrees >= 112.5 && degrees < 157.5 -> "southeast"
+        degrees >= 157.5 && degrees < 202.5 -> "south"
+        degrees >= 202.5 && degrees < 247.5 -> "southwest"
+        degrees >= 247.5 && degrees < 292.5 -> "west"
+        degrees >= 292.5 && degrees < 337.5 -> "northwest"
         else -> "unknown direction"
     }
 }

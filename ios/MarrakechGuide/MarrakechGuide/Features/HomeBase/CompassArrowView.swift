@@ -65,6 +65,14 @@ struct CompassArrowView: View {
                 unavailableOverlay
             }
         }
+        .onAppear {
+            // Initialize pulsing state on first render
+            if !reduceMotion && confidence == .weak {
+                withAnimation(.easeInOut(duration: 0.3).repeatForever(autoreverses: true)) {
+                    isPulsing = true
+                }
+            }
+        }
         .onChange(of: confidence) { _, newValue in
             if reduceMotion {
                 // Skip pulsing animation when Reduce Motion is enabled
@@ -164,7 +172,13 @@ struct CompassArrowView: View {
     }
 
     private var directionFromRotation: String {
-        let normalized = rotationDegrees.truncatingRemainder(dividingBy: 360)
+        CompassArrowView.directionFromDegrees(rotationDegrees)
+    }
+
+    /// Convert rotation degrees to cardinal direction text for accessibility.
+    /// Exposed as internal static for unit testing.
+    static func directionFromDegrees(_ degrees: Double) -> String {
+        let normalized = degrees.truncatingRemainder(dividingBy: 360)
         let adjusted = normalized < 0 ? normalized + 360 : normalized
 
         switch adjusted {
