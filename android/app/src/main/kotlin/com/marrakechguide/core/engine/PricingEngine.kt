@@ -100,8 +100,8 @@ object PricingEngine {
      */
     fun evaluate(input: Input): Output {
         // Step 1: Start with base range
-        var minMad = input.expectedCostMinMad
-        var maxMad = input.expectedCostMaxMad
+        var minMad = minOf(input.expectedCostMinMad, input.expectedCostMaxMad)
+        var maxMad = maxOf(input.expectedCostMinMad, input.expectedCostMaxMad)
 
         // Step 2: Apply modifiers (multiply sequentially)
         for (modifier in input.modifiers) {
@@ -110,8 +110,11 @@ object PricingEngine {
         }
 
         // Step 3: Apply quantity
-        val adjustedMin = minMad * input.quantity
-        val adjustedMax = maxMad * input.quantity
+        val quantity = input.quantity.coerceAtLeast(1)
+        val rawAdjustedMin = minMad * quantity
+        val rawAdjustedMax = maxMad * quantity
+        val adjustedMin = minOf(rawAdjustedMin, rawAdjustedMax)
+        val adjustedMax = maxOf(rawAdjustedMin, rawAdjustedMax)
 
         // Step 4: Determine fairness
         val lowThreshold = adjustedMin * input.fairnessLowMultiplier
@@ -126,7 +129,7 @@ object PricingEngine {
 
         // Step 5: Calculate counter range
         val counterMin = adjustedMin
-        val counterMax = adjustedMax * 0.95
+        val counterMax = maxOf(counterMin, adjustedMax * 0.95)
 
         return Output(
             adjustedMin = adjustedMin,

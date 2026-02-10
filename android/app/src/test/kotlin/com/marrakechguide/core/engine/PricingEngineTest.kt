@@ -320,6 +320,36 @@ class PricingEngineTest {
         assertEquals(expected.getDouble("adjustedMax"), result.adjustedMax, tolerance)
     }
 
+    @Test
+    fun `counter range does not invert for narrow adjusted ranges`() {
+        val result = PricingEngine.evaluate(
+            PricingEngine.Input(
+                expectedCostMinMad = 100.0,
+                expectedCostMaxMad = 102.0,
+                quotedMad = 110.0
+            )
+        )
+
+        assertTrue(result.counterMin <= result.counterMax)
+        assertEquals(result.adjustedMin, result.counterMin, tolerance)
+        assertEquals(result.adjustedMin, result.counterMax, tolerance)
+    }
+
+    @Test
+    fun `evaluate normalizes reversed expected range`() {
+        val result = PricingEngine.evaluate(
+            PricingEngine.Input(
+                expectedCostMinMad = 50.0,
+                expectedCostMaxMad = 20.0,
+                quotedMad = 30.0
+            )
+        )
+
+        assertEquals(20.0, result.adjustedMin, tolerance)
+        assertEquals(50.0, result.adjustedMax, tolerance)
+        assertEquals(PricingEngine.FairnessLevel.FAIR, result.fairness)
+    }
+
     // ==================== Convenience Method Tests ====================
 
     @Test

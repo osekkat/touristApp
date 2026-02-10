@@ -315,6 +315,30 @@ final class PricingEngineTests: XCTestCase {
         XCTAssertEqual(result.adjustedMax, expected["adjustedMax"] as! Double, accuracy: tolerance)
     }
 
+    func testCounterRangeDoesNotInvertForNarrowAdjustedRanges() {
+        let result = PricingEngine.evaluate(.init(
+            expectedCostMinMad: 100,
+            expectedCostMaxMad: 102,
+            quotedMad: 110
+        ))
+
+        XCTAssertLessThanOrEqual(result.counterMin, result.counterMax)
+        XCTAssertEqual(result.counterMin, result.adjustedMin, accuracy: tolerance)
+        XCTAssertEqual(result.counterMax, result.adjustedMin, accuracy: tolerance)
+    }
+
+    func testEvaluateNormalizesReversedExpectedRange() {
+        let result = PricingEngine.evaluate(.init(
+            expectedCostMinMad: 50,
+            expectedCostMaxMad: 20,
+            quotedMad: 30
+        ))
+
+        XCTAssertEqual(result.adjustedMin, 20, accuracy: tolerance)
+        XCTAssertEqual(result.adjustedMax, 50, accuracy: tolerance)
+        XCTAssertEqual(result.fairness, .fair)
+    }
+
     // MARK: - Convenience Method Tests
 
     func testIsAcceptable_Fair() {

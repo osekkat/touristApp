@@ -119,8 +119,8 @@ public enum PricingEngine {
     /// - Returns: Pricing evaluation output with fairness assessment
     public static func evaluate(_ input: Input) -> Output {
         // Step 1: Start with base range
-        var minMad = input.expectedCostMinMad
-        var maxMad = input.expectedCostMaxMad
+        var minMad = min(input.expectedCostMinMad, input.expectedCostMaxMad)
+        var maxMad = max(input.expectedCostMinMad, input.expectedCostMaxMad)
 
         // Step 2: Apply modifiers (multiply sequentially)
         for modifier in input.modifiers {
@@ -129,8 +129,11 @@ public enum PricingEngine {
         }
 
         // Step 3: Apply quantity
-        let adjustedMin = minMad * Double(input.quantity)
-        let adjustedMax = maxMad * Double(input.quantity)
+        let quantity = max(1, input.quantity)
+        let rawAdjustedMin = minMad * Double(quantity)
+        let rawAdjustedMax = maxMad * Double(quantity)
+        let adjustedMin = min(rawAdjustedMin, rawAdjustedMax)
+        let adjustedMax = max(rawAdjustedMin, rawAdjustedMax)
 
         // Step 4: Determine fairness
         let lowThreshold = adjustedMin * input.fairnessLowMultiplier
@@ -149,7 +152,7 @@ public enum PricingEngine {
 
         // Step 5: Calculate counter range
         let counterMin = adjustedMin
-        let counterMax = adjustedMax * 0.95
+        let counterMax = max(counterMin, adjustedMax * 0.95)
 
         return Output(
             adjustedMin: adjustedMin,
