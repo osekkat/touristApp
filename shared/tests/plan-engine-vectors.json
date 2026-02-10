@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Cross-platform vectors for PlanEngine (iOS + Android)",
+    "generatedAt": "2026-02-08T22:00:00Z"
+  },
+  "vectors": [
+    {
+      "name": "Short history day",
+      "input": {
+        "availableMinutes": 180,
+        "startPoint": { "lat": 31.6258, "lng": -7.9889 },
+        "interests": ["history"],
+        "pace": "standard",
+        "budgetTier": "mid",
+        "currentTime": "2026-02-10T09:00:00Z",
+        "recentPlaceIds": [],
+        "places": [
+          {
+            "id": "history-palace",
+            "name": "History Palace",
+            "category": "museum",
+            "regionId": "medina",
+            "lat": 31.6262,
+            "lng": -7.9895,
+            "visitMinMinutes": 45,
+            "visitMaxMinutes": 60,
+            "bestTimeWindows": ["morning", "afternoon"],
+            "tags": ["history", "architecture"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 09:00-18:00"]
+          },
+          {
+            "id": "history-madrasa",
+            "name": "History Madrasa",
+            "category": "museum",
+            "regionId": "medina",
+            "lat": 31.6290,
+            "lng": -7.9921,
+            "visitMinMinutes": 45,
+            "visitMaxMinutes": 60,
+            "bestTimeWindows": ["morning", "afternoon"],
+            "tags": ["history", "heritage"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 09:00-18:00"]
+          },
+          {
+            "id": "history-landmark",
+            "name": "History Landmark",
+            "category": "landmark",
+            "regionId": "medina",
+            "lat": 31.6241,
+            "lng": -7.9862,
+            "visitMinMinutes": 30,
+            "visitMaxMinutes": 45,
+            "bestTimeWindows": ["morning"],
+            "tags": ["history", "landmark"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 08:00-20:00"]
+          },
+          {
+            "id": "food-cafe",
+            "name": "Food Cafe",
+            "category": "cafe",
+            "regionId": "medina",
+            "lat": 31.6310,
+            "lng": -7.9900,
+            "visitMinMinutes": 30,
+            "visitMaxMinutes": 40,
+            "bestTimeWindows": ["morning"],
+            "tags": ["food", "breakfast"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 08:00-23:00"]
+          }
+        ]
+      },
+      "expected": {
+        "minStops": 2,
+        "maxStops": 3,
+        "maxTotalMinutes": 180,
+        "allowedCategories": ["museum", "landmark", "historic_site"],
+        "requiredPlaceIds": [],
+        "excludedPlaceIds": [],
+        "requiredWarningSubstrings": []
+      }
+    },
+    {
+      "name": "Full food day",
+      "input": {
+        "availableMinutes": 720,
+        "startPoint": { "lat": 31.6258, "lng": -7.9889 },
+        "interests": ["food"],
+        "pace": "relaxed",
+        "budgetTier": "mid",
+        "currentTime": "2026-02-10T08:00:00Z",
+        "recentPlaceIds": [],
+        "places": [
+          {
+            "id": "breakfast-cafe",
+            "name": "Breakfast Cafe",
+            "category": "cafe",
+            "regionId": "medina",
+            "lat": 31.6249,
+            "lng": -7.9877,
+            "visitMinMinutes": 45,
+            "visitMaxMinutes": 60,
+            "bestTimeWindows": ["morning"],
+            "tags": ["food", "breakfast", "budget"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 07:00-22:00"]
+          },
+          {
+            "id": "lunch-bistro",
+            "name": "Lunch Bistro",
+            "category": "restaurant",
+            "regionId": "medina",
+            "lat": 31.6269,
+            "lng": -7.9925,
+            "visitMinMinutes": 60,
+            "visitMaxMinutes": 75,
+            "bestTimeWindows": ["lunch", "afternoon"],
+            "tags": ["food", "lunch"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 11:00-23:00"]
+          },
+          {
+            "id": "dinner-riad",
+            "name": "Dinner Riad",
+            "category": "restaurant",
+            "regionId": "medina",
+            "lat": 31.6238,
+            "lng": -7.9859,
+            "visitMinMinutes": 75,
+            "visitMaxMinutes": 90,
+            "bestTimeWindows": ["evening"],
+            "tags": ["food", "dinner", "luxury"],
+            "touristTrapLevel": "mixed",
+            "hoursWeekly": ["daily 12:00-23:59"]
+          },
+          {
+            "id": "snack-market",
+            "name": "Snack Market",
+            "category": "market",
+            "regionId": "medina",
+            "lat": 31.6277,
+            "lng": -7.9903,
+            "visitMinMinutes": 30,
+            "visitMaxMinutes": 45,
+            "bestTimeWindows": ["afternoon", "evening"],
+            "tags": ["food", "shopping"],
+            "touristTrapLevel": "mixed",
+            "hoursWeekly": ["daily 09:00-21:00"]
+          }
+        ]
+      },
+      "expected": {
+        "minStops": 3,
+        "maxStops": 6,
+        "maxTotalMinutes": 720,
+        "allowedCategories": ["restaurant", "cafe", "market"],
+        "requiredPlaceIds": ["breakfast-cafe", "lunch-bistro", "dinner-riad"],
+        "excludedPlaceIds": [],
+        "requiredWarningSubstrings": []
+      }
+    },
+    {
+      "name": "Impossible constraints",
+      "input": {
+        "availableMinutes": 60,
+        "startPoint": { "lat": 31.6415, "lng": -8.0029 },
+        "interests": ["nature"],
+        "pace": "standard",
+        "budgetTier": "mid",
+        "currentTime": "2026-02-10T10:00:00Z",
+        "recentPlaceIds": [],
+        "places": [
+          {
+            "id": "majorelle-only",
+            "name": "Majorelle Only",
+            "category": "garden",
+            "regionId": "gueliz",
+            "lat": 31.6415,
+            "lng": -8.0029,
+            "visitMinMinutes": 90,
+            "visitMaxMinutes": 120,
+            "bestTimeWindows": ["morning", "afternoon"],
+            "tags": ["garden", "nature"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 09:00-18:00"]
+          }
+        ]
+      },
+      "expected": {
+        "minStops": 0,
+        "maxStops": 0,
+        "maxTotalMinutes": 60,
+        "allowedCategories": ["garden"],
+        "requiredPlaceIds": [],
+        "excludedPlaceIds": [],
+        "requiredWarningSubstrings": ["No plan could fit your time and constraints"]
+      }
+    },
+    {
+      "name": "Opening hours respect",
+      "input": {
+        "availableMinutes": 180,
+        "startPoint": { "lat": 31.6258, "lng": -7.9889 },
+        "interests": ["culture"],
+        "pace": "standard",
+        "budgetTier": "mid",
+        "currentTime": "2026-02-10T17:00:00Z",
+        "recentPlaceIds": [],
+        "places": [
+          {
+            "id": "closes-five",
+            "name": "Closes Five",
+            "category": "museum",
+            "regionId": "medina",
+            "lat": 31.6266,
+            "lng": -7.9897,
+            "visitMinMinutes": 45,
+            "visitMaxMinutes": 60,
+            "bestTimeWindows": ["morning", "afternoon"],
+            "tags": ["culture", "history"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 09:00-17:00"]
+          },
+          {
+            "id": "open-evening",
+            "name": "Open Evening",
+            "category": "landmark",
+            "regionId": "medina",
+            "lat": 31.6242,
+            "lng": -7.9864,
+            "visitMinMinutes": 45,
+            "visitMaxMinutes": 60,
+            "bestTimeWindows": ["evening"],
+            "tags": ["culture", "landmark"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 17:00-22:00"]
+          },
+          {
+            "id": "open-night-museum",
+            "name": "Open Night Museum",
+            "category": "museum",
+            "regionId": "medina",
+            "lat": 31.6281,
+            "lng": -7.9920,
+            "visitMinMinutes": 45,
+            "visitMaxMinutes": 60,
+            "bestTimeWindows": ["evening"],
+            "tags": ["culture", "history"],
+            "touristTrapLevel": "low",
+            "hoursWeekly": ["daily 18:00-23:00"]
+          },
+          {
+            "id": "unknown-hours-culture",
+            "name": "Unknown Hours Culture",
+            "category": "historic_site",
+            "regionId": "medina",
+            "lat": 31.6270,
+            "lng": -7.9908,
+            "visitMinMinutes": 30,
+            "visitMaxMinutes": 45,
+            "bestTimeWindows": ["evening"],
+            "tags": ["culture", "heritage"],
+            "touristTrapLevel": "low",
+            "hoursText": "Check latest seasonal hours"
+          }
+        ]
+      },
+      "expected": {
+        "minStops": 1,
+        "maxStops": 3,
+        "maxTotalMinutes": 180,
+        "allowedCategories": ["landmark", "museum", "historic_site"],
+        "requiredPlaceIds": ["open-evening"],
+        "excludedPlaceIds": ["closes-five"],
+        "requiredWarningSubstrings": ["closed at the planned visit time"]
+      }
+    }
+  ]
+}

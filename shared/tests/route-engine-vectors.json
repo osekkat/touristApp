@@ -1,0 +1,188 @@
+{
+  "description": "Test vectors for RouteEngine - route execution state management",
+  "version": "1.0.0",
+  "test_cases": {
+    "normal_progression": {
+      "description": "Normal route progression through 5 steps",
+      "initial_state": {
+        "routeId": "test-route-1",
+        "routeType": "itinerary",
+        "totalSteps": 5,
+        "currentStepIndex": 0,
+        "stepsCompleted": [],
+        "stepsSkipped": []
+      },
+      "operations": [
+        { "action": "completeCurrentStep" },
+        { "action": "completeCurrentStep" },
+        { "action": "completeCurrentStep" }
+      ],
+      "expected_state": {
+        "currentStepIndex": 3,
+        "stepsCompleted": [0, 1, 2],
+        "stepsSkipped": [],
+        "isRouteComplete": false,
+        "completionPercentage": 0.6,
+        "remainingSteps": 2
+      }
+    },
+    "skip_step": {
+      "description": "Skip a step during route",
+      "initial_state": {
+        "routeId": "test-route-2",
+        "routeType": "myDayPlan",
+        "totalSteps": 4,
+        "currentStepIndex": 0,
+        "stepsCompleted": [],
+        "stepsSkipped": []
+      },
+      "operations": [
+        { "action": "completeCurrentStep" },
+        { "action": "skipCurrentStep" },
+        { "action": "completeCurrentStep" }
+      ],
+      "expected_state": {
+        "currentStepIndex": 3,
+        "stepsCompleted": [0, 2],
+        "stepsSkipped": [1],
+        "isRouteComplete": false,
+        "completionPercentage": 0.5,
+        "remainingSteps": 1
+      }
+    },
+    "complete_all": {
+      "description": "Complete all steps",
+      "initial_state": {
+        "routeId": "test-route-3",
+        "routeType": "itinerary",
+        "totalSteps": 3,
+        "currentStepIndex": 0,
+        "stepsCompleted": [],
+        "stepsSkipped": []
+      },
+      "operations": [
+        { "action": "completeCurrentStep" },
+        { "action": "completeCurrentStep" },
+        { "action": "completeCurrentStep" }
+      ],
+      "expected_state": {
+        "currentStepIndex": 3,
+        "stepsCompleted": [0, 1, 2],
+        "stepsSkipped": [],
+        "isRouteComplete": true,
+        "completionPercentage": 1.0,
+        "remainingSteps": 0
+      }
+    },
+    "exit_route": {
+      "description": "Exit route early marks remaining as skipped",
+      "initial_state": {
+        "routeId": "test-route-4",
+        "routeType": "itinerary",
+        "totalSteps": 5,
+        "currentStepIndex": 0,
+        "stepsCompleted": [],
+        "stepsSkipped": []
+      },
+      "operations": [
+        { "action": "completeCurrentStep" },
+        { "action": "exitRoute" }
+      ],
+      "expected_state": {
+        "currentStepIndex": 5,
+        "stepsCompleted": [0],
+        "stepsSkipped": [1, 2, 3, 4],
+        "isRouteComplete": true,
+        "completionPercentage": 0.2,
+        "remainingSteps": 0
+      }
+    },
+    "leg_calculation": {
+      "description": "Calculate leg information between stops",
+      "places": [
+        {
+          "id": "jemaa-el-fna",
+          "name": "Jemaa el-Fna",
+          "lat": 31.6259,
+          "lng": -7.9891,
+          "routeHint": "Main square"
+        },
+        {
+          "id": "bahia-palace",
+          "name": "Bahia Palace",
+          "lat": 31.6216,
+          "lng": -7.9831,
+          "routeHint": "Turn left at the minaret"
+        }
+      ],
+      "progress": {
+        "currentStepIndex": 1,
+        "totalSteps": 2
+      },
+      "currentLocation": null,
+      "isInMedina": true,
+      "expected_leg": {
+        "fromPlaceId": "jemaa-el-fna",
+        "toPlaceId": "bahia-palace",
+        "distanceMeters_approx": 750,
+        "distanceMeters_tolerance": 100,
+        "bearingDegrees_approx": 130,
+        "bearingDegrees_tolerance": 20,
+        "estimatedWalkMinutes_range": [10, 20],
+        "isLastStep": true
+      }
+    },
+    "leg_with_user_location": {
+      "description": "Calculate leg from user's current location",
+      "places": [
+        {
+          "id": "place-1",
+          "name": "Start",
+          "lat": 31.6200,
+          "lng": -7.9800
+        },
+        {
+          "id": "place-2",
+          "name": "Destination",
+          "lat": 31.6250,
+          "lng": -7.9850
+        }
+      ],
+      "progress": {
+        "currentStepIndex": 1,
+        "totalSteps": 2
+      },
+      "currentLocation": {
+        "lat": 31.6230,
+        "lng": -7.9820
+      },
+      "isInMedina": true,
+      "expected_leg": {
+        "distanceMeters_approx": 400,
+        "distanceMeters_tolerance": 100,
+        "notes": "Distance should be from user location to destination, not from previous stop"
+      }
+    },
+    "empty_route": {
+      "description": "Starting empty route should return null",
+      "places": [],
+      "expected_result": null
+    }
+  },
+  "formatting_tests": {
+    "formatDistance": [
+      { "input_meters": 150, "expected": "150 m" },
+      { "input_meters": 999, "expected": "999 m" },
+      { "input_meters": 1000, "expected": "1.0 km" },
+      { "input_meters": 1500, "expected": "1.5 km" },
+      { "input_meters": 2345, "expected": "2.3 km" }
+    ],
+    "formatWalkTime": [
+      { "input_minutes": 5, "expected": "5 min" },
+      { "input_minutes": 45, "expected": "45 min" },
+      { "input_minutes": 60, "expected": "1h" },
+      { "input_minutes": 75, "expected": "1h 15m" },
+      { "input_minutes": 120, "expected": "2h" }
+    ]
+  }
+}

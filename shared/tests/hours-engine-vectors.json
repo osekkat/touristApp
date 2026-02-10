@@ -1,0 +1,123 @@
+{
+  "timezone": "Africa/Casablanca",
+  "cases": [
+    {
+      "name": "weekday open",
+      "at": "2026-01-06T14:00:00+01:00",
+      "weekly": [
+        "mon-fri 09:00-18:00",
+        "sat 10:00-14:00",
+        "sun closed"
+      ],
+      "hours_text": null,
+      "hours_verified_at": "2026-01-01",
+      "exceptions": [],
+      "expected": {
+        "state": "open",
+        "next_change_local": "2026-01-06T18:00",
+        "display": "Open now · Closes 18:00"
+      }
+    },
+    {
+      "name": "after hours opens tomorrow",
+      "at": "2026-01-06T20:00:00+01:00",
+      "weekly": [
+        "mon-fri 09:00-18:00",
+        "sat 10:00-14:00",
+        "sun closed"
+      ],
+      "hours_text": null,
+      "hours_verified_at": "2026-01-01",
+      "exceptions": [],
+      "expected": {
+        "state": "closed",
+        "next_change_local": "2026-01-07T09:00",
+        "display": "Closed · Opens tomorrow 09:00"
+      }
+    },
+    {
+      "name": "overnight carries from previous day",
+      "at": "2026-01-10T01:00:00+01:00",
+      "weekly": [
+        "fri 20:00-02:00",
+        "sat closed"
+      ],
+      "hours_text": null,
+      "hours_verified_at": "2026-01-01",
+      "exceptions": [],
+      "expected": {
+        "state": "open",
+        "next_change_local": "2026-01-10T02:00",
+        "display": "Open now · Closes 02:00"
+      }
+    },
+    {
+      "name": "ramadan period override",
+      "at": "2026-03-10T16:00:00+00:00",
+      "weekly": [
+        "daily 09:00-18:00"
+      ],
+      "hours_text": null,
+      "hours_verified_at": "2026-01-01",
+      "exceptions": [
+        {
+          "period": "ramadan",
+          "open": "09:00",
+          "close": "15:00",
+          "closed": false
+        }
+      ],
+      "expected": {
+        "state": "closed",
+        "next_change_local": "2026-03-11T09:00",
+        "display": "Closed · Opens tomorrow 09:00"
+      }
+    },
+    {
+      "name": "specific date closure",
+      "at": "2026-01-07T11:00:00+01:00",
+      "weekly": [
+        "daily 09:00-18:00"
+      ],
+      "hours_text": null,
+      "hours_verified_at": "2026-01-01",
+      "exceptions": [
+        {
+          "date": "2026-01-07",
+          "closed": true
+        }
+      ],
+      "expected": {
+        "state": "closed",
+        "next_change_local": "2026-01-08T09:00",
+        "display": "Closed · Opens tomorrow 09:00"
+      }
+    },
+    {
+      "name": "unknown from text fallback",
+      "at": "2026-01-06T12:00:00+01:00",
+      "weekly": [],
+      "hours_text": "Check latest seasonal hours",
+      "hours_verified_at": "2026-01-01",
+      "exceptions": [],
+      "expected": {
+        "state": "unknown",
+        "next_change_local": null,
+        "display": "Check latest seasonal hours"
+      }
+    },
+    {
+      "name": "open all day text fallback with stale warning",
+      "at": "2026-01-06T03:00:00+01:00",
+      "weekly": [],
+      "hours_text": "Open all day; most food stalls activate in early evening.",
+      "hours_verified_at": "2025-01-01",
+      "exceptions": [],
+      "expected": {
+        "state": "open",
+        "next_change_local": "2026-01-06T23:59",
+        "display": "Open now · Closes 23:59 · Hours may be outdated"
+      }
+    }
+  ]
+}
