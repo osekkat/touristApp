@@ -1,0 +1,305 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - "release/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  content:
+    name: Content Pipeline Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run content validation/build checks
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -d shared ]]; then
+            echo "No shared/ directory present; skipping content gate."
+            exit 0
+          fi
+
+          scripts_pkg_dir=""
+          if [[ -f shared/scripts/package.json ]]; then
+            scripts_pkg_dir="shared/scripts"
+          elif [[ -f shared/package.json ]]; then
+            scripts_pkg_dir="shared"
+          fi
+
+          if [[ -n "${scripts_pkg_dir}" ]]; then
+            if [[ -f "${scripts_pkg_dir}/package-lock.json" || -f "${scripts_pkg_dir}/npm-shrinkwrap.json" ]]; then
+              npm ci --prefix "${scripts_pkg_dir}"
+            else
+              echo "No lockfile found for ${scripts_pkg_dir}; using npm install."
+              npm install --prefix "${scripts_pkg_dir}"
+            fi
+          else
+            echo "No script package found under shared/scripts or shared; will use direct-script fallbacks when possible."
+          fi
+
+          has_npm_script() {
+            local script_name="$1"
+            node -e "const p=require('./${scripts_pkg_dir}/package.json'); process.exit((p.scripts && p.scripts['${script_name}']) ? 0 : 1)"
+          }
+
+          run_shared_script() {
+            local script_name="$1"
+            local fallback_path="$2"
+            if [[ -n "${scripts_pkg_dir}" ]]; then
+              if has_npm_script "${script_name}"; then
+                npm run "${script_name}" --prefix "${scripts_pkg_dir}"
+              else
+                echo "Required npm script '${script_name}' is missing in ${scripts_pkg_dir}/package.json."
+                exit 1
+              fi
+            elif [[ -n "${fallback_path}" && -f "${fallback_path}" ]]; then
+              case "${fallback_path}" in
+                *.js|*.cjs|*.mjs)
+                  node "${fallback_path}"
+                  ;;
+                *)
+                  echo "Skipping '${script_name}' fallback (${fallback_path}): no JS runtime wrapper configured for this file type."
+                  ;;
+              esac
+            else
+              echo "Skipping '${script_name}' (not implemented yet)."
+            fi
+          }
+
+          run_shared_script "validate" "shared/scripts/validate-content.ts"
+          run_shared_script "check-links" "shared/scripts/check-links.ts"
+          run_shared_script "build-bundle" "shared/scripts/build-bundle.ts"
+
+          db_candidate=""
+          for db in shared/output/content.db shared/content.db; do
+            if [[ -f "${db}" ]]; then
+              db_candidate="${db}"
+              break
+            fi
+          done
+
+          if [[ -n "${db_candidate}" ]]; then
+            echo "Found generated DB: ${db_candidate}"
+            if command -v sqlite3 >/dev/null 2>&1; then
+              sqlite3 "${db_candidate}" ".tables"
+            else
+              echo "sqlite3 not available; skipping table introspection."
+            fi
+          else
+            echo "No generated content.db found (this is expected until build-bundle is implemented)."
+          fi
+
+  ios:
+    name: iOS Build/Test Gate
+    runs-on: macos-latest
+    needs: content
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build/Test iOS project (when available)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcodeproj_path="$(find ios -maxdepth 3 -name '*.xcodeproj' | head -n 1 || true)"
+          if [[ -z "${xcodeproj_path}" ]]; then
+            echo "No .xcodeproj found under ios/; skipping iOS gate."
+            exit 0
+          fi
+
+          if ! xcodebuild -list -project "${xcodeproj_path}" | grep -q "MarrakechGuide"; then
+            echo "Scheme 'MarrakechGuide' not found yet; skipping iOS gate."
+            exit 0
+          fi
+
+          xcodebuild build \
+            -project "${xcodeproj_path}" \
+            -scheme MarrakechGuide \
+            -destination 'generic/platform=iOS'
+
+          xcodebuild test \
+            -project "${xcodeproj_path}" \
+            -scheme MarrakechGuide \
+            -destination 'platform=iOS Simulator,name=iPhone 15'
+
+          if command -v swiftlint >/dev/null 2>&1; then
+            swiftlint lint --strict
+          else
+            echo "swiftlint not installed on runner; skipping."
+          fi
+
+          if command -v swiftformat >/dev/null 2>&1; then
+            swiftformat --lint ios/
+          else
+            echo "swiftformat not installed on runner; skipping."
+          fi
+
+  android:
+    name: Android Build/Test/Lint Gate
+    runs-on: ubuntu-latest
+    needs: content
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Run Android checks (when available)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f android/gradlew ]]; then
+            echo "android/gradlew not found; skipping Android gate."
+            exit 0
+          fi
+
+          chmod +x android/gradlew
+          ./android/gradlew -p android tasks --all > /tmp/gradle_tasks.txt
+
+          run_if_task_exists() {
+            local task="$1"
+            if grep -Eq "^[[:space:]]*${task}([[:space:]]| -)" /tmp/gradle_tasks.txt; then
+              ./android/gradlew -p android "${task}"
+            else
+              echo "Skipping Gradle task '${task}' (not defined yet)."
+            fi
+          }
+
+          run_if_task_exists compileDebugKotlin
+          run_if_task_exists assembleDebug
+          run_if_task_exists testDebugUnitTest
+          run_if_task_exists test
+          run_if_task_exists lint
+          run_if_task_exists ktlintCheck
+          run_if_task_exists detekt
+
+  security:
+    name: Security & Permission Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check forbidden Android permissions
+        shell: bash
+        run: |
+          set -euo pipefail
+          manifest="android/app/src/main/AndroidManifest.xml"
+          if [[ ! -f "${manifest}" ]]; then
+            echo "Android manifest not present; skipping permission gate."
+            exit 0
+          fi
+
+          forbidden='android.permission.READ_CONTACTS|android.permission.WRITE_CONTACTS|android.permission.GET_ACCOUNTS|android.permission.READ_MEDIA_IMAGES|android.permission.READ_EXTERNAL_STORAGE'
+          if grep -E "${forbidden}" "${manifest}" >/dev/null 2>&1; then
+            echo "Forbidden permission detected in ${manifest}."
+            grep -nE "${forbidden}" "${manifest}"
+            exit 1
+          fi
+
+          echo "Forbidden-permission check passed."
+
+      - name: Basic secret pattern scan
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v rg >/dev/null 2>&1; then
+            echo "ripgrep not available; skipping secret-pattern scan."
+            exit 0
+          fi
+
+          if rg -n --hidden --glob '!.git/*' '(AKIA[0-9A-Z]{16}|-----BEGIN (RSA|EC|OPENSSH) PRIVATE KEY-----|ghp_[A-Za-z0-9]{36})' .; then
+            echo "Potential secret material detected."
+            exit 1
+          fi
+
+          echo "No obvious secret patterns detected."
+
+  store_policy:
+    name: Store Policy Gate (Release Branches)
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/release/')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Android target SDK floor
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gradle_file=""
+          if [[ -f android/app/build.gradle.kts ]]; then
+            gradle_file="android/app/build.gradle.kts"
+          elif [[ -f android/app/build.gradle ]]; then
+            gradle_file="android/app/build.gradle"
+          fi
+
+          if [[ -z "${gradle_file}" ]]; then
+            echo "No Android app Gradle file found; skipping target SDK check."
+            exit 0
+          fi
+
+          target_sdk="$(grep -Eo 'targetSdk(Version)?\s*[= ]\s*[0-9]+' "${gradle_file}" | grep -Eo '[0-9]+' | head -n 1 || true)"
+          if [[ -z "${target_sdk}" ]]; then
+            echo "Could not parse target SDK from ${gradle_file}."
+            exit 1
+          fi
+
+          min_target_sdk=35
+          if (( target_sdk < min_target_sdk )); then
+            echo "Android target SDK ${target_sdk} is below required floor ${min_target_sdk}."
+            exit 1
+          fi
+
+          echo "Android target SDK check passed (${target_sdk})."
+
+      - name: Check iOS deployment floor
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          xcodeproj_path="$(find ios -maxdepth 3 -name '*.xcodeproj' | head -n 1 || true)"
+          if [[ -z "${xcodeproj_path}" ]]; then
+            echo "No iOS project found; skipping iOS deployment floor check."
+            exit 0
+          fi
+
+          # Enforce a minimum deployment target floor for release branches.
+          min_ios_floor="16.0"
+          deployment_targets="$(grep -Rho 'IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*' "${xcodeproj_path}/project.pbxproj" | awk '{print $3}' | tr -d ';' || true)"
+          if [[ -z "${deployment_targets}" ]]; then
+            echo "Could not parse iOS deployment target from project.pbxproj."
+            exit 1
+          fi
+
+          lowest_target="$(echo "${deployment_targets}" | sort -V | head -n 1)"
+          if [[ "$(printf '%s\n' "${min_ios_floor}" "${lowest_target}" | sort -V | head -n 1)" != "${min_ios_floor}" ]]; then
+            echo "iOS deployment target ${lowest_target} is below required floor ${min_ios_floor}."
+            exit 1
+          fi
+
+          echo "iOS deployment target check passed (${lowest_target})."
