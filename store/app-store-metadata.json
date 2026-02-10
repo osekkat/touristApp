@@ -1,0 +1,30 @@
+{
+  "app_store": {
+    "title": "Marrakech Guide - Offline Travel",
+    "subtitle": "Prices, Phrases & Navigation",
+    "keywords": "marrakech,morocco,travel,offline,prices,negotiation,guide,medina,souks,arabic,darija,taxi,navigation,phrasebook",
+    "category": "Travel",
+    "secondary_category": "Navigation",
+    "age_rating": "4+",
+    "copyright": "2026 Marrakech Guide",
+    "support_url": "https://marrakechguide.app/support",
+    "privacy_policy_url": "https://marrakechguide.app/privacy"
+  },
+  "play_store": {
+    "title": "Marrakech Guide - Offline Travel",
+    "short_description": "Prices, phrases & navigation for Marrakech. Works offline.",
+    "category": "Travel & Local",
+    "content_rating": "Everyone",
+    "contact_email": "support@marrakechguide.app",
+    "privacy_policy_url": "https://marrakechguide.app/privacy"
+  },
+  "localization": {
+    "supported_languages": ["en", "fr"],
+    "default_language": "en"
+  },
+  "pricing": {
+    "model": "paid",
+    "tier": "mid-range",
+    "notes": "One-time purchase, no subscriptions, no in-app purchases"
+  }
+}
