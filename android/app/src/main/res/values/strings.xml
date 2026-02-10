@@ -1,4 +1,327 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App -->
     <string name="app_name">Marrakech Guide</string>
+
+    <!-- Navigation Tabs -->
+    <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
+    <string name="nav_prices">Prices</string>
+    <string name="nav_eat">Eat</string>
+    <string name="nav_more">More</string>
+
+    <!-- Home Screen -->
+    <string name="home_greeting_morning">Good morning</string>
+    <string name="home_greeting_afternoon">Good afternoon</string>
+    <string name="home_greeting_evening">Good evening</string>
+    <string name="home_subtitle">Your Marrakech companion</string>
+    <string name="home_quick_actions">Quick Actions</string>
+    <string name="home_action_quote">Check a Quote</string>
+    <string name="home_action_phrase">Say a Phrase</string>
+    <string name="home_action_go_home">Go Home</string>
+    <string name="home_action_currency">Currency</string>
+    <string name="home_offline_ready">Offline Ready</string>
+    <string name="home_offline_not_ready">Setup Required</string>
+
+    <!-- Explore Screen -->
+    <string name="explore_title">Explore</string>
+    <string name="explore_search_hint">Search places…</string>
+    <string name="explore_all_places">All Places</string>
+    <string name="explore_filter">Filter</string>
+    <string name="explore_sort">Sort</string>
+    <string name="explore_nearby">Nearby</string>
+    <string name="explore_popular">Popular</string>
+    <string name="explore_hidden_gems">Hidden Gems</string>
+    <string name="explore_open_now">Open Now</string>
+    <string name="explore_no_results">No places found</string>
+
+    <!-- Place Detail -->
+    <string name="place_about">About</string>
+    <string name="place_hours">Hours</string>
+    <string name="place_tips">Tips</string>
+    <string name="place_nearby">Nearby</string>
+    <string name="place_directions">Directions</string>
+    <string name="place_save">Save</string>
+    <string name="place_saved">Saved</string>
+    <string name="place_share">Share</string>
+    <string name="place_open">Open</string>
+    <string name="place_closed">Closed</string>
+    <string name="place_opens_at">Opens at %s</string>
+    <string name="place_closes_at">Closes at %s</string>
+
+    <!-- Prices Screen -->
+    <string name="prices_title">Prices</string>
+    <string name="prices_search_hint">Search price cards…</string>
+    <string name="prices_check_quote">Check a Quote</string>
+    <string name="prices_fair_range">Fair price range</string>
+    <string name="prices_last_reviewed">Last reviewed</string>
+    <string name="prices_pro_tips">Pro Tips</string>
+    <string name="prices_script">What to Say</string>
+
+    <!-- Quote Action -->
+    <string name="quote_title">Quote Check</string>
+    <string name="quote_what_buying">What are you buying?</string>
+    <string name="quote_enter_amount">Enter the quoted amount</string>
+    <string name="quote_check">Check Price</string>
+    <string name="quote_result_fair">Fair Price</string>
+    <string name="quote_result_high">Above Fair Price</string>
+    <string name="quote_result_very_high">Way Too High</string>
+    <string name="quote_result_low">Great Deal</string>
+    <string name="quote_counter_suggestion">Counter Suggestion</string>
+    <string name="quote_walk_away">Walk Away Price</string>
+
+    <!-- Eat Screen -->
+    <string name="eat_title">Eat</string>
+    <string name="eat_search_hint">Search restaurants…</string>
+    <string name="eat_cuisine_all">All</string>
+    <string name="eat_cuisine_moroccan">Moroccan</string>
+    <string name="eat_cuisine_international">International</string>
+    <string name="eat_cuisine_cafe">Cafés</string>
+    <string name="eat_price_budget">Budget</string>
+    <string name="eat_price_mid">Mid-range</string>
+    <string name="eat_price_splurge">Splurge</string>
+
+    <!-- Phrasebook -->
+    <string name="phrasebook_title">Phrasebook</string>
+    <string name="phrasebook_search_hint">Search phrases…</string>
+    <string name="phrasebook_greetings">Greetings</string>
+    <string name="phrasebook_shopping">Shopping</string>
+    <string name="phrasebook_dining">Dining</string>
+    <string name="phrasebook_directions">Directions</string>
+    <string name="phrasebook_emergencies">Emergencies</string>
+    <string name="phrasebook_play">Play</string>
+    <string name="phrasebook_copy">Copy</string>
+
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search everything…</string>
+    <string name="search_recent">Recent</string>
+    <string name="search_clear_recent">Clear</string>
+    <string name="search_no_results">No results found</string>
+    <string name="search_try_different">Try a different search term</string>
+
+    <!-- More Tab -->
+    <string name="more_title">More</string>
+    <string name="more_features">Features</string>
+    <string name="more_my_day">My Day</string>
+    <string name="more_my_day_desc">Plan your day</string>
+    <string name="more_currency">Currency</string>
+    <string name="more_currency_desc">Convert MAD</string>
+    <string name="more_arrival">Arrival Mode</string>
+    <string name="more_arrival_desc">First hours tips</string>
+    <string name="more_saved">Saved Places</string>
+    <string name="more_recent">Recent</string>
+    <string name="more_settings">Settings</string>
+    <string name="more_about">About</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_general">General</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_currency">Home Currency</string>
+    <string name="settings_offline">Offline &amp; Downloads</string>
+    <string name="settings_downloads">Downloaded Content</string>
+    <string name="settings_wifi_only">Wi-Fi Only Downloads</string>
+    <string name="settings_storage">Storage Used</string>
+    <string name="settings_home_base">Home Base</string>
+    <string name="settings_your_hotel">Your Hotel/Riad</string>
+    <string name="settings_not_set">Not set</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_privacy_center">Privacy Center</string>
+    <string name="settings_location_permission">Location Permission</string>
+    <string name="settings_data">Data</string>
+    <string name="settings_clear_recent">Clear Recent History</string>
+    <string name="settings_clear_saved">Clear All Saved Items</string>
+    <string name="settings_about">About</string>
+    <string name="settings_diagnostics">Diagnostics</string>
+    <string name="settings_licenses">Open Source Licenses</string>
+    <string name="settings_support">Support</string>
+    <string name="settings_report_issue">Report an Issue</string>
+    <string name="settings_rate_app">Rate the App</string>
+    <string name="settings_run_setup">Run Setup Again</string>
+
+    <!-- Diagnostics -->
+    <string name="diagnostics_title">Diagnostics</string>
+    <string name="diagnostics_app_info">App Information</string>
+    <string name="diagnostics_app_version">App Version</string>
+    <string name="diagnostics_content_status">Content Status</string>
+    <string name="diagnostics_content_version">Content Version</string>
+    <string name="diagnostics_last_updated">Last Updated</string>
+    <string name="diagnostics_places">Places</string>
+    <string name="diagnostics_price_cards">Price Cards</string>
+    <string name="diagnostics_phrases">Phrases</string>
+    <string name="diagnostics_tips">Tips</string>
+    <string name="diagnostics_pack_status">Pack Status</string>
+    <string name="diagnostics_installed">Installed</string>
+    <string name="diagnostics_not_installed">Not Installed</string>
+    <string name="diagnostics_offline_readiness">Offline Readiness</string>
+    <string name="diagnostics_core_content">Core Content</string>
+    <string name="diagnostics_search_index">Search Index</string>
+    <string name="diagnostics_storage">Storage</string>
+    <string name="diagnostics_total_storage">Total App Storage</string>
+    <string name="diagnostics_content_db">Content Database</string>
+    <string name="diagnostics_user_data">User Data</string>
+    <string name="diagnostics_cache">Cache</string>
+    <string name="diagnostics_clear_cache">Clear Cache</string>
+    <string name="diagnostics_export_report">Export Debug Report</string>
+
+    <!-- Privacy Center -->
+    <string name="privacy_title">Privacy Center</string>
+    <string name="privacy_matters">Your Privacy Matters</string>
+    <string name="privacy_subtitle">Here\'s exactly what happens with your data</string>
+    <string name="privacy_stored_device">What\'s Stored on Your Device</string>
+    <string name="privacy_leaves_device">What Leaves Your Device</string>
+    <string name="privacy_location_data">Location Data</string>
+    <string name="privacy_no_accounts">No Accounts Required</string>
+    <string name="privacy_no_tracking">No Tracking</string>
+    <string name="privacy_summary">In Summary</string>
+    <string name="privacy_questions">Questions?</string>
+
+    <!-- Home Base -->
+    <string name="home_base_title">Home Base</string>
+    <string name="home_base_setup">Set Home Base</string>
+    <string name="home_base_current">Your home base</string>
+    <string name="home_base_distance">%s away</string>
+    <string name="home_base_refresh">Refresh Location</string>
+    <string name="home_base_taxi_card">Show to Taxi Driver</string>
+    <string name="home_base_navigate">Navigate</string>
+    <string name="home_base_heading_good">Heading: Good</string>
+    <string name="home_base_heading_weak">Heading: Weak</string>
+    <string name="home_base_heading_unavailable">Heading unavailable</string>
+
+    <!-- My Day Planner -->
+    <string name="my_day_title">My Day</string>
+    <string name="my_day_subtitle">Plan your perfect day</string>
+    <string name="my_day_time">Time Available</string>
+    <string name="my_day_hours">%d hours</string>
+    <string name="my_day_pace">Pace</string>
+    <string name="my_day_pace_relaxed">Relaxed</string>
+    <string name="my_day_pace_standard">Standard</string>
+    <string name="my_day_pace_active">Active</string>
+    <string name="my_day_budget">Budget</string>
+    <string name="my_day_budget_low">Budget</string>
+    <string name="my_day_budget_mid">Mid-range</string>
+    <string name="my_day_budget_high">Splurge</string>
+    <string name="my_day_interests">Interests</string>
+    <string name="my_day_build">Build My Day</string>
+    <string name="my_day_start_route">Start Route</string>
+
+    <!-- Route Cards -->
+    <string name="route_overview">Route Overview</string>
+    <string name="route_next_stop">Next Stop</string>
+    <string name="route_stops">%d stops</string>
+    <string name="route_time">About %s</string>
+    <string name="route_complete">Complete</string>
+    <string name="route_skip">Skip</string>
+    <string name="route_pause">Pause</string>
+    <string name="route_resume">Resume</string>
+    <string name="route_exit">Exit Route</string>
+    <string name="route_completed">Route Complete!</string>
+    <string name="route_well_done">Well done! You completed the route.</string>
+
+    <!-- Arrival Mode -->
+    <string name="arrival_title">Arrival Mode</string>
+    <string name="arrival_subtitle">Your first hours in Marrakech</string>
+    <string name="arrival_airport_taxi">Airport Taxi</string>
+    <string name="arrival_sim_esim">SIM / eSIM</string>
+    <string name="arrival_cash_atm">Cash &amp; ATM</string>
+    <string name="arrival_hotel_transfer">Hotel Transfer</string>
+    <string name="arrival_medina_orientation">Medina Orientation</string>
+    <string name="arrival_completed">Completed</string>
+    <string name="arrival_mark_done">Mark as Done</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_title">Currency</string>
+    <string name="currency_mad">MAD</string>
+    <string name="currency_convert">Convert</string>
+    <string name="currency_rate">Exchange Rate</string>
+    <string name="currency_update_rate">Update Rate</string>
+    <string name="currency_quick_amounts">Quick Amounts</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome">Welcome to Marrakech</string>
+    <string name="onboarding_subtitle">Your offline guide to the Red City</string>
+    <string name="onboarding_language">Language</string>
+    <string name="onboarding_home_currency">Home Currency</string>
+    <string name="onboarding_offline_title">Works Without Internet</string>
+    <string name="onboarding_offline_subtitle">Navigate the Medina with confidence, even offline</string>
+    <string name="onboarding_works_offline">Works Offline</string>
+    <string name="onboarding_needs_internet">Needs Internet</string>
+    <string name="onboarding_downloads_title">Get Ready for Offline</string>
+    <string name="onboarding_downloads_subtitle">Download essential content for your trip</string>
+    <string name="onboarding_base_pack">Base Pack</string>
+    <string name="onboarding_download_now">Download Now</string>
+    <string name="onboarding_downloaded">Downloaded</string>
+    <string name="onboarding_coming_soon">Coming Soon</string>
+    <string name="onboarding_readiness_title">Ready Check</string>
+    <string name="onboarding_readiness_verifying">Verifying offline readiness…</string>
+    <string name="onboarding_readiness_complete">Everything looks good!</string>
+    <string name="onboarding_demo_title">Quick Demo</string>
+    <string name="onboarding_demo_subtitle">See how to check if a price is fair</string>
+    <string name="onboarding_privacy_title">Your Privacy Matters</string>
+    <string name="onboarding_privacy_subtitle">We built this app with privacy first</string>
+    <string name="onboarding_continue">Continue</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_back">Back</string>
+    <string name="onboarding_get_started">Get Started</string>
+
+    <!-- Common Actions -->
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_done">Done</string>
+    <string name="action_close">Close</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_share">Share</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_search">Search</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_back">Back</string>
+    <string name="action_next">Next</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_clear_all">Clear All</string>
+
+    <!-- States -->
+    <string name="state_loading">Loading…</string>
+    <string name="state_offline">You\'re offline</string>
+    <string name="state_offline_cached">Showing cached content</string>
+    <string name="state_empty">Nothing here yet</string>
+    <string name="state_error">Something went wrong</string>
+
+    <!-- Errors -->
+    <string name="error_network">Network error. Check your connection.</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_not_found">Not found</string>
+    <string name="error_location_denied">Location access denied</string>
+    <string name="error_location_unavailable">Location unavailable</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_clear_saved_title">Clear Saved Items?</string>
+    <string name="dialog_clear_saved_message">This will remove all your saved places and price cards. This cannot be undone.</string>
+    <string name="dialog_exit_route_title">Exit Route?</string>
+    <string name="dialog_exit_route_message">Your progress will be saved and you can resume later.</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_navigate_back">Navigate back</string>
+    <string name="a11y_close">Close</string>
+    <string name="a11y_menu">Open menu</string>
+    <string name="a11y_search">Search</string>
+    <string name="a11y_share">Share</string>
+    <string name="a11y_saved">Saved</string>
+    <string name="a11y_not_saved">Not saved</string>
+    <string name="a11y_open_now">Open now</string>
+    <string name="a11y_closed">Currently closed</string>
+    <string name="a11y_play_audio">Play audio</string>
+    <string name="a11y_compass_direction">Compass pointing %s</string>
+
+    <!-- Time & Distance -->
+    <string name="time_minutes">%d min</string>
+    <string name="time_hours">%d h</string>
+    <string name="time_hours_minutes">%1$dh %2$dm</string>
+    <string name="distance_meters">%d m</string>
+    <string name="distance_kilometers">%.1f km</string>
 </resources>

@@ -1,7 +1,1644 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "app_name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Marrakech Guide" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Guide de Marrakech" } }
+      }
+    },
+    "nav.home" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Accueil" } }
+      }
+    },
+    "nav.explore" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Explore" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Explorer" } }
+      }
+    },
+    "nav.prices" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prices" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prix" } }
+      }
+    },
+    "nav.eat" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Eat" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Manger" } }
+      }
+    },
+    "nav.more" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "More" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Plus" } }
+      }
+    },
+    "home.greeting.morning" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good morning" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bonjour" } }
+      }
+    },
+    "home.greeting.afternoon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good afternoon" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bon après-midi" } }
+      }
+    },
+    "home.greeting.evening" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Good evening" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bonsoir" } }
+      }
+    },
+    "home.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Marrakech companion" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre compagnon à Marrakech" } }
+      }
+    },
+    "home.quickActions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quick Actions" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actions rapides" } }
+      }
+    },
+    "home.action.quote" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Check a Quote" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vérifier un prix" } }
+      }
+    },
+    "home.action.phrase" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Say a Phrase" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Dire une phrase" } }
+      }
+    },
+    "home.action.goHome" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Go Home" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rentrer" } }
+      }
+    },
+    "home.action.currency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Currency" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Devise" } }
+      }
+    },
+    "home.offlineReady" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Offline Ready" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prêt hors ligne" } }
+      }
+    },
+    "home.offlineNotReady" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Setup Required" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Configuration requise" } }
+      }
+    },
+    "explore.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Explore" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Explorer" } }
+      }
+    },
+    "explore.searchHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search places…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher des lieux…" } }
+      }
+    },
+    "explore.allPlaces" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All Places" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tous les lieux" } }
+      }
+    },
+    "explore.filter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Filter" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Filtrer" } }
+      }
+    },
+    "explore.sort" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sort" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Trier" } }
+      }
+    },
+    "explore.nearby" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nearby" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À proximité" } }
+      }
+    },
+    "explore.popular" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Popular" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Populaires" } }
+      }
+    },
+    "explore.hiddenGems" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hidden Gems" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Trésors cachés" } }
+      }
+    },
+    "explore.openNow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Now" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvert maintenant" } }
+      }
+    },
+    "explore.noResults" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No places found" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun lieu trouvé" } }
+      }
+    },
+    "place.about" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À propos" } }
+      }
+    },
+    "place.hours" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hours" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Horaires" } }
+      }
+    },
+    "place.tips" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tips" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conseils" } }
+      }
+    },
+    "place.nearby" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nearby" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À proximité" } }
+      }
+    },
+    "place.directions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Directions" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Itinéraire" } }
+      }
+    },
+    "place.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Enregistrer" } }
+      }
+    },
+    "place.saved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Enregistré" } }
+      }
+    },
+    "place.share" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Partager" } }
+      }
+    },
+    "place.open" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvert" } }
+      }
+    },
+    "place.closed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Closed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fermé" } }
+      }
+    },
+    "place.opensAt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Opens at %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvre à %@" } }
+      }
+    },
+    "place.closesAt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Closes at %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ferme à %@" } }
+      }
+    },
+    "prices.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Prices" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prix" } }
+      }
+    },
+    "prices.searchHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search price cards…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher des prix…" } }
+      }
+    },
+    "prices.checkQuote" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Check a Quote" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vérifier un prix" } }
+      }
+    },
+    "prices.fairRange" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fair price range" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fourchette de prix juste" } }
+      }
+    },
+    "prices.lastReviewed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last reviewed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Dernière vérification" } }
+      }
+    },
+    "prices.proTips" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pro Tips" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conseils pro" } }
+      }
+    },
+    "prices.script" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What to Say" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quoi dire" } }
+      }
+    },
+    "quote.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quote Check" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vérification de prix" } }
+      }
+    },
+    "quote.whatBuying" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What are you buying?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Qu'achetez-vous ?" } }
+      }
+    },
+    "quote.enterAmount" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter the quoted amount" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Entrez le montant demandé" } }
+      }
+    },
+    "quote.check" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Check Price" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vérifier le prix" } }
+      }
+    },
+    "quote.result.fair" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fair Price" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prix juste" } }
+      }
+    },
+    "quote.result.high" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Above Fair Price" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Au-dessus du prix juste" } }
+      }
+    },
+    "quote.result.veryHigh" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Way Too High" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Beaucoup trop cher" } }
+      }
+    },
+    "quote.result.low" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Great Deal" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bonne affaire" } }
+      }
+    },
+    "quote.counterSuggestion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Counter Suggestion" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Contre-proposition" } }
+      }
+    },
+    "quote.walkAway" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Walk Away Price" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prix de départ" } }
+      }
+    },
+    "eat.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Eat" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Manger" } }
+      }
+    },
+    "eat.searchHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search restaurants…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher des restaurants…" } }
+      }
+    },
+    "eat.cuisine.all" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tous" } }
+      }
+    },
+    "eat.cuisine.moroccan" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Moroccan" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Marocain" } }
+      }
+    },
+    "eat.cuisine.international" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "International" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "International" } }
+      }
+    },
+    "eat.cuisine.cafe" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cafés" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cafés" } }
+      }
+    },
+    "eat.price.budget" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Économique" } }
+      }
+    },
+    "eat.price.mid" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mid-range" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Moyen" } }
+      }
+    },
+    "eat.price.splurge" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Splurge" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Gastronomique" } }
+      }
+    },
+    "phrasebook.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Phrasebook" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Guide de phrases" } }
+      }
+    },
+    "phrasebook.searchHint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search phrases…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher des phrases…" } }
+      }
+    },
+    "phrasebook.greetings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Greetings" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Salutations" } }
+      }
+    },
+    "phrasebook.shopping" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Shopping" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Shopping" } }
+      }
+    },
+    "phrasebook.dining" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dining" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Restaurant" } }
+      }
+    },
+    "phrasebook.directions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Directions" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Directions" } }
+      }
+    },
+    "phrasebook.emergencies" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emergencies" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Urgences" } }
+      }
+    },
+    "phrasebook.play" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Play" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Écouter" } }
+      }
+    },
+    "phrasebook.copy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Copy" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Copier" } }
+      }
+    },
+    "search.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Recherche" } }
+      }
+    },
+    "search.hint" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search everything…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher partout…" } }
+      }
+    },
+    "search.recent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recent" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Récent" } }
+      }
+    },
+    "search.clearRecent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Effacer" } }
+      }
+    },
+    "search.noResults" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No results found" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun résultat" } }
+      }
+    },
+    "search.tryDifferent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Try a different search term" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Essayez un autre terme de recherche" } }
+      }
+    },
+    "more.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "More" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Plus" } }
+      }
+    },
+    "more.features" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Features" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fonctionnalités" } }
+      }
+    },
+    "more.myDay" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "My Day" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ma journée" } }
+      }
+    },
+    "more.myDayDesc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Plan your day" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Planifiez votre journée" } }
+      }
+    },
+    "more.currency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Currency" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Devise" } }
+      }
+    },
+    "more.currencyDesc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Convert MAD" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Convertir MAD" } }
+      }
+    },
+    "more.arrival" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Arrival Mode" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mode arrivée" } }
+      }
+    },
+    "more.arrivalDesc" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "First hours tips" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conseils premières heures" } }
+      }
+    },
+    "more.saved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved Places" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lieux enregistrés" } }
+      }
+    },
+    "more.recent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recent" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Récent" } }
+      }
+    },
+    "more.settings" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Paramètres" } }
+      }
+    },
+    "more.about" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À propos" } }
+      }
+    },
+    "settings.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Paramètres" } }
+      }
+    },
+    "settings.general" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "General" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Général" } }
+      }
+    },
+    "settings.language" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Langue" } }
+      }
+    },
+    "settings.currency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home Currency" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Devise préférée" } }
+      }
+    },
+    "settings.offline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Offline & Downloads" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Hors ligne et téléchargements" } }
+      }
+    },
+    "settings.downloads" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Downloaded Content" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Contenu téléchargé" } }
+      }
+    },
+    "settings.wifiOnly" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wi-Fi Only Downloads" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Téléchargement Wi-Fi uniquement" } }
+      }
+    },
+    "settings.storage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Storage Used" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Espace utilisé" } }
+      }
+    },
+    "settings.homeBase" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home Base" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Point de départ" } }
+      }
+    },
+    "settings.yourHotel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Hotel/Riad" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre hôtel/riad" } }
+      }
+    },
+    "settings.notSet" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not set" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Non défini" } }
+      }
+    },
+    "settings.privacy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Confidentialité" } }
+      }
+    },
+    "settings.privacyCenter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy Center" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Centre de confidentialité" } }
+      }
+    },
+    "settings.locationPermission" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location Permission" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Autorisation de localisation" } }
+      }
+    },
+    "settings.data" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Données" } }
+      }
+    },
+    "settings.clearRecent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear Recent History" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Effacer l'historique récent" } }
+      }
+    },
+    "settings.clearSaved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear All Saved Items" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer tous les éléments enregistrés" } }
+      }
+    },
+    "settings.about" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À propos" } }
+      }
+    },
+    "settings.diagnostics" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Diagnostics" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Diagnostics" } }
+      }
+    },
+    "settings.licenses" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Source Licenses" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Licences open source" } }
+      }
+    },
+    "settings.support" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Support" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Support" } }
+      }
+    },
+    "settings.reportIssue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Report an Issue" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Signaler un problème" } }
+      }
+    },
+    "settings.rateApp" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rate the App" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Noter l'application" } }
+      }
+    },
+    "settings.runSetup" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Run Setup Again" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Relancer la configuration" } }
+      }
+    },
+    "diagnostics.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Diagnostics" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Diagnostics" } }
+      }
+    },
+    "diagnostics.appInfo" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App Information" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Informations sur l'application" } }
+      }
+    },
+    "diagnostics.appVersion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App Version" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Version de l'application" } }
+      }
+    },
+    "diagnostics.contentStatus" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Content Status" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "État du contenu" } }
+      }
+    },
+    "diagnostics.contentVersion" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Content Version" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Version du contenu" } }
+      }
+    },
+    "diagnostics.lastUpdated" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last Updated" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Dernière mise à jour" } }
+      }
+    },
+    "diagnostics.places" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Places" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lieux" } }
+      }
+    },
+    "diagnostics.priceCards" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Price Cards" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fiches de prix" } }
+      }
+    },
+    "diagnostics.phrases" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Phrases" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Phrases" } }
+      }
+    },
+    "diagnostics.tips" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tips" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Conseils" } }
+      }
+    },
+    "diagnostics.packStatus" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pack Status" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "État des packs" } }
+      }
+    },
+    "diagnostics.installed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Installed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Installé" } }
+      }
+    },
+    "diagnostics.notInstalled" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not Installed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Non installé" } }
+      }
+    },
+    "diagnostics.offlineReadiness" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Offline Readiness" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Préparation hors ligne" } }
+      }
+    },
+    "diagnostics.coreContent" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Core Content" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Contenu principal" } }
+      }
+    },
+    "diagnostics.searchIndex" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search Index" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Index de recherche" } }
+      }
+    },
+    "diagnostics.storage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Storage" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Stockage" } }
+      }
+    },
+    "diagnostics.totalStorage" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total App Storage" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Stockage total" } }
+      }
+    },
+    "diagnostics.contentDb" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Content Database" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Base de données du contenu" } }
+      }
+    },
+    "diagnostics.userData" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "User Data" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Données utilisateur" } }
+      }
+    },
+    "diagnostics.cache" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cache" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cache" } }
+      }
+    },
+    "diagnostics.clearCache" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear Cache" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vider le cache" } }
+      }
+    },
+    "diagnostics.exportReport" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Export Debug Report" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Exporter le rapport de débogage" } }
+      }
+    },
+    "privacy.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privacy Center" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Centre de confidentialité" } }
+      }
+    },
+    "privacy.matters" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Privacy Matters" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre confidentialité compte" } }
+      }
+    },
+    "privacy.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Here's exactly what happens with your data" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Voici exactement ce qui se passe avec vos données" } }
+      }
+    },
+    "privacy.storedDevice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What's Stored on Your Device" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce qui est stocké sur votre appareil" } }
+      }
+    },
+    "privacy.leavesDevice" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "What Leaves Your Device" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce qui quitte votre appareil" } }
+      }
+    },
+    "privacy.locationData" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location Data" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Données de localisation" } }
+      }
+    },
+    "privacy.noAccounts" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No Accounts Required" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun compte requis" } }
+      }
+    },
+    "privacy.noTracking" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No Tracking" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun suivi" } }
+      }
+    },
+    "privacy.summary" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "In Summary" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "En résumé" } }
+      }
+    },
+    "privacy.questions" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Questions?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Questions ?" } }
+      }
+    },
+    "homeBase.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home Base" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Point de départ" } }
+      }
+    },
+    "homeBase.setup" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set Home Base" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Définir le point de départ" } }
+      }
+    },
+    "homeBase.current" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your home base" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre point de départ" } }
+      }
+    },
+    "homeBase.distance" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ away" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "À %@" } }
+      }
+    },
+    "homeBase.refresh" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Refresh Location" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actualiser la position" } }
+      }
+    },
+    "homeBase.taxiCard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Show to Taxi Driver" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Montrer au chauffeur de taxi" } }
+      }
+    },
+    "homeBase.navigate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Navigate" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Naviguer" } }
+      }
+    },
+    "homeBase.headingGood" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heading: Good" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Direction : bonne" } }
+      }
+    },
+    "homeBase.headingWeak" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heading: Weak" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Direction : faible" } }
+      }
+    },
+    "homeBase.headingUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Heading unavailable" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Direction indisponible" } }
+      }
+    },
+    "myDay.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "My Day" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ma journée" } }
+      }
+    },
+    "myDay.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Plan your perfect day" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Planifiez votre journée parfaite" } }
+      }
+    },
+    "myDay.time" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time Available" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Temps disponible" } }
+      }
+    },
+    "myDay.hours" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld hours" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%lld heures" } }
+      }
+    },
+    "myDay.pace" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pace" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rythme" } }
+      }
+    },
+    "myDay.pace.relaxed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Relaxed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Détendu" } }
+      }
+    },
+    "myDay.pace.standard" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Standard" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Normal" } }
+      }
+    },
+    "myDay.pace.active" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Active" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actif" } }
+      }
+    },
+    "myDay.budget" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Budget" } }
+      }
+    },
+    "myDay.budget.low" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Budget" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Économique" } }
+      }
+    },
+    "myDay.budget.mid" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mid-range" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Moyen" } }
+      }
+    },
+    "myDay.budget.high" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Splurge" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Gastronomique" } }
+      }
+    },
+    "myDay.interests" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Interests" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Centres d'intérêt" } }
+      }
+    },
+    "myDay.build" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Build My Day" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Créer ma journée" } }
+      }
+    },
+    "myDay.startRoute" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start Route" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Démarrer l'itinéraire" } }
+      }
+    },
+    "route.overview" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Route Overview" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aperçu de l'itinéraire" } }
+      }
+    },
+    "route.nextStop" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next Stop" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Prochain arrêt" } }
+      }
+    },
+    "route.stops" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld stops" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%lld arrêts" } }
+      }
+    },
+    "route.time" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Environ %@" } }
+      }
+    },
+    "route.complete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Complete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminé" } }
+      }
+    },
+    "route.skip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Passer" } }
+      }
+    },
+    "route.pause" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pause" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pause" } }
+      }
+    },
+    "route.resume" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Resume" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Reprendre" } }
+      }
+    },
+    "route.exit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Exit Route" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quitter l'itinéraire" } }
+      }
+    },
+    "route.completed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Route Complete!" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Itinéraire terminé !" } }
+      }
+    },
+    "route.wellDone" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Well done! You completed the route." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bravo ! Vous avez terminé l'itinéraire." } }
+      }
+    },
+    "arrival.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Arrival Mode" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mode arrivée" } }
+      }
+    },
+    "arrival.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your first hours in Marrakech" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vos premières heures à Marrakech" } }
+      }
+    },
+    "arrival.airportTaxi" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Airport Taxi" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Taxi aéroport" } }
+      }
+    },
+    "arrival.simEsim" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SIM / eSIM" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "SIM / eSIM" } }
+      }
+    },
+    "arrival.cashAtm" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cash & ATM" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Espèces et distributeurs" } }
+      }
+    },
+    "arrival.hotelTransfer" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hotel Transfer" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Transfert hôtel" } }
+      }
+    },
+    "arrival.medinaOrientation" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Medina Orientation" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Orientation médina" } }
+      }
+    },
+    "arrival.completed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Completed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminé" } }
+      }
+    },
+    "arrival.markDone" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mark as Done" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Marquer comme fait" } }
+      }
+    },
+    "currency.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Currency" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Devise" } }
+      }
+    },
+    "currency.mad" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "MAD" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "MAD" } }
+      }
+    },
+    "currency.convert" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Convert" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Convertir" } }
+      }
+    },
+    "currency.rate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Exchange Rate" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Taux de change" } }
+      }
+    },
+    "currency.updateRate" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Update Rate" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Mettre à jour le taux" } }
+      }
+    },
+    "currency.quickAmounts" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quick Amounts" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Montants rapides" } }
+      }
+    },
+    "onboarding.welcome" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome to Marrakech" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bienvenue à Marrakech" } }
+      }
+    },
+    "onboarding.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your offline guide to the Red City" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre guide hors ligne de la ville rouge" } }
+      }
+    },
+    "onboarding.language" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Langue" } }
+      }
+    },
+    "onboarding.homeCurrency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home Currency" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Devise préférée" } }
+      }
+    },
+    "onboarding.offline.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Works Without Internet" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fonctionne sans Internet" } }
+      }
+    },
+    "onboarding.offline.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Navigate the Medina with confidence, even offline" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Naviguez dans la médina en toute confiance, même hors ligne" } }
+      }
+    },
+    "onboarding.worksOffline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Works Offline" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fonctionne hors ligne" } }
+      }
+    },
+    "onboarding.needsInternet" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Needs Internet" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nécessite Internet" } }
+      }
+    },
+    "onboarding.downloads.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Get Ready for Offline" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Préparez-vous pour le hors ligne" } }
+      }
+    },
+    "onboarding.downloads.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Download essential content for your trip" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Téléchargez le contenu essentiel pour votre voyage" } }
+      }
+    },
+    "onboarding.basePack" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Base Pack" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Pack de base" } }
+      }
+    },
+    "onboarding.downloadNow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Download Now" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Télécharger maintenant" } }
+      }
+    },
+    "onboarding.downloaded" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Downloaded" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Téléchargé" } }
+      }
+    },
+    "onboarding.comingSoon" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Coming Soon" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Bientôt disponible" } }
+      }
+    },
+    "onboarding.readiness.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ready Check" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vérification de préparation" } }
+      }
+    },
+    "onboarding.readiness.verifying" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Verifying offline readiness…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vérification de la préparation hors ligne…" } }
+      }
+    },
+    "onboarding.readiness.complete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Everything looks good!" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tout est prêt !" } }
+      }
+    },
+    "onboarding.demo.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quick Demo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Démo rapide" } }
+      }
+    },
+    "onboarding.demo.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "See how to check if a price is fair" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Voyez comment vérifier si un prix est juste" } }
+      }
+    },
+    "onboarding.privacy.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Privacy Matters" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre confidentialité compte" } }
+      }
+    },
+    "onboarding.privacy.subtitle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We built this app with privacy first" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Nous avons conçu cette application en pensant d'abord à la confidentialité" } }
+      }
+    },
+    "onboarding.continue" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Continue" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Continuer" } }
+      }
+    },
+    "onboarding.skip" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Passer" } }
+      }
+    },
+    "onboarding.back" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Back" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retour" } }
+      }
+    },
+    "onboarding.getStarted" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Get Started" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Commencer" } }
+      }
+    },
+    "action.save" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Enregistrer" } }
+      }
+    },
+    "action.cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Annuler" } }
+      }
+    },
+    "action.done" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Terminé" } }
+      }
+    },
+    "action.close" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Close" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fermer" } }
+      }
+    },
+    "action.retry" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Retry" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réessayer" } }
+      }
+    },
+    "action.refresh" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Refresh" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actualiser" } }
+      }
+    },
+    "action.share" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Partager" } }
+      }
+    },
+    "action.copy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Copy" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Copier" } }
+      }
+    },
+    "action.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer" } }
+      }
+    },
+    "action.edit" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Modifier" } }
+      }
+    },
+    "action.search" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher" } }
+      }
+    },
+    "action.filter" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Filter" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Filtrer" } }
+      }
+    },
+    "action.sort" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sort" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Trier" } }
+      }
+    },
+    "action.back" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Back" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retour" } }
+      }
+    },
+    "action.next" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Suivant" } }
+      }
+    },
+    "action.previous" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Précédent" } }
+      }
+    },
+    "action.clear" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Effacer" } }
+      }
+    },
+    "action.clearAll" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear All" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tout effacer" } }
+      }
+    },
+    "state.loading" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Loading…" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Chargement…" } }
+      }
+    },
+    "state.offline" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "You're offline" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Vous êtes hors ligne" } }
+      }
+    },
+    "state.offlineCached" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Showing cached content" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Affichage du contenu en cache" } }
+      }
+    },
+    "state.empty" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nothing here yet" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rien ici pour l'instant" } }
+      }
+    },
+    "state.error" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Something went wrong" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une erreur s'est produite" } }
+      }
+    },
+    "error.network" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Network error. Check your connection." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Erreur réseau. Vérifiez votre connexion." } }
+      }
+    },
+    "error.generic" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Something went wrong. Please try again." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Une erreur s'est produite. Veuillez réessayer." } }
+      }
+    },
+    "error.notFound" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not found" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Non trouvé" } }
+      }
+    },
+    "error.locationDenied" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location access denied" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Accès à la localisation refusé" } }
+      }
+    },
+    "error.locationUnavailable" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Location unavailable" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Localisation indisponible" } }
+      }
+    },
+    "dialog.clearSaved.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear Saved Items?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Supprimer les éléments enregistrés ?" } }
+      }
+    },
+    "dialog.clearSaved.message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This will remove all your saved places and price cards. This cannot be undone." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Cela supprimera tous vos lieux et fiches de prix enregistrés. Cette action est irréversible." } }
+      }
+    },
+    "dialog.exitRoute.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Exit Route?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Quitter l'itinéraire ?" } }
+      }
+    },
+    "dialog.exitRoute.message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your progress will be saved and you can resume later." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Votre progression sera sauvegardée et vous pourrez reprendre plus tard." } }
+      }
+    },
+    "a11y.navigateBack" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Navigate back" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retour" } }
+      }
+    },
+    "a11y.close" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Close" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Fermer" } }
+      }
+    },
+    "a11y.menu" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open menu" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvrir le menu" } }
+      }
+    },
+    "a11y.search" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Rechercher" } }
+      }
+    },
+    "a11y.share" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Partager" } }
+      }
+    },
+    "a11y.saved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Enregistré" } }
+      }
+    },
+    "a11y.notSaved" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not saved" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Non enregistré" } }
+      }
+    },
+    "a11y.openNow" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open now" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ouvert maintenant" } }
+      }
+    },
+    "a11y.closed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Currently closed" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Actuellement fermé" } }
+      }
+    },
+    "a11y.playAudio" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Play audio" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Lire l'audio" } }
+      }
+    },
+    "a11y.compassDirection" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Compass pointing %@" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La boussole pointe vers %@" } }
+      }
+    },
+    "time.minutes" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld min" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%lld min" } }
+      }
+    },
+    "time.hours" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld h" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%lld h" } }
+      }
+    },
+    "time.hoursMinutes" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%1$lldh %2$lldm" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%1$lldh %2$lldm" } }
+      }
+    },
+    "distance.meters" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld m" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%lld m" } }
+      }
+    },
+    "distance.kilometers" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%.1f km" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "%.1f km" } }
+      }
+    }
   },
   "version" : "1.0"
 }
